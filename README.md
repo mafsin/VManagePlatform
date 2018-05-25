@@ -1,91 +1,90 @@
-## VManagePlatform是什么?
-一个KVM虚拟化管理平台
+## VManagePlatform nedir?
+一 KVM Sanallaştırma yönetim platform
 
-**开源协议**：[GNU General Public License v2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+**Açık Kaynak Anlaşması**：[GNU General Public License v2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 
-**开源声明**：欢迎大家star或者fork我的开源项目，如果大家在自己的项目里面需要引用该项目代码，请在项目里面申明协议和版权信息。
-## 开发语言与框架：
-* 编程语言：Python2.7 + HTML + JScripts
-* 前端Web框架：Bootstrap 
-* 后端Web框架：Django  
-* 后端Task框架：Celery + Redis
+**Açık kaynak bildirimi**：Herkese açık kaynak projem için star ya da fork atmaya izinlidir. Projenizdeki proje koduna başvurmanız gerekiyorsa, lütfen projedeki anlaşmayı ve telif hakkı bilgilerini bildirin.
+## Geliştirme dilleri ve çerçeveleri
+* Programlama dili：Python2.7 + HTML + JScripts
+* Frontend Web frame：Bootstrap 
+* Backend Web frame：Django  
+* Backend task frame：Celery + Redis
 
-## QQ交流群
-![image](https://github.com/welliamcao/OpsManage/blob/master/demo_imgs/qq_group.png)
+## VManagePlatform Özellikleri nelerdir？
 
-## VManagePlatform有哪些功能？
+* Kvm Sanal makine üretim döngüsü yönetimi
+    *  Kaynak kullanımı (örneğin: CPU, MEM, disk, ağ)
+    *  Örnek kontrolü (örneğin: yaşam döngüsü yönetimi, anlık görüntü teknolojisi, Web Konsolu, vb.)
+    *  Cihaz kaynak kontrolü (örneğin: hafızanın çevrimiçi ayarlanması, CPU kaynakları, sıcak ekleme?, sabit diski silme)
+* Depolama havuzu yönetimi
+    *  Ana depolama türlerini desteklemek için birimleri artırma veya azaltma
+    *  Kaynak kullanımı
+* Ağ yönetimi
+    *  Destek SDN, temel ağ OpenVSwitch / Linux Bridge, IP adres tahsisi, ağ kartı trafiği kısıtlamaları vb. Kullanır.
+* Kullanıcı yönetimi
+    *  Destek kullanıcı hakları, kullanıcı grupları, kullanıcı sanal makine kaynak tahsisi, vb. 
+* evsahibi
+    *  Kaynak kullanımı，Örnek kontrolü
 
-* Kvm虚拟机`生产周期`管理功能
-    *  资源利用率（如：CPU、MEM、磁盘、网络）
-    *  实例控制（如：生存周期管理、快照技术，Web Console等等）
-    *  设备资源控制（如：在线调整内存、CPU资源、热添加、删除硬盘）
-* 存储池管理
-    *  增减卷，支持主流类型存储类型
-    *  资源利用率
-* 网络管理
-    *  支持SDN，底层网络使用OpenVSwitch/Linux Bridge，IP地址分配，网卡流量限制等等。
-* 用户管理
-    *  支持用户权限，用户组，用户虚拟机资源分配等等 
-* 宿主机
-    *  资源利用率，实例控制
-
-## 环境要求：
-* 编程语言：Python2.7 
-* 系统：CentOS 7 
-* 网络规划：管理网络接口=1，虚拟化数据网络>=1，如果只有一个网卡使用OpenVswitch时需要手动配置网络以免丢失网络
-* SDN需求：OpenVswitch Or Linux Birdge
+## Çevre gereksinimleri：
+* Programlama dili：Python2.7 
+* OS：CentOS 7 
+* Ağ planlama：Yönetim Ağı Arayüzü=1，Sanal Veri Ağı>=1，Sadece bir ağ kartı kullanılıyorsa OpenVswitch Ağı kaybetmemek için ağı manuel olarak yapılandırmanız gerekir.
+* SDN talep：OpenVswitch Or Linux Birdge
 
 ## TIPS：
-* 控制服务器：执行1-10步骤 
-* 节点服务器：执行2/3/4步骤，在控制服务器上执行5步骤中的ssh-copy-id
-* 为了更好的体验，建议使用Chrome或者Foxfire，如果要获取虚拟机ip，请在虚拟机里面安装qemu-guest-agent(centos 6需要安装libvirt>=2.3.0以上)
-* 主机列表跟用户中心-我的虚拟机的数据更新，需要在任务调度里面配置task
+* Kontrol Sunucusu: 1-10 adımı gerçekleştirin
+* Düğüm Sunucusu: 2/3/4 adımları gerçekleştirin ve kontrol sunucusundaki 5. adımda ssh-copy-id dosyasını yürütün
+* Daha iyi bir deneyim için Chrome veya Foxfire kullanmanız önerilir. Eğer sanal makine ipi almak istiyorsanız, lütfen sanal makineye qemu-guest-agent kurun (centos 6 libvirt> = 2.3.0 veya daha fazlasını yüklemek için ihtiyaç duyar)
+* Ana makine listesi ve kullanıcı merkezi - sanal makinemin verileri güncellenir Görevlerin görev zamanlamasında yapılandırılması gerekir.
 
-## 虚拟机添加流程：
-* 第一步，平台先添加宿主机（计算节点） 
-* 第二步，添加数据类型存储池与镜像存储池
-	* 镜像存储池： 计算节点添加dir类型存储池，把ISO镜像文件放到存储池里面或者可以将ISO镜像文件做成NFS共享，添加存储池的时候选择nfs模式。（注：以便添加虚拟机的时候能加载到系统镜像）
-	* 数据存储池：按照页面添加即可，主要用来存储虚拟机硬盘。
-* 第三步，计算节点添加网络，可选择bridge与nat模式
-* 第四步，为计算节点分配虚拟机
-* 第五步，配置任务调度，自动更新计算节点虚拟机资源信息
+## Sanal makine ekleme işlemi:
+* İlk adımda, platform ilk önce ana bilgisayarı (hesaplama düğümü) ekler. 
+* İkinci adım, bir veri tipi depolama havuzu ve bir ayna depolama havuzu ekleyerek
+	* Yansıtılmış depolama havuzu: Bilgi işlem düğümü bir dir tipi depolama havuzu ekler, ISO yansıma dosyasını depolama havuzuna yerleştirir veya ISO görüntü dosyasını bir NFS paylaşımına dönüştürebilir Bir depolama havuzu eklerken NFS modunu seçin. (Not: Sanal makine eklemek için sistem görüntüsüne yüklenebilir)
+	* Veri depolama havuzu: Eklenecek sayfaya göre, esas olarak sanal makine sabit diskini depolamak için kullanılır.
+* Üçüncü adım, bilgi işlem düğümleri ağ ekler, köprü ve nat modunu seçer
+* Dördüncü adım, hesaplama düğümleri için sanal makineleri ayırmaktır
+* Besinci adım, Bilgi İşlem Düğümlerinin VM Kaynak Bilgilerini Otomatik Olarak Güncelleştirmek için Görev Zamanlamasını Yapılandırma
 
 
-## 安装环境配置</br>
+## Kurulum ortamı yapılandırması</br>
 
-一、配置需求模块</br>
+İlk önce talep modülünü yapılandırın</br>
 ```
 # yum install zlib zlib-devel readline-devel bzip2-devel openssl-devel gdbm-devel libdbi-devel ncurses-libs kernel-devel libxslt-devel libffi-devel python-devel libvirt libvirt-client libvirt-devel gcc git mysql-devel -y
 # mkdir -p /opt/apps/ && cd /opt/apps/
 # git clone https://github.com/welliamcao/VManagePlatform.git
 # cd VManagePlatform
+# sudo yum install epel-release && sudo yum install -y python-pip
 # pip install -r requirements.txt
 ```
-二、安装kvm
+İkincisi, kvm'yi yükle
 ```
-1、关闭防火墙，selinux
+1. Güvenlik duvarını kapat selinux
 # systemctl stop firewalld.service && systemctl disable firewalld.service
 # setenforce 0 临时关闭
 # systemctl stop NetworkManager
 # systemctl disable NetworkManager
 
 
-2、安装kvm虚拟机
+2. Kvm sanal makinesini kurun
 # yum install python-virtinst qemu-kvm virt-viewer bridge-utils virt-top libguestfs-tools ca-certificates libxml2-python audit-libs-python device-mapper-libs 
-# 启动服务
+# Servisi başlat
 # systemctl start libvirtd
-注：下载virtio-win-1.5.2-1.el6.noarch.rpm，如果不安装window虚拟机或者使用带virtio驱动的镜像可以不用安装
+Not: Pencere sanal makinesini yüklemezseniz veya görüntüyü virtio sürücüsü ile kullanamıyorsanız. virtio-win-1.5.2-1.el6.noarch.rpm indir yüklenemedi ?
 # rpm -ivh virtio-win-1.5.2-1.el6.noarch.rpm
 
-节点服务器不必执行
+Düğüm sunucusunun gerçekleştirmesi gerekmez
 # yum -y install dnsmasq
 # mkdir -p /var/run/dnsmasq/
 ```
 
-三、安装OpenVswitch（如果使用底层网络使用Linux Bridge可以不必安装）
+Üçüncüsü, OpenVswitch'i kurun (Linux Bridge kullanarak temel ağ kullanırsanız yükleneniz gerekmez)
 ```
-安装openvswitch
+Openvswitch'i yükle
 # yum install gcc make python-devel openssl-devel kernel-devel graphviz kernel-debug-devel autoconf automake rpm-build redhat-rpm-config libtool 
+# cd ~
 # wget http://openvswitch.org/releases/openvswitch-2.3.1.tar.gz
 # tar xfz openvswitch-2.3.1.tar.gz
 # mkdir -p ~/rpmbuild/SOURCES
@@ -93,23 +92,23 @@
 # sed 's/openvswitch-kmod, //g' openvswitch-2.3.1/rhel/openvswitch.spec > openvswitch-2.3.1/rhel/openvswitch_no_kmod.spec
 # rpmbuild -bb --without check ~/openvswitch-2.3.1/rhel/openvswitch_no_kmod.spec
 # yum localinstall /root/rpmbuild/RPMS/x86_64/openvswitch-2.3.1-1.x86_64.rpm
-如果出现python依赖错误
+Python bağımlılık hatası varsa
 # vim openvswitch-2.3.1/rhel/openvswitch_no_kmod.spec
 BuildRequires: openssl-devel
-后面添加
+Daha sonra ekle
 AutoReq: no
 
 # systemctl start openvswitch
 
 ```
 
-四、配置Libvirt使用tcp方式连接
+Dördüncü olarak, Libvirt'i tcp bağlantısı kullan
 ```
 # vim /etc/sysconfig/libvirtd
 LIBVIRTD_CONFIG=/etc/libvirt/libvirtd.conf
 LIBVIRTD_ARGS="--listen"
 
-# vim /etc/libvirt/libvirtd.conf  #最后添加
+# vim /etc/libvirt/libvirtd.conf  #Sona eklendi
 listen_tls = 0
 listen_tcp = 1
 tcp_port = "16509"
@@ -117,15 +116,18 @@ listen_addr = "0.0.0.0"
 auth_tcp = "none"
 # systemctl restart libvirtd 
 ```
-五、配置SSH信任
+Beşinci, SSH yapılandırın
 ```
 # ssh-keygen -t  rsa
 # ssh-copy-id -i ~/.ssh/id_rsa.pub  root@ipaddress
 ```
 
-六、安装数据库(MySQL,Redis)
+Altı, veritabanını yükleyin (MySQL, Redis)
 ```
-安装配置MySQL
+MySQL'i kurun ve yapılandırın
+# wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+# 	https://dev.mysql.com/downloads/repo/yum/ choose arch from here
+# sudo rpm -ivh mysql57-community-release-el7-9.noarch.rpm
 # yum install mysql-server mysql-client 
 # systemctl start mysqld.service
 # mysql -u root -p 
@@ -133,7 +135,7 @@ mysql> create database vmanage;
 mysql> grant all privileges on vmanage.* to 'username'@'%' identified by 'userpasswd';
 mysql>quit
 
-安装配置Redis
+Redis Kurulum ve yapılandırma
 # wget http://download.redis.io/releases/redis-3.2.8.tar.gz
 # tar -xzvf redis-3.2.8.tar.gz
 # cd redis-3.2.8
@@ -143,30 +145,30 @@ mysql>quit
 daemonize yes
 loglevel warning
 logfile "/var/log/redis.log"
-bind 你的服务器ip地址
+Sunucu ip adresinizi bağlayın
 # cd ../
 # mv redis-3.2.8 /usr/local/redis
 # /usr/local/redis/src/redis-server /usr/local/redis/redis.conf
 ```
 
-七、配置Django
+Yedi, Django'yu yapılandır
 ```
 # cd /opt/apps/VManagePlatform/VManagePlatform/
 # vim settings.py
-7.1、修改BROKER_URL：改为自己的地址
-7.2、修改DATABASES：
+7.1. BROKER_URL：Kendi adresinize geçin
+7.2. DATABASES：
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.mysql',
         'NAME':'vmanage',
-        'USER':'自己的设置的账户',
-        'PASSWORD':'自己的设置的密码',
-        'HOST':'MySQL地址'
+        'USER':'Kendi kurulum hesabınız',
+        'PASSWORD':'Kendi ayar şifreniz',
+        'HOST':'MySQLadresi'
 #         'ENGINE': 'django.db.backends.sqlite3',
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-7.3、修改STATICFILES_DIRS
+7.3. STATICFILES_DIRS
 STATICFILES_DIRS = (
      '/opt/apps/VManagePlatform/VManagePlatform/static/',
     )
@@ -176,23 +178,23 @@ TEMPLATE_DIRS = (
 )
 ```
 
-八、生成VManagePlatform数据表
+Sekiz, VManagePlatform veri sayfasını oluşturun
 ```
 # cd /opt/apps/VManagePlatform/
 # python manage.py migrate
 # python manage.py createsuperuser
 ```
-九、启动VManagePlatform
+Dokuz, VManagePlatform'u başlat
 ```
 # cd /opt/apps/VManagePlatform/
 # python manage.py runserver youripaddr:8000
 ```
 
-十、配置任务系统
+On, yapılandırma görev sistemi
 ```
 # echo_supervisord_conf > /etc/supervisord.conf
 # vim /etc/supervisord.conf
-最后添加
+Sona eklendi
 [program:celery-worker]
 command=/usr/bin/python manage.py celery worker --loglevel=info -E -B  -c 2
 directory=/opt/apps/VManagePlatform
@@ -227,27 +229,26 @@ numprocs=1
 # /usr/local/bin/supervisord -c /etc/supervisord.conf
 # supervisorctl status
 ```
+## Yardım
 
-## 提供帮助
-
-如果您觉得VManagePlatform对您有所帮助，可以通过下列方式进行捐赠，谢谢！
+VManagePlatform'un size yardımcı olabileceğini düşünüyorsanız, aşağıdaki şekillerde bağışta bulunabilirsiniz.！
 
 ![image](https://github.com/welliamcao/OpsManage/blob/master/demo_imgs/donate.png)
 
-## 部分功能截图:
-    用户中心
+## İşlev ekranının bir parçası :
+    Kullanıcı Merkezi
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/user.png)</br>
-    登录页面
+    Giriş sayfası
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/login.png)</br>
-    用户注册需要admin激活才能登陆</br>
+    Kullanıcı kaydı, giriş yapmak için yönetici aktivasyon gerektirir</br>
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/register.png)</br>
-    主页
+    ev
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/index.png)</br>
-    任务调度
+    Görev zamanlaması
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/task.png)</br>
-    宿主机资源</br>
+    Ana kaynaklar</br>
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/server.png)</br>
-    虚拟机资源</br>
+    Sanal makine kaynakları</br>
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/instance.png)</br>
     Web Console</br>
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/consle.png)</br>
