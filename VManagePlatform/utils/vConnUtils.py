@@ -1,6 +1,6 @@
 #!/usr/bin/env python  
 # _#_ coding:utf-8 _*_ 
-'''共用工具类方法'''
+'''Common tools method'''
 from random import choice
 import string,hashlib,os
 from django.conf import settings 

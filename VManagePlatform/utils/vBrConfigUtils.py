@@ -11,7 +11,7 @@ class SSHBase(object):
     def ssh(self):
         try:
             self.ssh = paramiko.SSHClient()
-            self.ssh.load_system_host_keys() ####获取ssh key密匙，默认在~/.ssh/knows_hosts
+            self.ssh.load_system_host_keys() ####Get the ssh key key, the default is ~/.ssh/knows_hosts
             self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             self.ssh.connect(hostname = self.hostname,port=self.port) 
         except Exception,e:
@@ -26,7 +26,7 @@ class OvsConfig(SSHBase):
         self.ssh = ssh      
     
     def ovsAddBr(self,brName):
-        '''ovs添加网桥命令'''
+        '''Ovs add bridge command'''
         try:
             data = dict()
             cmd = 'ovs-vsctl add-br {brName}'.format(brName=brName) 
@@ -44,7 +44,7 @@ class OvsConfig(SSHBase):
             return  data
 
     def ovsDelBr(self,brName):
-        '''ovs删除网桥命令'''
+        '''Ovs delete bridge command'''
         try:
             data = dict()
             cmd = 'ovs-vsctl --if-exists del-br {brName}'.format(brName=brName)   
@@ -62,7 +62,7 @@ class OvsConfig(SSHBase):
             return  data
 
     def ovsConfStp(self,brName):
-        '''ovs网桥配置STP'''
+        '''Ovs bridge configuration STP'''
         try:
             data = dict()
             cmd = 'set bridge {brName} stp_enable=true'.format(brName=brName)   
@@ -80,7 +80,7 @@ class OvsConfig(SSHBase):
             return  data
 
     def ovsAddInterface(self,brName,interface):
-        '''ovs网桥添加端口'''
+        '''Ovs bridge add port'''
         try:
             data = dict()
             cmd = 'ovs-vsctl add-port {brName} {interface}'.format(brName=brName,interface=interface)   
@@ -98,7 +98,7 @@ class OvsConfig(SSHBase):
             return  data
  
     def ovsDelInterface(self,brName,interface):
-        '''ovs网桥删除端口'''
+        '''Ovs bridge delete port'''
         try:
             data = dict()
             cmd = 'ovs-vsctl del-port {brName} {interface}'.format(brName=brName,interface=interface)   
@@ -116,7 +116,7 @@ class OvsConfig(SSHBase):
             return  data 
     
     def ovsConfPath(self,brName,sport,tport):        
-        '''ovs配置patch'''
+        '''Ovs configure patch'''
         try:
             data = dict()
             cmd = 'ovs-vsctl add-port {brName} {sport} -- set Interface {sport} type=patch options:peer={tport}'.format(brName=brName,sport=sport,tport=tport)   
@@ -134,7 +134,7 @@ class OvsConfig(SSHBase):
             return  data  
         
     def ovsConfBandwidth(self,port,bandwidth):  
-        '''限制带宽''' 
+        '''Limit bandwidth''' 
         try:
             rate_cmd = 'ovs-vsctl set interface {port} ingress_policing_rate=$(({bandwidth}*1000))'.format(port=port,bandwidth=bandwidth)
             burst_cmd = 'ovs-vsctl set interface {port} ingress_policing_burst=$(({bandwidth}*100))'.format(port=port,bandwidth=bandwidth) 
@@ -156,7 +156,7 @@ class OvsConfig(SSHBase):
             return  data  
         
     def ovsCleanBandwidth(self,port): 
-        '''清除带宽'''   
+        '''Clear bandwidth'''   
         try:
             rate_cmd = 'ovs-vsctl set interface {port} ingress_policing_rate=0'.format(port=port)
             burst_cmd = 'ovs-vsctl set interface {port} ingress_policing_burst=0'.format(port=port) 
@@ -182,7 +182,7 @@ class BrctlConfig(SSHBase):
         self.ssh = ssh 
         
     def brctlAddBr(self,iface,brName,stp=None):
-        '''添加网桥'''
+        '''Add Bridge'''
         try:
             data = dict()
             if stp:cmd = 'virsh iface-bridge {iface} {brName}'.format(iface=iface,brName=brName)
@@ -198,7 +198,7 @@ class BrctlConfig(SSHBase):
             return  data          
         
     def brctlDelBr(self,brName):
-        '''删除网桥'''
+        '''Remove bridge'''
         try:
             data = dict()
             cmd = 'brctl delbr {brName}'.format(brName=brName)   
@@ -218,7 +218,7 @@ class BrctlConfig(SSHBase):
             return  data         
     
     def brctlUpBr(self,brName):
-        '''启动网桥'''
+        '''Start the bridge'''
         try:
             data = dict()
             cmd = 'ifconfig {brName} up'.format(brName=brName)  
@@ -236,7 +236,7 @@ class BrctlConfig(SSHBase):
             return  data 
         
     def brctlDownBr(self,brName):
-        '''关闭网桥'''
+        '''Close the bridge'''
         try:
             data = dict()
             cmd = 'virsh iface-unbridge {brName}'.format(brName=brName)  
@@ -251,7 +251,7 @@ class BrctlConfig(SSHBase):
             return  data
     
     def brctlAddIf(self,brName,interface):
-        '''添加端口'''
+        '''Add port'''
         try:
             data = dict()
             cmd = 'brctl addif {brName} {interface} '.format(brName=brName,interface=interface)   
@@ -273,7 +273,7 @@ class BrctlConfig(SSHBase):
             return  data      
 
     def brctlDelIf(self,brName,interface):
-        '''删除端口'''
+        '''Delete port'''
         try:
             data = dict()
             cmd = 'brctl delif {brName} {interface}'.format(brName=brName,interface=interface)   
@@ -291,7 +291,7 @@ class BrctlConfig(SSHBase):
             return  data  
  
     def brctlBrStp(self,brName,mode):
-        '''网桥STP'''
+        '''Bridge STP'''
         try:
             data = dict()
             cmd = 'brctl stp {brName} {mode}'.format(brName=brName,mode=mode)   

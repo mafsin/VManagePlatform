@@ -394,7 +394,7 @@ class VMBase(object):
         try:
             return self.conn.networkLookupByName(net)
         except libvirt.libvirtError,e:
-            return '失败原因：{result}'.format(result=e.get_error_message())          
+            return 'Reason:{result}'.format(result=e.get_error_message())          
     
     def close(self):
         try:
@@ -408,14 +408,14 @@ class VMServer(VMBase):
         self.conn = conn
 
     def defineXML(self, xml):
-        '''定义传入的xml'''
+        '''Defining the incoming xml'''
         try:
             return self.conn.defineXML(xml)  
         except libvirt.libvirtError,e:
-            return '失败原因：{result}'.format(result=e.get_error_message())  
+            return 'Reason:{result}'.format(result=e.get_error_message())  
 
     def getServerInfo(self):
-        '''获取宿主机基本信息'''
+        '''Get host basic information'''
         data = self.conn.getInfo()
         return {"cpu_arch":data[0],"mem":data[1],"cpu_total":data[2],"cpu_mhz":data[3]}
 
@@ -426,7 +426,7 @@ class VMServer(VMBase):
         else:return 1
 
     def getAliveInstance(self):
-        '''获取所有激活的实例'''
+        '''Get all active instances'''
         domList = []
         for Id in self.conn.listDomainsID():
             dom = self.conn.lookupByID(Id)
@@ -435,12 +435,12 @@ class VMServer(VMBase):
             
     
     def createInstance(self,dom_xml):
-        '''创建虚拟机'''
+        '''Create a virtual machine'''
         try:
             dom = self.conn.defineXML(dom_xml)
             return dom.create()
         except libvirt.libvirtError,e:
-            return '实例创建失败，失败原因：{result}'.format(result=e.get_error_message())  
+            return 'Instance creation failed，Reason：{result}'.format(result=e.get_error_message())  
      
     def getVmStorageInfo(self):
         storage = []
@@ -501,7 +501,7 @@ class VMServer(VMBase):
         
 
     def getVmServerInfo(self):  
-        '''获取主机信息'''
+        '''Get host information'''
         try:
             data = self.conn.getInfo()
         except Exception:
@@ -541,7 +541,7 @@ class VMServer(VMBase):
                 'type':vm_type,"version":version,'cpu_model':cpu_model,"vmStatus":vmStatus}                
 
     def getAllInstance(self):
-        '''获取所有实例列表'''
+        '''Get a list of all instances'''
         vList = []
         try:
             for dom in self.conn.listAllDomains():
@@ -551,7 +551,7 @@ class VMServer(VMBase):
             return vList
 
     def getVmInstatus(self):
-        '''获取实例状态'''           
+        '''Get instance status'''           
         rList = [] 
         pList = [] 
         sList = [] 
@@ -568,7 +568,7 @@ class VMServer(VMBase):
 
 
     def getVmInstanceBaseInfo(self,server_ip,server_id):
-        '''获取所有实例的基本信息'''
+        '''Get basic information of all instances'''
         dataList = []
         for ins in self.conn.listAllDomains():
             raw_xml = ins.XMLDesc(0)
@@ -582,13 +582,13 @@ class VMServer(VMBase):
                 mem = ins.info()[2] / 1024
             except:
                 mem = 0   
-            #获取vnc端口信息
+            #Get vnc port information
             try:
                 vnc_port = xml.getElementsByTagName('graphics')[0].getAttribute("port") 
             except:
                 vnc_port = 0 
             ntkList = []
-            #获取主机Mac地址
+            #Get host Mac address
             for nk in xml.getElementsByTagName('interface'):
                 if nk.getElementsByTagName('mac') and nk.getElementsByTagName('target'):
                     ntkData = dict()
@@ -597,7 +597,7 @@ class VMServer(VMBase):
                     ntkData['name'] = name
                     ntkData['mac'] = mac
                     ntkList.append(ntkData)
-            #获取ip地址
+            #Get ip address
             ipaddress = []
             if ntkList:
                 try:
@@ -629,7 +629,7 @@ class VMServer(VMBase):
         return dataList
     
     def getVmInstanceInfo(self,server_ip):  
-        '''查询所有实例信息'''
+        '''Query all instance information'''
         active =  self.conn.numOfDomains()
         inactice = self.conn.numOfDefinedDomains()
         total = active + inactice
@@ -638,7 +638,7 @@ class VMServer(VMBase):
         domain_list = self.conn.listDomainsID() + self.conn.listDefinedDomains() 
         vmPoolList = []
         pools = self.conn.listAllStoragePools()
-        #获取存储池里面的卷
+        #Get the volume inside the storage pool
         for pls in pools:
             try:
                 for vol in pls.listVolumes():
@@ -657,9 +657,9 @@ class VMServer(VMBase):
             raw_xml = instance.XMLDesc(0)
             xml = minidom.parseString(raw_xml)
             diskList = []
-            #获取实例的磁盘信息
+            #Get instance disk information
             for disk in xml.getElementsByTagName('disk'):
-                #判断设备类型是不是磁盘
+                #Determine the device type is not a disk
                 if disk.getAttribute("device") == 'disk':
                     if disk.getElementsByTagName('source'):
                         data = {}
@@ -667,7 +667,7 @@ class VMServer(VMBase):
                             disk_name = disk.getElementsByTagName('source')[0].getAttribute("file") 
                         except:
                             disk_name = disk.getElementsByTagName('source')[0].getAttribute("dev")
-                        #判断卷存在那个存储池里面
+                        #Determine the volume exists in that storage pool
                         for vol in vmPoolList:
                             for p,v in vol.iteritems():
                                 if disk_name == v:data['disk_pool'] = p
@@ -682,13 +682,13 @@ class VMServer(VMBase):
                             data['disk_capacity'] = 0  
                             data['disk_per'] = 0                   
                         diskList.append(data)
-            #获取虚拟机实例的网卡名称
+            #Get the NIC name of the VM instance
             nkList = []
             for nk in xml.getElementsByTagName('interface'):
                 if nk.getElementsByTagName('target'):
                     nk_name = nk.getElementsByTagName('target')[0].getAttribute("dev")                           
                     nkList.append(nk_name)                     
-            #获取网卡ip地址
+            #Get network card ip address
             ipaddress = []
             if nkList:
                 try:
@@ -704,13 +704,13 @@ class VMServer(VMBase):
                                 ipaddress.append(ips) 
                             except Exception ,ex:
                                 pass 
-            #获取虚拟机实例内存的容量信息
+            #Get the VM instance memory capacity information
             try:
                 mem = instance.info()[2] / 1024
             except:
                 mem = 0   
                 
-            #mem利用率与ip地址
+            #Mem utilization and ip address
             try:
                 if status[0] == 5:domData['mem_per'] = 0
                 else:
@@ -720,14 +720,14 @@ class VMServer(VMBase):
                     
             except Exception,e:     
                 domData['mem_per'] = 0
-            #获取虚拟机实例CPU信息
+            #Get virtual machine instance CPU information
             try:
                 cpu = xml.getElementsByTagName('vcpu')[0].getAttribute('current') 
                 if len(cpu) == 0: cpu = xml.getElementsByTagName('vcpu')[0].childNodes[0].data   
             except:
                 cpu = 0    
             
-            #获取vnc端口信息
+            #Get vnc port information
             try:
                 vnc_port = xml.getElementsByTagName('graphics')[0].getAttribute("port") 
             except:
@@ -738,7 +738,7 @@ class VMServer(VMBase):
             domData['mem'] = mem 
             domData['cpu'] = cpu
             domData['vnc'] = vnc_port
-            #生成noVNC需要的token
+            #Generate tokens for noVNC
             domData['token'] = TokenUntils.makeToken(str=server_ip+domData['name'])             
             domData['ip'] = ipaddress
             if isinstance(dom,int):vms_active.append(domData)
@@ -755,14 +755,14 @@ class VMStorage(VMBase):
         self.conn =  conn
   
     def defineXML(self, xml):
-        '''定义传入的xml'''
+        '''Defining the incoming xml'''
         try:
             return self.conn.defineXML(xml)  
         except libvirt.libvirtError,e:
-            return '创建存储池失败，失败原因：{result}'.format(result=e.get_error_message())          
+            return 'Failed to create storage pool，Reason：{result}'.format(result=e.get_error_message())          
      
     def getStoragePool(self,pool_name):
-        '''查询存储池'''
+        '''Query storage pool'''
         try:
             pool = self.conn.storagePoolLookupByName(pool_name) 
             return pool
@@ -774,18 +774,18 @@ class VMStorage(VMBase):
             pool = self.conn.storagePoolLookupByName(pool_name) 
             return pool.XMLDesc(0)
         except libvirt.libvirtError,e: 
-            return '获取存储池信息失败，失败原因：{result}'.format(result=e.get_error_message())    
+            return 'Failed to get storage pool information, Reason：{result}'.format(result=e.get_error_message())    
     
     def getVolumeXMLDesc(self,pool,volume_name):
         try: 
             volume = pool.storageVolLookupByName(volume_name)
             return volume.XMLDesc(0)
         except libvirt.libvirtError,e: 
-            return '获取卷信息失败，失败原因：{result}'.format(result=e.get_error_message())  
+            return 'Failed to get volume information, Reason：{result}'.format(result=e.get_error_message())  
 
     
     def getStorageInfo(self,pool_name):
-        '''获取单个存储池的信息'''
+        '''Get information for a single storage pool'''
         data = {}
         try:           
             pool = self.conn.storagePoolLookupByName(pool_name)
@@ -832,30 +832,30 @@ class VMStorage(VMBase):
             return data 
  
     def getStorageVolume(self,pool,volume_name):
-        '''查询卷是否存在'''
+        '''Query whether the volume exists'''
         try:
             return pool.storageVolLookupByName(volume_name)
         except libvirt.libvirtError:  
             return False        
         
     def createStoragePool(self,pool_xml):
-        '''创建存储池'''
+        '''Create a storage pool'''
         try:
             pool = self.conn.storagePoolDefineXML(pool_xml)
             if pool:
                 pool.build(0)
                 pool.create(0)    
                 pool.setAutostart(1)
-                return pool.refresh()#刷新刚刚添加的存储池，加载存储池里面存在的文件
+                return pool.refresh()#Refresh the newly added storage pool and load the existing files in the storage pool
         except libvirt.libvirtError,e: 
-            return '创建存储池失败，失败原因：{result}'.format(result=e.get_error_message()) 
+            return 'Failed to create the storage pool, Reason:{result}'.format(result=e.get_error_message()) 
     
     def refreshStoragePool(self,pool):
-        '''刷新存储池'''
+        '''Refresh the storage pool'''
         try:
             return pool.refresh()
         except libvirt.libvirtError,e:
-            return '创建存储池失败，失败原因：{result}'.format(result=e.get_error_message()) 
+            return 'Failed to create the storage pool, Reason:{result}'.format(result=e.get_error_message()) 
     
     def createVolumes(self,pool,volume_name,volume_capacity,drive=None):
         if drive is None:drive = 'qcow2'
@@ -872,20 +872,20 @@ class VMStorage(VMBase):
         try:
             return pool.createXML(volume_xml, 0)
         except libvirt.libvirtError,e:
-            return '创建存储池失败，失败原因：{result}'.format(result=e.get_error_message()) 
+            return 'Failed to create the storage pool, Reason:{result}'.format(result=e.get_error_message()) 
 
         
     def deleteVolume(self,pool,volume_name):
         volume = pool.storageVolLookupByName(volume_name)
 #             volume.wipe(0)
         try:
-            return volume.delete(0)#volume.delete(0)从存储池里面删除,volume.wipe(0),从磁盘删除
+            return volume.delete(0)#Volume.delete(0) is deleted from the storage pool, volume.wipe(0), is deleted from the disk
         except libvirt.libvirtError:
             return False
 
         
     def autoStart(self,pool):
-        '''设置存储池自启动'''
+        '''Set storage pool self-start'''
         if pool.autostart() == True:
             return pool.setAutostart(0)
         else:
@@ -893,17 +893,17 @@ class VMStorage(VMBase):
         
     
     def deleteStoragePool(self,pool):
-        '''删除存储池'''
+        '''Delete storage pool'''
         try:
             pool.destroy()
             return pool.undefine()
         except libvirt.libvirtError,e:
-            return '删除失败，失败原因：{result}'.format(result=e.get_error_message())
+            return 'Delete failed, Reason:{result}'.format(result=e.get_error_message())
     
 
     
     def getStorageMode(self,pool_name):
-        '''获取存储池的类型'''
+        '''Get the type of storage pool'''
         return  vMUtil.get_xml_path(self.getPoolXMLDesc(pool_name), "/pool/@type")
     
     def getStorageVolumeXMLDesc(self,pool,name):
@@ -912,12 +912,12 @@ class VMStorage(VMBase):
     
     
     def getStorageVolumeType(self, pool,name):
-        '''获取卷的类型'''
+        '''Get the type of volume'''
         vol_xml = self.getStorageVolumeXMLDesc(name)
         return vMUtil.get_xml_path(vol_xml, "/volume/target/format/@type")
     
     def clone(self, pool,pool_name,name, clone, format=None):
-        '''克隆卷'''
+        '''Clone volume'''
         storage_type = self.getStorageMode(pool_name)
         if storage_type == 'dir':
             clone += '.img'
@@ -937,20 +937,20 @@ class VMStorage(VMBase):
             try:
                 return self.createXMLFrom(xml, vol, 0)
             except libvirt.libvirtError,e:
-                return '克隆虚拟机失败，失败原因：{result}'.format(result=e.get_error_message())   
+                return 'Failed to clone the virtual machine, Reason:{result}'.format(result=e.get_error_message())   
                      
     def createXMLFrom(self,pool,xml, vol, flags):
         try:
             return pool.createXMLFrom(xml, vol, flags)        
         except libvirt.libvirtError,e:
-            return '创建失败，失败原因：{result}'.format(result=e.get_error_message())      
+            return 'Create failed, Reason:{result}'.format(result=e.get_error_message())      
            
 class VMInstance(VMBase):
     def __init__(self,conn):
         self.conn = conn         
 
     def queryInstance(self,id=None,name=None):
-        '''查询虚拟机实例是否存在'''
+        '''Query whether the virtual machine instance exists'''
         instance = None
         if isinstance(id, int):
             try:
@@ -969,35 +969,35 @@ class VMInstance(VMBase):
         return instance.UUIDString()            
             
     def defineXML(self, xml):
-        '''定义传入的xml'''
+        '''Defining the incoming xml'''
         try:
             return self.conn.defineXML(xml) 
         except libvirt.libvirtError,e:
-            return '失败原因：{result}'.format(result=e.get_error_message())             
+            return 'Reason:{result}'.format(result=e.get_error_message())             
             
     def getInsXMLDesc(self,instance,flag):
         try:
             return instance.XMLDesc(flag)
         except libvirt.libvirtError,e:
-            return '失败原因：{result}'.format(result=e.get_error_message())          
+            return 'Reason:{result}'.format(result=e.get_error_message())          
     
     def managedSave(self, instance):
         try:
             return instance.managedSave(0)
         except libvirt.libvirtError,e:
-            return '失败原因：{result}'.format(result=e.get_error_message())          
+            return 'Reason:{result}'.format(result=e.get_error_message())          
 
     def managedSaveRemove(self, instance):
         try:
             return instance.managedSaveRemove(0)
         except libvirt.libvirtError,e:
-            return '失败原因：{result}'.format(result=e.get_error_message())  
+            return 'Reason:{result}'.format(result=e.get_error_message())  
     
     
     def umountIso(self,instance, dev, image):
-        '''卸载Cdrom'''
+        '''Uninstall Cdrom'''
         '''
-        @param dev: 设备序号，比如hda
+        @param dev: Device serial number, such as hda
         @param images: /opt/iso/CentOS-6.3-x86_64-bin-DVD1.iso  
         '''
         tree = ElementTree.fromstring(self.getInsXMLDesc(instance,0))        
@@ -1016,14 +1016,14 @@ class VMInstance(VMBase):
                                     try:
                                         instance.attachDevice(xml_disk)
                                     except libvirt.libvirtError,e:
-                                        return '卸载失败，失败原因：{result}'.format(result=e.get_error_message())                                
+                                        return 'Uninstall failed, Reason:{result}'.format(result=e.get_error_message())                                
                                     xmldom = self.getInsXMLDesc(instance,1)
                                 if instance.state()[0] == 5:
                                     xmldom = ElementTree.tostring(tree)
                                 try:
                                     return self.defineXML(xmldom)
                                 except libvirt.libvirtError,e:
-                                    return '卸载失败，失败原因：{result}'.format(result=e.get_error_message())                                
+                                    return 'Uninstall failed, Reason:{result}'.format(result=e.get_error_message())                                
                             except:
                                 return False
                                 
@@ -1046,14 +1046,14 @@ class VMInstance(VMBase):
                                 try:
                                     instance.attachDevice(xml_disk)
                                 except libvirt.libvirtError,e:
-                                    return '挂载失败，失败原因：{result}'.format(result=e.get_error_message()) 
+                                    return 'Mount failed, Reason:{result}'.format(result=e.get_error_message()) 
                                 xmldom = self.getInsXMLDesc(instance,1)
                             if instance.state()[0] == 5:
                                 xmldom = ElementTree.tostring(tree)
                             try:
                                 return self.defineXML(xmldom)
                             except libvirt.libvirtError,e:
-                                return '卸载失败，失败原因：{result}'.format(result=e.get_error_message()) 
+                                return 'Uninstall failed, Reason:{result}'.format(result=e.get_error_message()) 
         
   
     
@@ -1089,10 +1089,10 @@ class VMInstance(VMBase):
        
     
     def getVmInstanceInfo(self,instance,server_ip,vMname):
-        '''查询单个实例信息'''
+        '''Query single instance information'''
         vmPoolList = []
         pools = self.conn.listAllStoragePools()
-        #获取存储池里面的卷
+        #Get the volume inside the storage pool
         for pls in pools:
             try:
                 for vol in pls.listVolumes():
@@ -1108,9 +1108,9 @@ class VMInstance(VMBase):
             raw_xml = instance.XMLDesc(0)
             xml = minidom.parseString(raw_xml)
             diskList = []
-            #获取实例的磁盘信息
+            # Get the disk information of the instance
             for disk in xml.getElementsByTagName('disk'):
-                #判断设备类型是不是磁盘
+                # determine the device type is not a disk
                 if disk.getAttribute("device") == 'disk':
                     if disk.getElementsByTagName('source'):
                         data = {}
@@ -1118,7 +1118,7 @@ class VMInstance(VMBase):
                             disk_name = disk.getElementsByTagName('source')[0].getAttribute("file") 
                         except:
                             disk_name = disk.getElementsByTagName('source')[0].getAttribute("dev")
-                        #判断卷存在那个存储池里面
+                        #Judge the volume exists in that storage pool
                         for vol in vmPoolList:
                             for p,v in vol.iteritems():
                                 if disk_name == v:data['disk_pool'] = p
@@ -1133,13 +1133,13 @@ class VMInstance(VMBase):
                             data['disk_capacity'] = 0  
                             data['disk_per'] = 0                   
                         diskList.append(data)
-            #获取虚拟机实例的网卡名称
+            # Obtain the NIC name of the VM instance
             nkList = []
             for nk in xml.getElementsByTagName('interface'):
                 if nk.getElementsByTagName('target'):
                     nk_name = nk.getElementsByTagName('target')[0].getAttribute("dev")                           
                     nkList.append(nk_name)      
-            #获取网卡ip地址
+            # Get network card ip address
             ipaddress = []
             if nkList:
                 data = self.getInterFaceIpAddress(instance, 1) 
@@ -1152,12 +1152,12 @@ class VMInstance(VMBase):
                                 ipaddress.append(ips) 
                             except Exception ,ex:
                                 pass 
-            #获取虚拟机实例内存的容量信息
+            #Get the VM instance memory capacity information
             try:
                 mem = instance.info()[2] / 1024
             except:
                 mem = 0   
-            #mem利用率与ip地址
+            #Mem utilization and ip address
             try:
                 if status[0] == 5:domData['mem_per'] = 0
                 else:
@@ -1167,13 +1167,13 @@ class VMInstance(VMBase):
                     
             except Exception,e:     
                 domData['mem_per'] = 0
-            #获取虚拟机实例CPU信息
+            #Get virtual machine instance CPU information
             try:
                 cpu = xml.getElementsByTagName('vcpu')[0].getAttribute('current') 
                 if len(cpu) == 0: cpu = xml.getElementsByTagName('vcpu')[0].childNodes[0].data   
             except:
                 cpu = 0    
-            #获取vnc端口信息
+            #Get vnc port information
             try:
                 vnc_port = xml.getElementsByTagName('graphics')[0].getAttribute("port") 
             except:
@@ -1184,13 +1184,13 @@ class VMInstance(VMBase):
             domData['cpu'] = cpu
             domData['vnc'] = vnc_port
             domData['name'] = vMname
-            #生成noVNC需要的token
+            #Generate tokens for noVNC
             domData['token'] = TokenUntils.makeToken(str=server_ip+vMname)
             domData['ip'] = ipaddress
             return domData
 
     def getMediaDevice(self,instance):
-        '''获取cdrom'''
+        '''Get cdrom'''
         def disks(ctx):
             result = []
             dev = None
@@ -1221,7 +1221,7 @@ class VMInstance(VMBase):
     
     
     def delDisk(self,instance):
-        '''删除虚拟机时删除磁盘'''
+        '''Delete Disk When Deleting a Virtual Machine'''
         disks = self.getDiskDevice(instance)
         for disk in disks:
             try:
@@ -1231,7 +1231,7 @@ class VMInstance(VMBase):
                 pass
     
     def getDiskDevice(self,instance):
-        '''获取实例的磁盘设备'''
+        '''Get the instance of the disk device'''
         def disks(ctx):
             result = []
             dev = None
@@ -1260,7 +1260,7 @@ class VMInstance(VMBase):
     
     
     def clone(self, instance,clone_data):
-        '''克隆实例'''
+        '''Clone an instance'''
         clone_dev_path = []
         xml = self.getInsXMLDesc(instance, flag=1)
         tree = ElementTree.fromstring(xml)
@@ -1312,8 +1312,8 @@ class VMInstance(VMBase):
     
     def getCpuUsage(self,instance):       
         if instance.state()[0] == 1:
-#             nbcore = self.conn.getInfo()[2] #节点的cpu个数
-            nbcore = instance.info()[3] #虚拟机cpu个数，存疑
+#             nbcore = self.conn.getInfo()[2] #The number of cpu nodes
+            nbcore = instance.info()[3] #Number of virtual CPUs, doubts
             cpu_use_ago = instance.info()[4]
             time.sleep(1)
             cpu_use_now = instance.info()[4]
@@ -1395,9 +1395,9 @@ class VMInstance(VMBase):
             if device == 'disk' and vdisk in diskList:diskSn = diskList[diskList.index(vdisk) + 1]
         diskXml = Const.CreateDisk(volume_path=volPath, diskSn=diskSn)
         try:
-            return instance.attachDeviceFlags(diskXml,3)#如果是关闭状态则标记flags为3，保证添加的硬盘重启不会丢失 
+            return instance.attachDeviceFlags(diskXml,3)#Flags is 3 if it is off. Ensure that the added hard disk will not be lost if restarted. 
         except libvirt.libvirtError,e:
-            return '实例添加硬盘失败，失败原因：{result}'.format(result=e.get_error_message()) 
+            return 'Instance failed to add hard disk, Reason:{result}'.format(result=e.get_error_message()) 
 
     def addInstanceCdrom(self,instance,isoPath):
         diskSn = 'hdb'
@@ -1423,12 +1423,12 @@ class VMInstance(VMBase):
         ElementTree.SubElement(cmXml,'readonly')
         domXml = ElementTree.tostring(root)
         try:
-            return self.defineXML(domXml)#如果是关闭状态则标记flags为3，保证添加的硬盘重启不会丢失 
+            return self.defineXML(domXml)#Flags is 3 if it is off. Ensure that the added hard disk will not be lost if restarted. 
         except libvirt.libvirtError,e:
-            return '实例添加光驱失败，失败原因：{result}'.format(result=e.get_error_message())       
+            return 'Instance failed to add optical drive, Reason:{result}'.format(result=e.get_error_message())       
     
     def delInstanceCdrom(self,instance,cdrom):
-        '''删除光驱'''
+        '''Remove the optical drive'''
         raw_xml = instance.XMLDesc(0) 
         root = ElementTree.fromstring(raw_xml) 
         for dk in root.findall('./devices'):
@@ -1442,7 +1442,7 @@ class VMInstance(VMBase):
         try:
             return self.defineXML(diskXml)
         except libvirt.libvirtError,e:
-            return '实例删除光驱失败，失败原因：{result}'.format(result=e.get_error_message()) 
+            return 'Instance failed to remove the optical drive, Reason:{result}'.format(result=e.get_error_message()) 
 
     
     
@@ -1458,14 +1458,14 @@ class VMInstance(VMBase):
             model = tree.find('forward').get('mode')               
             interXml = Const.CreateNetcard(nkt_br=brName, ntk_name=brName +'-'+CommTools.radString(length=4), data={'type':model,'mode':mode})
             try:
-                return instance.attachDeviceFlags(interXml,3)#如果是关闭状态则标记flags为3，保证添加的硬盘重启不会丢失 
+                return instance.attachDeviceFlags(interXml,3)#Flags is 3 if it is off. Ensure that the added hard disk will not be lost if restarted. 
             except libvirt.libvirtError,e:
-                return '实例添加网卡失败，失败原因：{result}'.format(result=e.get_error_message()) 
+                return 'Failed to add the network adapter to the instance, Reason:{result}'.format(result=e.get_error_message()) 
         else:return False 
 
         
     def delInstanceInterface(self,instance,interName): 
-        '''删除网络设备''' 
+        '''Delete network device''' 
         interXml = None
         raw_xml = instance.XMLDesc(0)
         domXml = minidom.parseString(raw_xml)
@@ -1479,11 +1479,11 @@ class VMInstance(VMBase):
             try:
                 return instance.detachDeviceFlags(interXml,3)
             except libvirt.libvirtError,e:
-                return '实例网卡删除失败，失败原因：{result}'.format(result=e.get_error_message()) 
+                return 'Instance network card deletion failed, Reason:{result}'.format(result=e.get_error_message()) 
         else:return False  
         
     def delInstanceDisk(self,instance,volPath):
-        '''删除硬盘'''
+        '''Delete the hard disk'''
         diskXml = None
         raw_xml = instance.XMLDesc(0)
         domXml = minidom.parseString(raw_xml)
@@ -1497,11 +1497,11 @@ class VMInstance(VMBase):
             try:
                 return instance.detachDeviceFlags(diskXml,3)
             except libvirt.libvirtError,e:
-                return '实例删除硬盘失败，失败原因：{result}'.format(result=e.get_error_message()) 
+                return 'Instance failed to delete the hard disk, Reason:{result}'.format(result=e.get_error_message()) 
         else:return False
     
     def getInterFace(self,instance,inter_name):
-        '''获取网卡类型'''
+        '''Get network card type'''
         def interface(ctx):
             result = dict()
             for media in ctx.xpathEval('/domain/devices/interface'):
@@ -1544,7 +1544,7 @@ class VMInstance(VMBase):
         return vMUtil.get_xml_path(instance.XMLDesc(0), func=networks)
 
     def getInterFaceIpAddress(self,instance,source):
-        '''获取虚拟机ip地址'''
+        '''Get virtual machine IP address'''
         try:
             return instance.interfaceAddresses(source)
         except libvirt.libvirtError, ex:
@@ -1552,7 +1552,7 @@ class VMInstance(VMBase):
             return {}
             
     def setInterfaceBandwidth(self,instance,port,bandwidth):
-        '''限制流量'''
+        '''Limit traffic'''
         domXml = instance.XMLDesc(0)
         root = ElementTree.fromstring(domXml)
         try:
@@ -1577,7 +1577,7 @@ class VMInstance(VMBase):
         if self.defineXML(domXml):return {"status":"success",'data':None} 
     
     def cleanInterfaceBandwidth(self,instance,port):
-        '''清除流量限制'''
+        '''Clear traffic limit'''
         domXml = instance.XMLDesc(0)
         root = ElementTree.fromstring(domXml)
         try:
@@ -1598,35 +1598,35 @@ class VMInstance(VMBase):
         return status      
     
     def setVcpu(self,instance,cpu):
-        '''调整CPU个数'''
+        '''Adjust the number of CPUs'''
         if isinstance(cpu, int):
             try:
                 return instance.setVcpusFlags(cpu,0)
             except libvirt.libvirtError,e:
-                return '实例CPU调整失败，失败原因：{result}'.format(result=e.get_error_message())  
+                return 'Instance CPU adjustment failed. Reasons for the failure:{result}'.format(result=e.get_error_message())  
         else:
             return False        
     
     def setMem(self,instance,mem):
-        '''调整内存大小'''
+        '''Adjust memory size'''
         if isinstance(mem, int):
             mem = mem*1024
             try:
                 return instance.setMemoryFlags(mem,flags=0)
             except libvirt.libvirtError,e:
-                return '实例内存调整失败，失败原因：{result}'.format(result=e.get_error_message())  
+                return 'Instance memory adjustment failed, Reason:{result}'.format(result=e.get_error_message())  
         else:
             return False
     
     def migrate(self,instance,uri,dname,tcp_path):
-        '''虚拟机迁移'''
+        '''Virtual Machine Migration'''
         try:
             return instance.migrate(uri,True,dname,tcp_path,0) 
         except libvirt.libvirtError,e:
-            return '实例迁移失败，失败原因：{result}'.format(result=e.get_error_message())          
+            return 'Instance migration failed, Reason:{result}'.format(result=e.get_error_message())          
     
     def snapShotCteate(self,instance,snapName):
-        '''为实例的所有磁盘创建实例'''
+        '''Create an instance of all the disks for the instance'''
         try:
             snpXML = '''<domainsnapshot>
                             <name>{snapName}</name> 
@@ -1638,26 +1638,26 @@ class VMInstance(VMBase):
             snpXML = snpXML.format(snapName=snapName)
             return instance.snapshotCreateXML(snpXML,0)
         except libvirt.libvirtError,e:    
-            return '实例硬盘快照创建失败，失败原因：{result}'.format(result=e.get_error_message())          
+            return 'Failed to create an instance disk snapshot, Reason:{result}'.format(result=e.get_error_message())          
     
     def snapShotDelete(self,instance,snapName):
-        '''删除实例快照'''
+        '''Delete instance snapshot'''
         try:
             snap = instance.snapshotLookupByName(snapName)            
             return snap.delete()
         except libvirt.libvirtError,e:
-            return '删除实例快照失败，失败原因：{result}'.format(result=e.get_error_message())    
+            return 'Failed to delete the instance snapshot, Reason:{result}'.format(result=e.get_error_message())    
     
     def snapShotView(self,instance,snapName):
-        '''查看实例快照'''
+        '''View the instance snapshot'''
         try:
             snap = instance.snapshotLookupByName(snapName)  
             return snap.getXMLDesc()    
         except libvirt.libvirtError,e:
-            return '获取实例快照失败，失败原因：{result}'.format(result=e.get_error_message())  
+            return 'Failed to get an instance snapshot, Reason:{result}'.format(result=e.get_error_message())  
     
     def snapShotList(self,instance):
-        '''列出实例快照'''
+        '''List instance snapshots'''
         snapList = []
         try:
             for snap in instance.snapshotListNames():
@@ -1673,15 +1673,15 @@ class VMInstance(VMBase):
         return snapList
     
     def revertSnapShot(self,instance,snapName):
-        '''快照恢复'''
+        '''Snapshot recovery'''
         snap = instance.snapshotLookupByName(snapName)
         try:
             return instance.revertToSnapshot(snap,0)
         except libvirt.libvirtError,e:
-            return '实例快照恢复失败，失败原因：{result}'.format(result=e.get_error_message())       
+            return 'Failed to restore the instance snapshot. Reason:{result}'.format(result=e.get_error_message())       
         
     def delete(self,instance):
-        '''删除实例'''
+        '''Delete the instance'''
         try:
             if instance.state()[0] == 5:
                 return instance.undefineFlags()
@@ -1689,56 +1689,56 @@ class VMInstance(VMBase):
                 instance.undefineFlags()
                 return instance.destroy() #执行成返回值为0
         except libvirt.libvirtError,e:
-            return '实例删除失败，失败原因：{result}'.format(result=e.get_error_message())            
+            return 'Instance deletion failed, Reason:{result}'.format(result=e.get_error_message())            
      
     def suspend(self,instance):  
-        '''暂停实例'''
+        '''Suspend an instance'''
         try:
             return instance.suspend()
         except libvirt.libvirtError,e:
-            return '实例暂停失败，失败原因：{result}'.format(result=e.get_error_message())           
+            return 'Failed to suspend instance, Reason:{result}'.format(result=e.get_error_message())           
         
     def resume(self,instance):
-        '''恢复实例'''
+        '''Recovery instance'''
         try:
             return instance.resume()
         except libvirt.libvirtError,e:
-            return '实例恢复失败，失败原因：{result}'.format(result=e.get_error_message())       
+            return 'Instance recovery failed, Reason:{result}'.format(result=e.get_error_message())       
         
     def reboot(self,instance):
-        '''重启实例'''
+        '''Restart the instance'''
         try:
             return instance.reboot()
         except libvirt.libvirtError,e:
-            return '实例重启失败，失败原因：{result}'.format(result=e.get_error_message())        
+            return 'Failed to restart the instance, Reason:{result}'.format(result=e.get_error_message())        
     
     def shutdown(self,instance):
-        '''关闭实例'''
+        '''Close the instance'''
         try:
             return instance.shutdown()
         except libvirt.libvirtError,e:
-            return '实例关闭失败，失败原因：{result}'.format(result=e.get_error_message())         
+            return 'Failed to close the instance, Reason:{result}'.format(result=e.get_error_message())         
 
     def destroy(self,instance):
-        '''强制关闭实例'''
+        '''Forced shutdown of the instance'''
         try:
             return instance.destroy()
         except libvirt.libvirtError,e:
-            return '实例强制关闭失败，失败原因：{result}'.format(result=e.get_error_message()) 
+            return 'Instance forced shutdown failed, Reason:{result}'.format(result=e.get_error_message()) 
     
     def state(self,instance):
-        '''检查实例的状态'''
+        '''Check the status of the instance'''
         try:
             return instance.state()
         except libvirt.libvirtError,e:
-            return '获取实例状态失败，失败原因：{result}'.format(result=e.get_error_message())   
+            return 'Failed to get instance status, failure reason:{result}'.format(result=e.get_error_message())   
             
     def start(self,instance):
-        '''启动实例'''
+        '''Start the instance'''
         try:
             return instance.create()
         except libvirt.libvirtError,e:
-            return '实例启动失败，失败原因：{result}'.format(result=e.get_error_message())     
+            return 'Instance startup failed, Reason:{result}'.format(result=e.get_error_message())     
         
 
 class VMNetwork(VMBase):
@@ -1746,14 +1746,14 @@ class VMNetwork(VMBase):
         self.conn =  conn
      
     def defineXML(self, xml):
-        '''定义传入的xml'''
+        '''Defining the incoming xml'''
         try:
             return self.conn.defineXML(xml)  
         except libvirt.libvirtError,e:
-            return '网络创建失败，失败原因：{result}'.format(result=e.get_error_message())               
+            return 'Network creation failed, Reason:{result}'.format(result=e.get_error_message())               
      
     def getNetwork(self,netk_name):
-        '''查询网络是否存在'''
+        '''Check if the network exists'''
         try:
             netk = self.conn.networkLookupByName(netk_name)
             return netk
@@ -1762,7 +1762,7 @@ class VMNetwork(VMBase):
            
         
     def getNetworkType(self,netk_name):
-        '''获取网络类型'''
+        '''Get network type'''
         netk = self.getNetwork(netk_name)
         if netk:
             xml = netk.XMLDesc(0)
@@ -1776,7 +1776,7 @@ class VMNetwork(VMBase):
         else:return False
         
     def getInterface(self, name):
-        '''获取网络接口'''
+        '''Get network interface'''
         try:
             return self.conn.interfaceLookupByName(name)
         except libvirt.libvirtError:
@@ -1798,14 +1798,14 @@ class VMNetwork(VMBase):
         return {'name': name, 'type': itype, 'state': state, 'mac': mac,'ipv4':ipv4,'mask':mask}
     
     def defineInterface(self, xml, flag=0):
-        '''定义网络接口'''
+        '''Define the network interface'''
         try:
             self.conn.interfaceDefineXML(xml, flag)
         except libvirt.libvirtError,e:
-            return '创建网络接口失败，失败原因：{result}'.format(result=e.get_error_message())              
+            return 'Failed to create network interface, Reason:{result}'.format(result=e.get_error_message())              
 
     def createBridgeInterface(self, iface,brName,ipaddr,mask,gateway,stp='on',delay=0):
-        '''创建网桥类型接口'''
+        '''Create bridge type interface'''
         xml = """<interface type='bridge' name='{brName}'>
                     <start mode='onboot'/>""".format( brName=brName)
         if ipaddr and mask and gateway:
@@ -1823,7 +1823,7 @@ class VMNetwork(VMBase):
             iface = self.getInterface(brName)
             return iface.create()    
         except libvirt.libvirtError,e:
-            return '桥接网卡创建失败，失败原因：{result}'.format(result=e.get_error_message())
+            return 'Bridge NIC creation failed, Reason:{result}'.format(result=e.get_error_message())
         
     def stopInterface(self,iface):
         try:
@@ -1847,16 +1847,16 @@ class VMNetwork(VMBase):
             return False
         
     def createNetwork(self,xml):
-        '''创建网络并且设置自启动'''
+        '''Create network and set self-boot'''
         try:
             netk = self.conn.networkDefineXML(xml)
             netk.create()
             return netk.setAutostart(1)
         except libvirt.libvirtError,e:
-            return '网络创建失败，失败原因：{result}'.format(result=e.get_error_message())             
+            return 'Network creation failed, Reason:{result}'.format(result=e.get_error_message())             
         
     def deleteNetwork(self,netk):
-        '''删除网络'''
+        '''Delete network'''
         try:
             netk.destroy()
             return netk.undefine()
@@ -1865,7 +1865,7 @@ class VMNetwork(VMBase):
         
         
     def listNetwork(self):
-        '''列出所有网络'''
+        '''List all networks'''
         dataList = []
         try:
             for netk in self.conn.listAllNetworks():         
@@ -1879,7 +1879,7 @@ class VMNetwork(VMBase):
         return dataList    
     
     def listInterface(self):
-        '''列出所有接口'''
+        '''List all interfaces'''
         dataList = []
         try:
             for ins in self.conn.listAllInterfaces():
