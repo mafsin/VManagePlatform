@@ -105,7 +105,7 @@ def updateVMinstance(host=None):
 
 @task()
 def checkVMinstance():
-    '''检查所有宿主机上面的实例，如果不存在的实例则从数据库里面清除掉'''
+    '''Check all instances on the host machine, and if it does not exist, remove it from the database'''
     serverList = VmServer.objects.all()    
     for server in  serverList:
         if server.status == 0:     
@@ -158,14 +158,14 @@ def migrateInstace(data,user=None):
         return e 
     try:
         VMS = LibvirtManage(vMserver.server_ip,vMserver.username, vMserver.passwd, vMserver.vm_type,pool=False)
-        #获取要迁移的虚拟机硬盘情况
+        #Get the virtual machine hard disk to be migrated
         INSTANCE = VMS.genre(model='instance')
         instance = INSTANCE.queryInstance(name=str(data.get('vm_name')))
         source_instance = INSTANCE.getVmInstanceInfo(server_ip=vMserver.server_ip, vm_name=data.get('vm_name'))            
     except Exception,e:
         return e           
     try:
-        #连接远程宿主机，获取存储池，然后在存储池里面创建跟迁移的虚拟机相同的硬盘
+        #Connect to the remote host, acquire the storage pool, and then create the same hard disk in the storage pool as the migrated virtual machine
         vMTargetserver = VmServer.objects.get(id=data.get('server_tid'))
     except Exception,e:
         return e     
