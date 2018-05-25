@@ -2,9 +2,9 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>虚拟机管理平台-登录</title>
-		<meta name="keywords" content="虚拟机,Python" />
-		<meta name="description" content="虚拟机"/>
+		<title>Virtual Machine Management Platform - Login</title>
+		<meta name="keywords" content="virtual machine,Python" />
+		<meta name="description" content="virtual machine"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!-- basic styles -->
@@ -68,7 +68,7 @@
 												{%if  login_error_info %}
 													{{ login_error_info }}	
 												{% else %}
-													请输入用户名跟密码
+													Please enter your username and password
 												{% endif %}
 											</h4>
 
@@ -95,12 +95,12 @@
 													<div class="clearfix">
 														<label class="inline">
 															<input type="checkbox" class="ace" />
-															<span class="lbl"> 记住账户</span>
+															<span class="lbl"> Remember account</span>
 														</label>
 
 														<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
 															<i class="icon-key"></i>
-															登入
+															Sign in
 														</button>
 													</div>
 																			
@@ -114,13 +114,13 @@
 											<div>
 												<a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
 													<i class="icon-arrow-left"></i>
-													忘记密码
+													Forget password
 												</a>
 											</div>
 
 											<div>
 												<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
-													注册
+													Registered
 													<i class="icon-arrow-right"></i>
 												</a>
 											</div>
@@ -174,11 +174,11 @@
 										<div class="widget-main">
 											<h4 class="header green lighter bigger">
 												<i class="icon-group blue"></i>
-												新用户注册
+												New User Registration
 											</h4>
 
 											<div class="space-6"></div>
-											<p> 输入您的详细信息: </p>
+											<p> Enter your details: </p>
 
 											<form id="register">
 												<fieldset>
@@ -213,8 +213,8 @@
 													<label class="block">
 														<input type="checkbox" class="ace" />
 														<span class="lbl">
-															勾选表示接受
-															<a href="#">虚拟平台使用协议</a>
+															Check to accept
+															<a href="#">Virtual Platform Usage Agreement</a>
 														</span>
 													</label>
 
@@ -223,11 +223,11 @@
 													<div class="clearfix">
 														<button type="reset" class="width-30 pull-left btn btn-sm">
 															<i class="icon-refresh"></i>
-															重置
+															Reset
 														</button>
 
 														<button type="button" class="width-65 pull-right btn btn-sm btn-success" onclick="userRegister(this,'register')">
-															注册
+															Registered
 															<i class="icon-arrow-right icon-on-right"></i>
 														</button>
 													</div>
@@ -238,7 +238,7 @@
 										<div class="toolbar center">
 											<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
 												<i class="icon-arrow-left"></i>
-												返回登录
+												Back to login
 											</a>
 										</div>
 									</div><!-- /widget-body -->
@@ -295,7 +295,7 @@
 					var value = form[i].value;	
 					idx = $.inArray(name, required);	
 					if (idx >= 0 && value.length == 0){
-						window.wxc.xcConfirm("请注意必填项不能为空~", window.wxc.xcConfirm.typeEnum.error);
+						window.wxc.xcConfirm("Please note that required fields cannot be empty~", window.wxc.xcConfirm.typeEnum.error);
 						btnObj.removeAttr('disabled');
 						return false;
 					}
@@ -306,9 +306,9 @@
 				server_data['op'] = op;
 				$.ajax({
 					dataType: "JSON",
-					url:'/register/', //请求地址
-					type:"POST",  //提交类似
-					data:server_data,  //提交参数
+					url:'/register/', //Request address
+					type:"POST",  //Submit similar
+					data:server_data,  //Submit parameters
 					success:function(response){
 						btnObj.removeAttr('disabled');
 						if (response["code"] == 200){

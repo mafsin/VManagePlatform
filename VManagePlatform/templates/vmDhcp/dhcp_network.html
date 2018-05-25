@@ -10,7 +10,7 @@
 		<div class="col-xs-12">
 			<h3 class="header smaller lighter blue">
 			<i class="icon-hand-right icon-animated-hand-pointer blue"></i>
-			DHCP服务配置</h3>
+			DHCP service configuration</h3>
 			
 						<div class="col-sm-4">
 										<div class="widget-box">
@@ -23,17 +23,17 @@
 													<ul class="list-unstyled spaced2">
 														<li>
 															<i class="icon-circle green"></i>
-															该功用来配置全局DHCP服务
+															This function is used to configure global DHCP service
 														</li>
 							
 														<li >
 															<i class="icon-ok bigger-110 green"></i>
-															提供内网，外网DHCP功能
+															Provide intranet, external network DHCP function
 														</li>
 							
 															<li class="muted">
 																<i class="icon-warning-sign orange"></i>
-																请在桥接环境下使用：
+																Use in a bridged environment:
 																								
 															</li>
 						
@@ -41,16 +41,16 @@
 																<ul class="list-unstyled">
 																	<li>
 																		<i class="icon-caret-right blue"></i>
-																		如果局域网已经存在DHCP，请分配不同IP段的地址，以免造成冲突。
+																		If DHCP already exists on the LAN, allocate addresses for different IP segments to avoid conflicts.
 																	</li>
 						
 																	<li>
 																		<i class="icon-caret-right blue"></i>
-																		内网DHCP服务，不需要分配路由与DNS
+																		Intranet DHCP service, no need to allocate routes and DNS
 																	</li>
 																	<li>
 																		<i class="icon-caret-right blue"></i>
-																		尽量使用C类地址，注意dhcp地址要设置掩码
+																		Try to use class C address, note that dhcp address to set the mask
 																	</li>
 						
 																</ul>
@@ -65,10 +65,10 @@
 			<div class="tabbable">
 				<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
 					<li class="active">
-						<a data-toggle="tab" href="#dropdown14">DHCP列表</a>
+						<a data-toggle="tab" href="#dropdown14">DHCP list</a>
 					</li>
 					<li>
-						<a data-toggle="tab" href="#profile4">配置DHCP</a>
+						<a data-toggle="tab" href="#profile4">Configure DHCP</a>
 					</li>
 				</ul>
 
@@ -79,26 +79,26 @@
 													<form class="form-horizontal" id="addNetwork">
 
 																<div class="form-group">
-																	<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email"><strong>网络类型:</strong></label>
+																	<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email"><strong>Network Type:</strong></label>
 						
 																	<div class="col-xs-12 col-sm-9">
 																		<div class="clearfix">
 																			<select id="vNetwork-select" name="mode" onchange="javascript:oBtModeTypeSelect();">
-																				<option value="">选择网络类型</option>
-																				<option value="dhcp-int">内网</option>	
-																				<option value="dhcp-ext">外网</option>																		
+																				<option value="">Select network type</option>
+																				<option value="dhcp-int">Intranet</option>	
+																				<option value="dhcp-ext">Extranet</option>																		
 																			</select>
 																		</div>
 																	</div>																							
 																</div>																										
 						
 																<div class="form-group">
-																	<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email"><strong>驱动类型:</strong></label>
+																	<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email"><strong>DriveType:</strong></label>
 						
 																	<div class="col-xs-12 col-sm-9">
 																		<div class="clearfix">
 																			<select id="vDrive-select" name="drive">
-																				<option value="">选择网络驱动类型</option>
+																				<option value="">Select network driver type</option>
 																				<option value="ovs">Open Vswitch</option>	
 																				<option value="brctl">Linux Brctl</option>																		
 																			</select>
@@ -107,7 +107,7 @@
 																</div>										
 
 																<div class="form-group">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>绑定网桥</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>Bound network bridge</strong></label>
 							
 																	<div class="col-sm-9">
 																		<input class="input-sm" type="text" id="form-field-6" placeholder="ovs-int" name="brName" />																																					
@@ -115,14 +115,14 @@
 																</div>	
 
 																<div class="form-group">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>DHCP服务地址</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>DHCPServiceAddress</strong></label>
 							
 																	<div class="col-sm-9">
 																		<input class="input-sm" type="text" id="form-field-6" placeholder="192.168.1.1" name="server_ip" />																																					
 																	</div>
 																</div>	
 																<div class="form-group">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>掩码位</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>Mask bit</strong></label>
 							
 																	<div class="col-sm-9">
 																		<input class="input-sm" type="text" id="form-field-6" placeholder="24" name="mask" />																																					
@@ -130,7 +130,7 @@
 																</div>																							
 						
 																<div class="form-group" style="display:none;" id="div_ext_iprange">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>网络地址池</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>NetworkAddressPool</strong></label>
 							
 																	<div class="col-sm-9">
 																		<input class="input-sm" type="text" id="form-field-6" placeholder="192.168.1.100,192.168.1.254" name="ext-iprange" />		
@@ -139,7 +139,7 @@
 																</div>
 
 																<div class="form-group" style="display:none;" id="div_ext_gateway">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>网关地址</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>GatewayAddress</strong></label>
 							
 																	<div class="col-sm-9">
 																				
@@ -148,7 +148,7 @@
 																</div>
 																
 																<div class="form-group" style="display:none;" id="div_int_iprange">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>网络地址池</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>NetworkAddressPool</strong></label>
 							
 																	<div class="col-sm-6">
 																		<input class="input-sm" type="text" id="form-field-6" placeholder="172.16.0.100,172.16.0.254" name="int-iprange" />		
@@ -171,13 +171,13 @@
 																	<div class="col-md-offset-3 col-md-9">
 																		<button class="btn btn-info" type="button" onclick="addGlobalDHCP(this)">
 																			<i class="icon-ok bigger-110"></i>
-																			提交
+																			Submit
 																		</button>
 							
 																		&nbsp; &nbsp; &nbsp;
 																		<button class="btn" type="reset">
 																			<i class="icon-undo bigger-110"></i>
-																			撤销
+																			Undo
 																		</button>
 																	</div>
 																</div>	
@@ -192,17 +192,17 @@
 														<table class="table table-striped table-bordered">
 															<thead>
 																<tr>
-																	<th class="center">序号</th>
-																	<th class="center">DHCP类型</th>
-																	<th class="hidden-xs center">驱动类型</th>
-																	<th class="hidden-xs center">网桥绑定</th>
-																	<th class="hidden-480 center">ip地址池</th>
-																	<th class="center">服务地址</th>
-																	<th class="center">网关</th>
+																	<th class="center">No.</th>
+																	<th class="center">DHCPType</th>
+																	<th class="hidden-xs center">DriveType</th>
+																	<th class="hidden-xs center">Bridge Binding</th>
+																	<th class="hidden-480 center">IpAddressPool</th>
+																	<th class="center">Service address</th>
+																	<th class="center">Gateway</th>
 																	<th class="center">DNS</th>
-																	<th class="center">是否激活</th>
-																	<th class="center">是否启动</th>
-																	<th class="center">操作</th>
+																	<th class="center">ActivateNow</th>
+																	<th class="center">WhethertoStart</th>
+																	<th class="center">Operating</th>
 																</tr>
 															</thead>
 										
@@ -261,14 +261,14 @@
 																				<li>
 																					<a href="javascript:" onclick="onBtnHandleGlobalNetwork(this,{{ ds.id }},'{{ds.mode}}','start')">
 																					
-																					启动
+																					start up
 																					</a>
 																				</li>	
 																						
 																				<li>
 																					<a href="javascript:" onclick="onBtnHandleGlobalNetwork(this,{{ ds.id }},'{{ds.mode}}','stop')">
 																					
-																					关闭
+																					shut down
 																					</a>
 																				</li>											
 																				<li class="divider"></li>
@@ -277,7 +277,7 @@
 																				<li>
 																					<a href="javascript:" onclick="onBtnHandleGlobalNetwork(this,{{ ds.id }},'{{ds.mode}}','delete')">
 																						
-																						删除
+																						delete
 																					</a>
 																				</li>
 																			</ul>
@@ -297,7 +297,7 @@
 																<span class="red">{{ dataList|length }}</span>
 															</h4>
 														</div>
-														<div class="col-sm-7 pull-left"> 汇总信息 </div>
+														<div class="col-sm-7 pull-left"> Summary information </div>
 													</div>							
 																
 						</div>
@@ -346,7 +346,7 @@
 						var value = form[i].value;	
 						idx = $.inArray(name, required);						
 						if (idx >= 0 && value.length == 0){
-							window.wxc.xcConfirm("请注意必填项不能为空~", window.wxc.xcConfirm.typeEnum.error);
+							window.wxc.xcConfirm("Please note that required fields cannot be empty~", window.wxc.xcConfirm.typeEnum.error);
 							return false;
 						};	
 						if ( idx >= 0 && value.length != 0 && name.length != 0 ){						
@@ -355,9 +355,9 @@
 					};		
 					$.ajax({
 						dataType: "JSON",
-						url:'/configDhcp/', //请求地址
-						type:"POST",  //提交类似
-						data:server_data,  //提交参数
+						url:'/configDhcp/', //Request address
+						type:"POST",  //Submit similar
+						data:server_data,  //Submit parameters
 						success:function(response){
 							if (response["code"] == 200){
 								window.wxc.xcConfirm(response["msg"], window.wxc.xcConfirm.typeEnum.success);
@@ -377,22 +377,22 @@
 				   function onBtnHandleGlobalNetwork(obj, dhcp_id,mode,op){
 						var btnObj = $(obj);	
 						if( op == 'enable' ){
-							var txt=  "是否确认激活（"+mode+"）?"
+							var txt=  "Confirm activation（"+mode+"）?"
 						}	
 						else if( op == 'start' ){
-							var txt=  "是否确认启动（"+mode+"）?"
+							var txt=  "Is it sure to start（"+mode+"）?"
 						}	
 						else if( op == 'stop' ){
-							var txt=  "是否确认关闭（"+mode+"）?"
+							var txt=  "Are you sure to close（"+mode+"）?"
 						}
 						else if( op == 'delete' ){
-							var txt=  "是否确认删除（"+mode+"）?"
+							var txt=  "Confirm whether to delete（"+mode+"）?"
 						}						
 						else if( op == 'disable' ){
-							var txt=  "是否确认禁用（"+mode+"）?"
+							var txt=  "Confirm whether to disable（"+mode+"）?"
 						};						
 						var option = {
-								title: "操作("+mode+")",
+								title: "Operating("+mode+")",
 								btn: parseInt("0011",2),
 								onOk: function(){
 									$.ajax({

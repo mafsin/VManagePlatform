@@ -10,16 +10,16 @@
 										<a href="/addInstance/{{vmServer.id}}/">
 											<botton class="btn btn-primary  pull-right">
 											<i class="icon-arrow-right icon-plus"></i>
-													新增虚拟主机
+													Add a new virtual host
 											</botton>											
 										</a>								
 										
 										<h3 class="header smaller lighter blue">
 											<i class="icon-hand-right icon-animated-hand-pointer blue"></i>
-											虚拟机实例列表
+											List of virtual machine instances
 										</h3>
 										<div class="table-header">
-											当前所拥有的虚拟机实例
+											Current owned virtual machine instance
 										</div>
 
 										<div class="table-responsive">
@@ -32,18 +32,18 @@
 																<span class="lbl"></span>
 															</label>
 														</th>
-														<th>虚拟主机</th>
-														<th>实例名称</th>
+														<th>Virtual host</th>
+														<th>InstanceName</th>
 														<th class="hidden-480">CPU</th>
 
 														<th>
 															<i class="icon-time bigger-110"></i>
-															内存(MB)
+															RAM(MB)
 														</th>
 
-														<th class="hidden-480">状态</th>
+														<th class="hidden-480">Status</th>
 
-														<th class="center col-sm-3">操作</th>
+														<th class="center col-sm-3">Operating</th>
 													</tr>
 												</thead>
 
@@ -153,16 +153,16 @@
 														&times;
 													</button>
 													<h4 class="modal-title" id="myModalLabel">
-														虚拟机分配
+														Virtual Machine Allocation
 													</h4>
 												</div>
 												<div class="modal-body">
 													<form class="form-horizontal" role="form" id="assignUser">	
 														<div class="form-group">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>虚拟机选择</strong></label>							
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>Virtual Machine Selection</strong></label>							
 															<div class="col-sm-9">
 																<select  name="name"  data-placeholder="虚拟机">	
-																		<option value="">选择虚拟机</option>
+																		<option value="">Select virtual machine</option>
 																		{% for ds in inStanceList %}			
 																			<option value="{{ds.name}}">{{ds.name}}</option>
 																		{% endfor %}
@@ -171,7 +171,7 @@
 															</div>
 														</div>																
 														<div class="form-group">
-															<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> 用户</strong> </label>					
+															<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> User</strong> </label>					
 															<div class="col-sm-9">
 																<select name="username">																
 																{% for ds in userList %}
@@ -184,10 +184,10 @@
 													
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+													<button type="button" class="btn btn-default" data-dismiss="modal">shut down
 													</button>
 													<button type="button" class="btn btn-primary" onclick="assignVm(this,{{vmServer.id}},'assign')">
-														确认
+														confirm
 													</button>
 												</div>
 											</div><!-- /.modal-content -->
@@ -267,10 +267,10 @@
 				function snapshotInstance(obj,serverId,vmName,op){
 					var btnObj = $(obj);
 					btnObj.attr('disabled',true);
-					window.wxc.xcConfirm("请输入（"+vmName+"）快照名：", window.wxc.xcConfirm.typeEnum.input,{
+					window.wxc.xcConfirm("please enter("+vmName+") Snapshot name:", window.wxc.xcConfirm.typeEnum.input,{
 						onOk:function(result){
 							if (result.length == 0){
-								/* 如果没有输入字符串则直接退出 */
+								/* Exit without input string */
 								return;
 							};
 							$.ajax({
@@ -294,7 +294,7 @@
 								},
 					            error:function(response){
 					            	btnObj.removeAttr('disabled');
-					            	window.wxc.xcConfirm("请求数据错误！", window.wxc.xcConfirm.typeEnum.error);
+					            	window.wxc.xcConfirm("Request data error!", window.wxc.xcConfirm.typeEnum.error);
 					            },							  
 								});
 							
@@ -313,7 +313,7 @@
 					var value = form[i].value;	
 					idx = $.inArray(name, required);	
 					if (idx >= 0 && value.length == 0){
-						window.wxc.xcConfirm("请注意必填项不能为空~", window.wxc.xcConfirm.typeEnum.error);
+						window.wxc.xcConfirm("Please note that required fields cannot be empty~", window.wxc.xcConfirm.typeEnum.error);
 						return false;
 					}
 					else if(  value.length != 0 && name.length != 0 ){
@@ -325,9 +325,9 @@
 				server_data['vm_name'] = vmName;
 				$.ajax({
 					dataType: "JSON",
-					url:'/handleInstance/', //请求地址
-					type:"POST",  //提交类似
-					data:server_data,  //提交参数
+					url:'/handleInstance/', //Request address
+					type:"POST",  //Submit similar
+					data:server_data,  //Submit parameters
 					success:function(response){
 						btnObj.removeAttr('disabled');
 						if (response["code"] == 200){
@@ -349,28 +349,28 @@
 			var btnObj = $(obj);
 			btnObj.attr('disabled',true);
 			if ( op == 'start'){
-				var txt=  "是否确认启动？"
 			}
+				var txt=  "Is it sure to start?"
 			else if ( op == 'shutdown'){
-				var txt=  "是否确认关闭？"
 			}
+				var txt=  "Is it closed?"
 			else if( op == 'resume' ){
-				var txt=  "是否确认恢复？"
 			}
+				var txt=  "Do you confirm recovery?"
 			else if( op == 'suspend' ){
-				var txt=  "是否确认暂停？"
 			}			
+				var txt=  "Do you confirm the suspension?"
 			else if( op == 'halt' ){
-				var txt=  "是否确认强制关闭？"
 			}	
+				var txt=  "Is it mandatory to close?"
 			else if( op == 'delete' ){
-				var txt=  "是否确认删除？"
 			}
+				var txt=  "Are you sure to delete?"
 			else if( op == 'reboot' ){
-				var txt=  "是否确认重启？"
 			};				
+				var txt=  "Do you confirm the restart?"
 			var option = {
-					title: "操作主机("+vm_name+")",
+					title: "Operation host("+vm_name+")",
 					btn: parseInt("0011",2),
 					onOk: function(){
 						$.ajax({
@@ -393,7 +393,7 @@
 							},
 				            error:function(response){
 				            	btnObj.removeAttr('disabled');
-				            	window.wxc.xcConfirm("操作失败", window.wxc.xcConfirm.typeEnum.error);
+				            	window.wxc.xcConfirm("Operation failed", window.wxc.xcConfirm.typeEnum.error);
 				            },		
 							});
 					},
@@ -417,7 +417,7 @@
 				var value = form[i].value;
 				idx = $.inArray(name, required);
 				if (idx >= 0 && value.length == 0){
-					window.wxc.xcConfirm("请注意必填项不能为空~", window.wxc.xcConfirm.typeEnum.error);
+					window.wxc.xcConfirm("Please note that required fields cannot be empty~", window.wxc.xcConfirm.typeEnum.error);
 					btnObj.removeAttr('disabled');
 					return false;
 				}
@@ -429,9 +429,9 @@
 			server_data['server'] = server_id; 
 			$.ajax({
 				dataType: "JSON",
-				url:'/profile/', //请求地址
-				type:"POST",  //提交类似
-				data:server_data,  //提交参数
+				url:'/profile/', //Request address
+				type:"POST",  //Submit similar
+				data:server_data,  //Submit parameters
 				success:function(response){
 					btnObj.removeAttr('disabled');
 					if (response["code"] == 200){

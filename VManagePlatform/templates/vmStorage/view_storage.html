@@ -4,13 +4,13 @@
 		<div class="col-xs-12">
 			<h3 class="header smaller lighter blue">
 			<i class="icon-hand-right icon-animated-hand-pointer blue"></i>
-			{{ storage.pool_name }}存储池详情</h3>
+			{{ storage.pool_name }}Storage pool details</h3>
 			
 						<div class="col-sm-4">							
 							
 										<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 存储池名称 </div>
+													<div class="profile-info-name"> Storage pool name </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ storage.pool_name }}</span>
@@ -18,7 +18,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 类型 </div>
+													<div class="profile-info-name"> Types of </div>
 
 													<div class="profile-info-value">
 														<i class="icon-map-marker light-orange bigger-110"></i>
@@ -27,7 +27,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 状态</div>
+													<div class="profile-info-name"> Status</div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ storage.pool_active }}</span>
@@ -35,7 +35,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 容量(GB) </div>
+													<div class="profile-info-name"> capacity(GB) </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ storage.pool_size }}</span>
@@ -43,7 +43,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 剩余容量(GB)</div>
+													<div class="profile-info-name"> The remaining capacity(GB)</div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ storage.pool_available}}</span>
@@ -51,7 +51,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 使用率 </div>
+													<div class="profile-info-name"> Usage rate </div>
 
 													
 													<div class="profile-info-value ">
@@ -75,14 +75,14 @@
 												</div>
 												
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 存储路径 </div>
+													<div class="profile-info-name"> Storage path </div>
 													<div class="profile-info-value">
 														<span class="editable" >{{ storage.pool_path }}</span>
 													</div>
 												</div>	
 												
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 卷个数 </div>
+													<div class="profile-info-name"> Number of rolls </div>
 
 													<div class="profile-info-value">
 														<span class="editable badge badge-success">
@@ -92,7 +92,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 状态 </div>
+													<div class="profile-info-name"> Status </div>
 
 													<div class="profile-info-value">
 														<span class="editable">
@@ -112,10 +112,10 @@
 			<div class="tabbable">
 				<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
 					<li class="active">
-						<a data-toggle="tab" href="#dropdown14">卷列表</a>
+						<a data-toggle="tab" href="#dropdown14">Volume list</a>
 					</li>
 <!-- 					<li> -->
-<!-- 						<a data-toggle="tab" href="#profile4">添加卷</a> -->
+<!-- 						<a data-toggle="tab" href="#profile4">Add a volume</a> -->
 <!-- 					</li> -->
 				</ul>
 
@@ -124,7 +124,7 @@
 						<div id="profile4" class="tab-pane">
 								
 <!-- 										<p class="center"> -->
-<!-- 											<button type="button" class="btn btn-success btn-lg">+添加卷</button> -->
+<!-- 											<button type="button" class="btn btn-success btn-lg">+Add a volume</button> -->
 <!-- 										</p>																 -->
 								
 									
@@ -136,20 +136,20 @@
 		
 									<button class="btn btn-xs btn-success pull-left" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addVolumeModal">
 										<i class="icon-arrow-right icon-plus"></i>
-										<span class="bigger-110">添加卷</span>
+										<span class="bigger-110">Add a volume</span>
 									</button>
 								</div>
 													<div>
 														<table class="table table-striped table-bordered">
 															<thead>
 																<tr>
-																	<th class="center">序号</th>
-																	<th class="center">卷名称</th>
-																	<th class="center">类型</th>
-																	<th class="center">容量(GB)</th>
-																	<th class="center">使用容量(GB)</th>
-																	<th class="center">使用率</th>
-																	<th class="hidden-480 center">操作</th>
+																	<th class="center">No.</th>
+																	<th class="center">Volume name</th>
+																	<th class="center">Types of</th>
+																	<th class="center">capacity(GB)</th>
+																	<th class="center">Use capacity(GB)</th>
+																	<th class="center">Usage rate</th>
+																	<th class="hidden-480 center">operating</th>
 																</tr>
 															</thead>
 										
@@ -183,10 +183,10 @@
 																
 																	<td class="center">
 																		<button class="btn btn-primary btn-xs" onclick="onBtnHandleVolume(this,{{vmServer.id}},'{{storage.pool_name}}','{{ds.vol_name}}','clone')">
-																			克隆
+																			clone
 																		</button>
 																		<button class="btn btn-danger btn-xs" onclick="onBtnHandleVolume(this,{{vmServer.id}},'{{storage.pool_name}}','{{ds.vol_name}}','delete')">
-																			删除
+																			delete
 																		</button>
 																	</td>
 																</tr>
@@ -203,7 +203,7 @@
 																<span class="red">{{ storage.pool_vols|length }}</span>
 															</h4>
 														</div>
-														<div class="col-sm-7 pull-left"> 汇总信息 </div>
+														<div class="col-sm-7 pull-left"> Summary information </div>
 													</div>							
 																
 						</div>
@@ -220,7 +220,7 @@
 							&times;
 						</button>
 						<h4 class="modal-title" id="addVolumeModalLabel">
-							{{ storage.pool_name }}新增卷
+							{{ storage.pool_name }}New volume
 						</h4>
 					</div>
 					<div class="modal-body">
@@ -228,12 +228,12 @@
 						<form class="form-horizontal" id="addVolume">
 
 																<div class="form-group">
-																	<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email"><strong>卷类型:</strong></label>
+																	<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email"><strong>Volume type:</strong></label>
 						
 																	<div class="col-xs-12 col-sm-9">
 																		<div class="clearfix">
 																			<select id="vNetwork-select" name="vol_drive">
-																				<option value="">选择卷类型</option>
+																				<option value="">Select the volume type</option>
 																				<option value="qcow2">qcow2</option>	
 																				<option value="raw">raw</option>																		
 																			</select>
@@ -242,7 +242,7 @@
 																</div>																										
 						
 																<div class="form-group">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>卷名称:</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>Volume name:</strong></label>
 							
 																	<div class="col-sm-9">
 																		<input class="input-sm" type="text" id="form-field-6" placeholder="vm1.img" name="vol_name" />																																					
@@ -250,7 +250,7 @@
 																</div>																								
 
 																<div class="form-group">
-																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>容量(GB):</strong></label>
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-4"><strong>capacity(GB):</strong></label>
 							
 																	<div class="col-sm-9">
 																		<input class="input-sm" type="text" id="form-field-6" placeholder="20" name="vol_size" />																																					
@@ -266,10 +266,10 @@
 						
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						<button type="button" class="btn btn-default" data-dismiss="modal">shut down
 						</button>
 						<button type="button" class="btn btn-primary" onclick="addVolume(this,{{vmServer.id}},'{{ storage.pool_name }}','add')">
-							添加
+							Add to
 						</button>
 					</div>
 				</div><!-- /.modal-content -->
@@ -306,7 +306,7 @@
 				var value = form[i].value;	
 				idx = $.inArray(name, required);						
 				if (idx >= 0 && value.length == 0){
-					window.wxc.xcConfirm("请注意必填项不能为空~", window.wxc.xcConfirm.typeEnum.error);
+					window.wxc.xcConfirm("Please note that required fields cannot be empty~", window.wxc.xcConfirm.typeEnum.error);
 					return false;
 				};	
 				if ( idx >= 0 && value.length != 0 && name.length != 0 ){						
@@ -318,9 +318,9 @@
 			server_data['op'] = op;
 			$.ajax({
 				dataType: "JSON",
-				url:'/handleVolume/', //请求地址
-				type:"POST",  //提交类似
-				data:server_data,  //提交参数
+				url:'/handleVolume/', //Request address
+				type:"POST",  //Submit similar
+				data:server_data,  //Submit parameters
 				success:function(response){
 					if (response["code"] == 200){
 						window.wxc.xcConfirm(response["msg"], window.wxc.xcConfirm.typeEnum.success);
@@ -340,13 +340,13 @@
 		   function onBtnHandleVolume(obj, server_id,pool_name,volume_name,op){
 				var btnObj = $(obj);
 				if ( op == 'delete'){
-					var txt=  "是否确认删除("+ volume_name + ")？"
+					var txt=  "Confirm whether to delete("+ volume_name + ")？"
 				}
 				else if ( op == 'clone'){
-					var txt=  "是否确认克隆("+ volume_name + ")？"
+					var txt=  "Do you confirm cloning?("+ volume_name + ")？"
 				};				
 				var option = {
-						title: "操作主机("+'{{vmServer.hostname}}'+")",
+						title: "Operation host("+'{{vmServer.hostname}}'+")",
 						btn: parseInt("0011",2),
 						onOk: function(){
 							$.ajax({

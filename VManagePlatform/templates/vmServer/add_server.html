@@ -8,7 +8,7 @@
 			<div class="widget-header widget-header-large">
 					<h4>
 						<i class="icon-edit"></i>
-						添加管理主机
+						Add a management host
 					</h4>
 
 					<div class="widget-toolbar">
@@ -37,20 +37,20 @@
 						<fieldset>
 
 						<div class="form-group" >
-							 <label class="col-sm-2 control-label">主机名*</label>
+							 <label class="col-sm-2 control-label">CPU name*</label>
 							 <div class="col-sm-6">
-							 	<input type="text" class="form-control" name="hostname" placeholder="hostname" value="" title="请输入主机名称"  class="input-xlarge" required/>
+							 	<input type="text" class="form-control" name="hostname" placeholder="hostname" value="" title="Please enter the host name"  class="input-xlarge" required/>
 							 </div>
 						</div>
 						
 						<div class="form-group" >
-							 <label class="col-sm-2 control-label">主机地址*</label>
+							 <label class="col-sm-2 control-label">Host address*</label>
 							 <div class="col-sm-6">
-							 	<input type="text" class="form-control" name="server_ip" placeholder="Ip Address" value="" pattern="^(\d+\.\d+\.\d+\.\d+|[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?))$" title="请输入IP地址或者域名"  class="input-xlarge" required/>
+							 	<input type="text" class="form-control" name="server_ip" placeholder="Ip Address" value="" pattern="^(\d+\.\d+\.\d+\.\d+|[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(/.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+/.?))$" title="Please enter the IP address or domain name"  class="input-xlarge" required/>
 							 </div>
 						</div>				
 						<div class="form-group" >
-							 <label class="col-sm-2 control-label">虚拟化类型*</label>
+							 <label class="col-sm-2 control-label">VMType*</label>
 							 <div class="col-sm-6">
 								<select id="pool_type" name="vm_type" onchange="javascript:oBtLibvirtTypeSelect();">
 									<option value="1">TCP</option>
@@ -63,7 +63,7 @@
 						
 						<div class="form-group" style="display: none;" id="username">
 							<div class="form-group">
-								 <label class="col-sm-2 control-label">&nbsp;用户*</label>
+								 <label class="col-sm-2 control-label">&nbsp;User*</label>
 								 <div class="col-sm-6">
 								 <input type="text" class="form-control" name="username" placeholder="root"  class="input-xlarge" value="" />
 								 </div>
@@ -71,7 +71,7 @@
 	
 						
 							<div class="form-group">
-								 <label class="col-sm-2 control-label">&nbsp;密码*</label>
+								 <label class="col-sm-2 control-label">&nbsp;password*</label>
 								 <div class="col-sm-6">
 								 <input type="password" class="form-control" name="passwd" placeholder="root"  class="input-xlarge" value="" />
 								 </div>
@@ -83,8 +83,8 @@
 						<legend></legend>
 						<div class="form-group">
 						<label class="col-sm-3 control-label"></label>
-						<button type="button" id="add_host_submit" onclick="repealFromVaule(this)" class="btn btn-danger" >撤销操作</button>
-				 		<button type="submit" class="btn btn-primary" >确认提交</button>
+						<button type="button" id="add_host_submit" onclick="repealFromVaule(this)" class="btn btn-danger" >Undo operation</button>
+				 		<button type="submit" class="btn btn-primary" >confirm submission</button>
 				 		</div>
 				 		
 					</form>	

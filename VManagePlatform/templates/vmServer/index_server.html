@@ -2,9 +2,9 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>虚拟化管理平台</title>
+		<title>Virtualization management platform</title>
 		<meta name="keywords" content="虚拟化,管理" />
-		<meta name="description" content="虚拟化,管理,KVM" />
+		<meta name="description" content="Virtualization,management,KVM" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	    <script src="/static/js/jquery-1.11.1.min.js"></script>
 	    <script src="/static/js/jquery.form.js"></script>	
@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="/static/css/font-awesome.min.css" />
 		<!--   csrf -->
 		<script src="/static/js/csrf.js"></script>
-		<!--    弹窗开始样式 -->
+		<!--    Popup style -->
    		<script src="/static/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
    		<link rel="stylesheet" type="text/css" href="/static/css/xcConfirm.css"/>
 		<script src="/static/js/echarts.js"></script>
@@ -73,7 +73,7 @@
 					<a href="#" class="navbar-brand">
 						<small>
 							<i class="icon-leaf"></i>
-							虚拟化管理平台
+							Virtualization management platform
 						</small>
 					</a><!-- /.brand -->
 				</div><!-- /.navbar-header -->
@@ -88,7 +88,7 @@
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<img class="nav-user-photo" src="/static/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
-									<small>欢迎光临,</small>
+									<small>Welcome,</small>
 									{{ user.username }}
 								</span>
 
@@ -99,14 +99,14 @@
 								<li>
 									<a href="/profile">
 										<i class="icon-cog"></i>
-										设置
+										Settings
 									</a>
 								</li>
 
 								<li>
 									<a href="/profile">
 										<i class="icon-user"></i>
-										个人资料
+										personal information
 									</a>
 								</li>
 
@@ -115,7 +115,7 @@
 								<li>
 									<a href="/logout">
 										<i class="icon-off"></i>
-										退出
+										drop out
 									</a>
 								</li>
 							</ul>
@@ -174,14 +174,14 @@
 						<li class="active">
 							<a href="/">
 								<i class="icon-hand-left"></i>
-								<span class="menu-text"> 返回控制台 </span>
+								<span class="menu-text"> Return to the console </span>
 							</a>
 						</li>
 
 						<li class="active open">
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-desktop"></i>
-								<span class="menu-text"> 虚拟机管理器 </span>
+								<span class="menu-text"> Virtual Machine Manager </span>
 
 								<b class="arrow icon-angle-down"></b>
 							</a>
@@ -213,7 +213,7 @@
 						<li class="active open">
 							<a href="#" class="dropdown-toggle">
 								<i class=" icon-laptop"></i>
-								<span class="menu-text"> 虚拟机实例 </span>
+								<span class="menu-text"> Virtual machine instance </span>
 
 								<b class="arrow icon-angle-down"></b>
 							</a>
@@ -223,13 +223,13 @@
 								<li>
 									<a href="/listInstance/{{vmServer.id}}/">
 										<i class="icon-double-angle-right"></i>
-										管理实例
+										Management instance
 									</a>
 								</li>															
 								<li>
 									<a href="/addInstance/{{vmServer.id}}/">
 										<i class="icon-double-angle-right"></i>
-										创建实例
+										Create an instance
 									</a>
 								</li>	
 
@@ -240,7 +240,7 @@
 						<li>
 							<a href="/listStorage/{{vmServer.id}}/" class="dropdown-toggle">
 								<i class="icon-hdd"></i>
-								<span class="menu-text"> 存储池管理</span>
+								<span class="menu-text"> Storage pool management</span>
 
 								
 							</a>
@@ -249,7 +249,7 @@
 						<li>
 							<a href="/configNetwork/{{vmServer.id}}/" class="dropdown-toggle">
 								<i class="icon-globe"></i>
-								<span class="menu-text"> 网络管理</span>
+								<span class="menu-text"> Network management</span>
 
 								
 							</a>
@@ -319,20 +319,20 @@
 		<div class="col-xs-12">
 			<h3 class="header smaller lighter blue">
 			<i class="icon-hand-right icon-animated-hand-pointer blue"></i>
-			{{ vmServer.name }}详细信息</h3>
+			{{ vmServer.name }} Details</h3>
 			<div class="table-header"></div>		
 			<div class="tabbable">
 				<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
 					<li class="active">
-						<a data-toggle="tab" href="#home4">宿主机</a>
+						<a data-toggle="tab" href="#home4">Host machine</a>
 					</li>
 
 					<li>
-						<a data-toggle="tab" href="#profile4">存储池</a>
+						<a data-toggle="tab" href="#profile4">Storage pool</a>
 					</li>
 
 					<li>
-						<a data-toggle="tab" href="#dropdown14">实例</a>
+						<a data-toggle="tab" href="#dropdown14">Examples</a>
 					</li>
 				</ul>
 
@@ -342,7 +342,7 @@
 
 											<div class="profile-user-info profile-user-info-striped">
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 主机名称 </div>
+													<div class="profile-info-name"> Hostname </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ vmServer.name }}</span>
@@ -350,7 +350,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 管理IP </div>
+													<div class="profile-info-name"> ManagementIP </div>
 
 													<div class="profile-info-value">
 														<i class="icon-map-marker light-orange bigger-110"></i>
@@ -360,7 +360,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> CPU型号 </div>
+													<div class="profile-info-name"> CPU model </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ vmServer.cpu_model }}</span>
@@ -368,7 +368,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> CPU主频(mhz) </div>
+													<div class="profile-info-name"> CPU frequency(mhz) </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ vmServer.cpu_mhz }}</span>
@@ -376,7 +376,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 最大CPU数 </div>
+													<div class="profile-info-name"> The maximum number of CPUs </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ vmServer.cpu_total }}</span>
@@ -384,7 +384,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 内存容量(MB) </div>
+													<div class="profile-info-name"> MemoryCapacity(MB) </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ vmServer.mem }}</span>
@@ -392,14 +392,14 @@
 												</div>
 												
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 内存使用率 </div>
+													<div class="profile-info-name"> Memory usage </div>
 
 													<div class="profile-info-value ">
 														<span class="editable" >
 <!-- 															<div class="progress"> -->
 <!-- 																<div class="progress-bar" role="progressbar" aria-valuenow="60" -->
 <!-- 																	 aria-valuemin="0" aria-valuemax="100" style="width:40%;"> -->
-<!-- 																	<span class="sr-only ">40% 完成</span> -->
+<!-- 																	<span class="sr-only ">40% carry out</span> -->
 <!-- 																</div> -->
 <!-- 															</div>														 -->
 															{% if vmServer.mem_per > 90  %}
@@ -420,7 +420,7 @@
 												</div>	
 												
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 实例个数 </div>
+													<div class="profile-info-name"> Instance </div>
 
 													<div class="profile-info-value">
 														<span class="editable badge badge-success">
@@ -430,7 +430,7 @@
 												</div>
 
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 状态 </div>
+													<div class="profile-info-name"> Status </div>
 
 													<div class="profile-info-value">
 														<span class="editable">
@@ -444,7 +444,7 @@
 												</div>
 												
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 虚拟化类型</div>
+													<div class="profile-info-name"> VMType</div>
 
 													<div class="profile-info-value">
 														<span class="editable">{{ vmServer.type }}</span>
@@ -452,7 +452,7 @@
 												</div>																										
 												
 												<div class="profile-info-row">
-													<div class="profile-info-name"> 虚拟化版本</div>
+													<div class="profile-info-name"> Virtualized version</div>
 
 													<div class="profile-info-value">
 														<span class="editable">{{ vmServer.version }}</span>
@@ -470,7 +470,7 @@
 		
 									<button class="btn btn-xs btn-success pull-left" data-toggle="modal" data-target="#addPoolModal">
 										<i class="icon-arrow-right icon-plus"></i>
-										<span class="bigger-110">添加存储池</span>
+										<span class="bigger-110">Add a storage pool</span>
 									</button>
 							</div>				
 							
@@ -478,25 +478,25 @@
 						           <tbody>
 							                <tr>
 							                   	<td class="col-xs-1">
-							                      <strong>存储池名字	</strong>			                   	
+							                      <strong>Storage pool name	</strong>			                   	
 							                	</td>
 							                	<td >
-								                  <strong>容量大小(GB)	</strong>
+								                  <strong>Capacity size(GB)	</strong>
 							                	</td>
 							                	<td >
-								                  <strong>可用容量(GB)	</strong>
+								                  <strong>Available capacity(GB)	</strong>
 							                	</td>
 							                	<td class="center">
-								                  <strong>已使用	</strong>
+								                  <strong>Used	</strong>
 							                	</td>							                	
 							                	<td>
-								                  <strong>是否激活	</strong>
+								                  <strong>ActivateNow	</strong>
 							                	</td>
 							                	<td>
-								                  <strong>卷个数	</strong>
+								                  <strong>Number of rolls	</strong>
 							                	</td>			
 							                	<td class="center col-xs-1">
-								                  <strong>操作	</strong>
+								                  <strong>operating	</strong>
 							                	</td>					                			                							                						                	
 							                </tr>				           	
 						           		{% for ds in vmStorage %}				        
@@ -564,7 +564,7 @@
 		
 									<button class="btn btn-xs btn-success pull-left" onclick="window.location.href='/addInstance/{{vmServer.id}}/'">
 										<i class="icon-arrow-right icon-plus"></i>
-										<span class="bigger-110">新增实例</span>
+										<span class="bigger-110">Add an instance</span>
 									</button>
 							</div>	
 							
@@ -572,34 +572,34 @@
 						           <tbody>
 							                <tr>
 							                   	<td class="center">
-							                      <strong>实例名称	</strong>			                   	
+							                      <strong>InstanceName	</strong>			                   	
 							                	</td>
 							                	<td class="center">
-								                  <strong>CPU个数	</strong>
+								                  <strong>CPUNumber	</strong>
 							                	</td>
 							                	<td class="center">
-								                  <strong>内存容量(MB)	</strong>
+								                  <strong>MemoryCapacity(MB)	</strong>
 							                	</td>
 							                	<td>
-								                  <strong>内存使用率</strong>
+								                  <strong>Memory usage</strong>
 							                	</td>
 							                	<td class="center">
-								                  <strong>磁盘信息	</strong>
+								                  <strong>Disk information	</strong>
 							                	</td>	
 							                	<td class="center">
-								                  <strong> 网络接口	</strong>
+								                  <strong> Network Interface	</strong>
 							                	</td>	
 							                	<td class="center">
-								                  <strong>VNC端口 </strong>
+								                  <strong>VNCPort </strong>
 							                	</td>							                	
 							                	<td class="center">
-								                  <strong>ip地址</strong>
+								                  <strong>ipAddress</strong>
 							                	</td>					                	
 							                	<td class="center">
-								                  <strong>状态	</strong>
+								                  <strong>Status	</strong>
 							                	</td>					                					                			
 							                	<td>
-								                  <strong>操作	</strong>
+								                  <strong>operating	</strong>
 							                	</td>					                			                							                						                	
 							                </tr>				           	
 						           		{% for ds in vmInstance %}				        
@@ -638,19 +638,19 @@
 								                  <a href="#" id="disk_details_{{ds.name}}_{{ forloop.counter }}" class="link-popover" rel="popover" tabindex="0" data-trigger="focus" data-content="
 													<table class='table table-bordered'>
 														<tr>
-															<th>容量</th>
+															<th>capacity</th>
 															<td>{{ vd.disk_size }}</td>
 														</tr>
 														<tr>
-															<th>已用空间</th>
+															<th>Used space</th>
 															<td>{{ vd.disk_capacity }}</td>
 															</tr>
 														<tr>
-															<th>设备号</th>
+															<th>Device No</th>
 															<td>{{vd.disk_sn}}</td>
 														</tr>
 														<tr>
-															<th>使用率</th>
+															<th>Usage rate</th>
 															<td>																
 																<div class='progress  progress-striped' data-percent='{{ vd.disk_per }}%'>
 
@@ -665,11 +665,11 @@
 															</td>
 														</tr>														
 														<tr>
-															<th>磁盘路径</th>
+															<th>Disk path</th>
 															<td>{{ vd.disk_path}}</td>
 														</tr>
 														</table>
-													" data-original-title="{{ vd.disk_sn }}磁盘详情">{{ vd.disk_sn }}</a>
+													" data-original-title="{{ vd.disk_sn }}Disk details">{{ vd.disk_sn }}</a>
 													<br>
 												 {% endfor %}
 							                	</td>
@@ -691,7 +691,7 @@
 									                  		<br>
 									                  {% endfor %}
 													{% else %}
-	                                                    <code>未发现</code>
+	                                                    <code>Not found</code>
 	                                                {% endif %}
 							                	</td>								                					                						                
 							                	<td class="center">
@@ -716,39 +716,39 @@
 															<li>
 																<a href="/vnc/{{ vmServer.id }}/{{ ds.vnc }}/{{ ds.token }}/" target="_black">
 																<i class="icon-desktop bigger-120"></i>
-																控制台
+																Console
 																</a>
 															</li>	
 															<li class="divider"></li>											
 															<li>
 																<a  href="javascript:" onclick="onBtnHandleIns(this,{{ vmServer.id }},'{{ ds.name }}','start')">
 																<i class="icon-headphones bigger-120"></i>
-																启动
+																start up
 																</a>
 															</li>
 		
 															<li>
 																<a  href="javascript:" onclick="onBtnHandleIns(this,{{ vmServer.id }},'{{ ds.name }}','suspend')">
 																<i class="icon-pause bigger-120"></i>
-																暂停
+																time out
 																</a>
 															</li>
 															<li>
 																<a href="javascript:" onclick="onBtnHandleIns(this,{{ vmServer.id }},'{{ ds.name }}','resume')">
 																<i class="icon-play bigger-120"></i>
-																	恢复
+																	restore
 																</a>
 															</li>
 															<li>
 																<a href="javascript:" onclick="onBtnHandleIns(this,{{ vmServer.id }},'{{ ds.name }}','reboot')">
 																	<i class="icon-repeat bigger-120"></i>
-																	重启
+																	Reboot
 																</a>
 															</li>
 															<li>
 																<a href="javascript:" onclick="onBtnHandleIns(this,{{ vmServer.id }},'{{ ds.name }}','shutdown')">
 																	<i class="icon-stop bigger-120"></i>
-																	关闭
+																	shut down
 																</a>
 															</li>
 		
@@ -756,14 +756,14 @@
 															
 																<a  href="javascript:" onclick="onBtnHandleIns(this,{{ vmServer.id }},'{{ ds.name }}','halt')">
 																	<i class="icon-off bigger-120"></i>
-																	强制关闭
+																	Forced shutdown
 																</a>
 															</li>																										
 															<li class="divider"></li>
 															<li>
 																<a class="black" href="javascript:" onclick="snapshotInstance(this,{{ vmServer.id }},'{{ ds.name }}','add')">
 																	<i class="icon-camera bigger-120"></i>
-																	创建快照
+																	Create a snapshot
 																</a>		
 															</li>															
 															
@@ -771,7 +771,7 @@
 															<li>
 																<a  href="javascript:" onclick="onBtnHandleIns(this,{{ vmServer.id }},'{{ ds.name }}','delete')">
 																	<i class="icon-trash bigger-120"></i>
-																	删除主机
+																	Remove host
 																</a>
 															</li>
 														</ul>
@@ -801,7 +801,7 @@
 		
 			<h3 class="header smaller lighter blue">
 			<i class="icon-hand-right icon-animated-hand-pointer blue"></i>
-			{{ vmServer.name }}资源占比</h3>
+			{{ vmServer.name }}The proportion of resources</h3>
 			<div class="table-header"></div>	
 		
 		<div class="col-xs-4 col-sm-4 widget-container-span">
@@ -811,7 +811,7 @@
 				<div class="widget-header widget-header-large">
 					<h4>
 						<i class="icon-dashboard"></i>
-						实例状态
+						InstanceStatus
 					</h4>
 
 					<div class="widget-toolbar">
@@ -846,7 +846,7 @@
 				<div class="widget-header widget-header-large">
 					<h4>
 						<i class="icon-dashboard"></i>
-						CPU资源分配
+						CPU resource allocation
 					</h4>
 
 					<div class="widget-toolbar">
@@ -881,7 +881,7 @@
 				<div class="widget-header widget-header-large">
 					<h4>
 						<i class="icon-dashboard"></i>
-						内存资源分配
+						Memory resource allocation
 					</h4>
 
 					<div class="widget-toolbar">
@@ -948,28 +948,28 @@
 	   function onBtnHandleIns(obj, server_id,vm_name,op){
 			var btnObj = $(obj);
 			if ( op == 'start'){
-				var txt=  "是否确认启动？"
+				var txt=  "Is it sure to start?"
 			}
 			else if ( op == 'shutdown'){
-				var txt=  "是否确认关闭？"
+				var txt=  "Is it closed?"
 			}
 			else if( op == 'resume' ){
-				var txt=  "是否确认恢复？"
+				var txt=  "Do you confirm recovery?"
 			}
 			else if( op == 'suspend' ){
-				var txt=  "是否确认暂停？"
+				var txt=  "Do you confirm the suspension?"
 			}			
 			else if( op == 'halt' ){
-				var txt=  "是否确认强制关闭？"
+				var txt=  "Is it mandatory to close?"
 			}	
 			else if( op == 'reboot' ){
-				var txt=  "是否确认重启？"
+				var txt=  "Do you confirm the restart?"
 			}		
 			else if( op == 'delete' ){
-				var txt=  "是否确认删除？"
+				var txt=  "Are you sure to delete?"
 			};			
 			var option = {
-					title: "操作主机("+vm_name+")",
+					title: "Operation host("+vm_name+")",
 					btn: parseInt("0011",2),
 					onOk: function(){
 						$.ajax({
@@ -1003,10 +1003,10 @@
 		}		
 	   
 		function snapshotInstance(obj,serverId,vmName,op){
-			window.wxc.xcConfirm("请输入（"+vmName+"）快照名：", window.wxc.xcConfirm.typeEnum.input,{
+			window.wxc.xcConfirm("please enter("+vmName+") Snapshot name:", window.wxc.xcConfirm.typeEnum.input,{
 				onOk:function(result){
 					if (result.length == 0){
-						/* 如果没有输入字符串则直接退出 */
+						/* Exit without input string */
 						return;
 					};
 					$.ajax({
@@ -1028,7 +1028,7 @@
 					        	}						                
 						},
 			            error:function(response){
-			            	window.wxc.xcConfirm("请求数据错误！", window.wxc.xcConfirm.typeEnum.error);
+			            	window.wxc.xcConfirm("Request data error!", window.wxc.xcConfirm.typeEnum.error);
 			            },							  
 						});
 					
@@ -1039,13 +1039,13 @@
 	   function onBtnHandleStorage(obj, server_id,server_ip,pool_name,op){
 			var btnObj = $(obj);
 			if ( op == 'delete'){
-				var txt=  "是否确认删除？"
+				var txt=  "Are you sure to delete?"
 			}
 			else if ( op == 'disable'){
-				var txt=  "是否确认禁用？"
+				var txt=  "Is it confirmed to be disabled?"
 			};				
 			var option = {
-					title: "操作主机("+server_ip+")",
+					title: "Operation host("+server_ip+")",
 					btn: parseInt("0011",2),
 					onOk: function(){
 						$.ajax({
@@ -1123,7 +1123,7 @@
 				    ],
 				    series: [
 				        {
-				            name: '运行状态统计',
+				            name: 'RunningInstanceStatus',
 				            type: 'bar',
 				            itemStyle: {
 				                normal: {
@@ -1216,7 +1216,7 @@
 			    calculable : true,
 			    series : [
 			        {
-			            name:'cpu个数',
+			            name:'cpuNumber',
 			            type:'pie',
 			            radius : '55%',
 			            center: ['50%', '60%'],
@@ -1229,7 +1229,7 @@
 			};
 			                                    	   
 	   myChart.setOption(cpuOption);
-	   /* 内存  */
+	   /* RAM  */
 
 	   var myChart = echarts.init(document.getElementById('memView')); 
 	   memOption = {
@@ -1302,11 +1302,11 @@
 												<i class="icon-sitemap"></i>
 												404
 											</span>
-											主机链接连接失败
+											Host link connection failed
 										</h1>
 
 										<hr />
-										<h3 class="lighter smaller">尝试链接Libvirt远程服务器，发现连接失败...</h3>
+										<h3 class="lighter smaller">Tried to link Libvirt remote server and found connection failed...</h3>
 
 										<div>
 											<form class="form-search">
@@ -1319,25 +1319,25 @@
 											</form>
 
 											<div class="space"></div>
-											<h4 class="smaller">尝试检查一下操作:</h4>
+											<h4 class="smaller">Try to check the operation:</h4>
 
 											<ul class="list-unstyled spaced inline bigger-110 margin-15">
 												<li>
 													<i class="icon-hand-right blue"></i>
-													Libvirt已经启动
+													Libvirt has started
 												</li>
 												<li>
 													<i class="icon-hand-right blue"></i>
-													Libvirt远程配置正确
+													Libvirt remote configuration is correct
 												</li>
 												<li>
 													<i class="icon-hand-right blue"></i>
-													Libvirt已配置允许远程访问
+													Libvirt is configured to allow remote access
 												</li>
 
 												<li>
 													<i class="icon-hand-right blue"></i>
-													Libvirt已经开放防火墙端口
+													Libvirt has open firewall ports
 												</li>
 											</ul>
 										</div>
@@ -1348,12 +1348,12 @@
 										<div class="center">
 											<a href="#" class="btn btn-grey">
 												<i class="icon-arrow-left"></i>
-												返回
+												return
 											</a>
 
 											<a href="/listServer" class="btn btn-primary">
 												<i class="icon-dashboard"></i>
-												主页
+												Homepage
 											</a>
 										</div>
 									</div>
@@ -1368,7 +1368,7 @@
 														&times;
 													</button>
 													<h4 class="modal-title" id="addPoolModalLabel">
-														{{ vmServer.hostname }}添加存储池
+														{{ vmServer.hostname }}Add a storage pool
 													</h4>
 												</div>
 												<div class="modal-body">
@@ -1378,7 +1378,7 @@
 														<div class="form-group">
 															<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
 																 <strong>
-																 	虚拟管理器
+																 	Virtual Manager
 																 </strong> 
 															</label>
 					
@@ -1391,7 +1391,7 @@
 														</div>
 					
 														<div class="form-group">
-															<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> 类型</strong> </label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> Types of</strong> </label>
 					
 															<div class="col-sm-9">
 																<select id="pool_type" name="pool_type" onchange="javascript:oBtStorageTypeSelect();">
@@ -1407,7 +1407,7 @@
 														</div>
 					
 														<div class="form-group">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>名称</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>name</strong></label>
 					
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_name" placeholder="Name" value=""/>											
@@ -1415,28 +1415,28 @@
 															</div>
 														</div>
 														<div class="form-group" style="display: none;" id="div_pool_host">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>主机地址</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Host address</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_host" placeholder="host address" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>	
 														<div class="form-group" style="display: none;" id="div_pool_logical">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>设备地址</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Device address</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="/dev/sdb1" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>										
 														<div class="form-group" style="display: none;" id="div_pool_disk">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>磁盘路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Disk path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="/dev/sdb" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>		
 														<div class="form-group" style="display: none;" id="div_pool_iscsi">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>ISCSI路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>ISCSI path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="iqn.2013-06.com.example:iscsi-pool" value="" />											
 																<div class="space-2"></div>									
@@ -1450,14 +1450,14 @@
 															</div>
 														</div>																	
 														<div class="form-group" style="display:none;" id="div_pool_spath">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>原路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Original path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="/path/" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>																			
 														<div class="form-group" id="div_pool_tpath">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>存储路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Storage path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_tpath" placeholder="/path/" value="" />											
 																<div class="space-2"></div>									
@@ -1469,10 +1469,10 @@
 													
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+													<button type="button" class="btn btn-default" data-dismiss="modal">shut down
 													</button>
 													<button type="button" class="btn btn-primary" onclick="addVmStorage(this)">
-														添加
+														Add to
 													</button>
 												</div>
 											</div><!-- /.modal-content -->
@@ -1496,33 +1496,33 @@
 									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
 								</select>
 							</div>
-							<span>&nbsp; 选择皮肤</span>
+							<span>&nbsp; Select skin</span>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
-							<label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
+							<label class="lbl" for="ace-settings-navbar"> Fixed navigation bar</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
-							<label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
+							<label class="lbl" for="ace-settings-sidebar"> Fixed slider</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
-							<label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
+							<label class="lbl" for="ace-settings-breadcrumbs">Fixed bread crumbs</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
-							<label class="lbl" for="ace-settings-rtl">切换到左边</label>
+							<label class="lbl" for="ace-settings-rtl">Switch to the left</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
 							<label class="lbl" for="ace-settings-add-container">
-								切换窄屏
+								Switch narrow screen
 								<b></b>
 							</label>
 						</div>
@@ -1565,9 +1565,9 @@
 				};
 				$.ajax({
 					dataType: "JSON",
-					url:'/addStorage/{{vmServer.id}}/', //请求地址
-					type:"POST",  //提交类似
-					data:server_data,  //提交参数
+					url:'/addStorage/{{vmServer.id}}/', //Request address
+					type:"POST",  //Submit similar
+					data:server_data,  //Submit parameters
 					success:function(response){
 						btnObj.removeAttr('disabled');
 						if (response["code"] == 200){
@@ -1588,8 +1588,8 @@
 		<script type="text/javascript"> 
 			function getLogsMsg () {
 				$.ajax({
-					url:'/api/log/{{user}}/', //请求地址
-					type:"GET",  //提交类似
+					url:'/api/log/{{user}}/', //Request address
+					type:"GET",  //Submit similar
 					success:function(response){
 						if (response.length > 0 ){						
 								var newStr = '<a data-toggle="dropdown" class="dropdown-toggle" href="#">' +
@@ -1598,12 +1598,12 @@
 										     '</a>' +
 											 '<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">' +
 												'<li class="dropdown-header">' +
-													'<i class="icon-warning-sign"></i>' + response.length + '条通知' +												
+													'<i class="icon-warning-sign"></i>' + response.length + 'Notice' +												
 												'</li>'
 								for (var i=0;i< response.length;i++)
 									{
 										if ( response[i]['status'] == 0 ){
-											status = '<span class="pull-right badge badge-success">成功</span></div></a></li>'
+											status = '<span class="pull-right badge badge-success">Success</span></div></a></li>'
 										}
 										else{
 											status = '<span class="pull-right badge badge-danger">失败</span></div></a></li>'
@@ -1614,7 +1614,7 @@
 														'</span>' + status
 								};
 								newStr +=  '<li> ' +
-											 '<a href="/profile/#messages">查看所有消息' +
+											 '<a href="/profile/#messages">See all messages' +
 											   '<i class="icon-arrow-right"></i>' +
 											 '</a>' +
 										   '</li>' +
@@ -1628,11 +1628,11 @@
 			function readLogsMsg(obj,id) {
 				$.ajax({
 					dataType: "JSON",
-					url:'/api/logs/'+ id +'/', //请求地址
-					type:"PUT",  //提交类似
+					url:'/api/logs/'+ id +'/', //Request address
+					type:"PUT",  //Submit similar
 					data:{
 						'isRead':1,
-					}, //提交参数
+					}, //Submit parameters
 					success:function(response){
 						getLogsMsg ();
 					}

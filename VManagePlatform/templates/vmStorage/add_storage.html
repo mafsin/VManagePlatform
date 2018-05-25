@@ -11,7 +11,7 @@
 											<div class="widget-header widget-header-large">
 												<h4>
 													<i class="icon-edit"></i>
-													添加存储池
+													Add a storage pool
 												</h4>
 
 												<div class="widget-toolbar">
@@ -39,7 +39,7 @@
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
 											 <strong>
-											 	虚拟管理器
+											 	Virtual Manager
 											 </strong> 
 										</label>
 
@@ -52,7 +52,7 @@
 									</div>
 
 									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> 类型</strong> </label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> Types of</strong> </label>
 
 										<div class="col-sm-9">
 											<select id="pool_type" name="pool_type" onchange="javascript:oBtStorageTypeSelect();">
@@ -68,7 +68,7 @@
 									</div>
 
 									<div class="form-group">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>名称</strong></label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>name</strong></label>
 
 										<div class="col-sm-9">
 											<input class="input-sm" type="text" name="pool_name" placeholder="Name" value=""/>											
@@ -76,28 +76,28 @@
 										</div>
 									</div>
 									<div class="form-group" style="display: none;" id="div_pool_host">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>主机地址</strong></label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Host address</strong></label>
 										<div class="col-sm-9">
 											<input class="input-sm" type="text" name="pool_host" placeholder="host address" value="" />											
 											<div class="space-2"></div>									
 										</div>
 									</div>	
 									<div class="form-group" style="display: none;" id="div_pool_logical">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>设备地址</strong></label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Device address</strong></label>
 										<div class="col-sm-9">
 											<input class="input-sm" type="text" name="pool_spath" placeholder="/dev/sdb1" value="" />											
 											<div class="space-2"></div>									
 										</div>
 									</div>										
 									<div class="form-group" style="display: none;" id="div_pool_disk">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>磁盘路径</strong></label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Disk path</strong></label>
 										<div class="col-sm-9">
 											<input class="input-sm" type="text" name="pool_spath" placeholder="/dev/sdb" value="" />											
 											<div class="space-2"></div>									
 										</div>
 									</div>		
 									<div class="form-group" style="display: none;" id="div_pool_iscsi">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>ISCSI路径</strong></label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>ISCSI path</strong></label>
 										<div class="col-sm-9">
 											<input class="input-sm" type="text" name="pool_spath" placeholder="iqn.2013-06.com.example:iscsi-pool" value="" />											
 											<div class="space-2"></div>									
@@ -111,14 +111,14 @@
 										</div>
 									</div>																	
 									<div class="form-group" style="display:none;" id="div_pool_spath">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>原路径</strong></label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Original path</strong></label>
 										<div class="col-sm-9">
 											<input class="input-sm" type="text" name="pool_spath" placeholder="/path/" value="" />											
 											<div class="space-2"></div>									
 										</div>
 									</div>																			
 									<div class="form-group" id="div_pool_tpath">
-										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>存储路径</strong></label>
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Storage path</strong></label>
 										<div class="col-sm-9">
 											<input class="input-sm" type="text" name="pool_tpath" placeholder="/path/" value="" />											
 											<div class="space-2"></div>									
@@ -131,13 +131,13 @@
 										<div class="col-md-offset-3 col-md-9">
 											<button class="btn btn-info" type="button" onclick="addVmStorage(this)">
 												<i class="icon-ok bigger-110"></i>
-												提交
+												submit
 											</button>
 
 											&nbsp; &nbsp; &nbsp;
 											<button class="btn" type="reset">
 												<i class="icon-undo bigger-110"></i>
-												撤销
+												Undo
 											</button>
 										</div>
 									</div>						
@@ -233,9 +233,9 @@
 				};
 				$.ajax({
 					dataType: "JSON",
-					url:'/addStorage/', //请求地址
-					type:"POST",  //提交类似
-					data:server_data,  //提交参数
+					url:'/addStorage/', //Request address
+					type:"POST",  //Submit similar
+					data:server_data,  //Submit parameters
 					success:function(response){
 						if (response["code"] == 200){
 							window.wxc.xcConfirm(response["msg"], window.wxc.xcConfirm.typeEnum.success);

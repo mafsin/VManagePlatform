@@ -7,15 +7,15 @@
 									
 										<botton class="btn btn-primary  pull-right" data-toggle="modal" data-target="#addPoolModal">
 											<i class="icon-arrow-right icon-plus"></i>
-													新增储存池
+													New storage pool
 										</botton>
 									
 										<h3 class="header smaller lighter blue">
 										<i class="icon-hand-right icon-animated-hand-pointer blue"></i>
-										{{ vmServer.hostname }}存储池详情</h3>
+										{{ vmServer.hostname }}Storage pool details</h3>
 										
 										<div class="table-header">
-											当前可操作的存储池
+											Currently operational storage pool
 										</div>
 
 										<div class="table-responsive">
@@ -27,20 +27,20 @@
 																<input type="checkbox" class="ace" />
 																<span class="lbl"></span>
 															</label>
-															存储池名
+															Storage pool name
 														</th>
-														<th>类型</th>
-														<th>容量(GB)</th>
-														<th class="hidden-480">使用率(%)</th>
+														<th>Types of</th>
+														<th>capacity(GB)</th>
+														<th class="hidden-480">Usage rate(%)</th>
 
 														<th>
 															<i class="icon-time bigger-110 hidden-480"></i>
-															卷个数
+															Number of rolls
 														</th>
 
-														<th class="hidden-480">状态</th>
+														<th class="hidden-480">Status</th>
 
-														<th class="col-sm-2 center">操作</th>
+														<th class="col-sm-2 center">operating</th>
 													</tr>
 												</thead>
 
@@ -121,7 +121,7 @@
 														&times;
 													</button>
 													<h4 class="modal-title" id="addPoolModalLabel">
-														{{ vmServer.hostname }}添加存储池
+														{{ vmServer.hostname }}Add a storage pool
 													</h4>
 												</div>
 												<div class="modal-body">
@@ -131,7 +131,7 @@
 														<div class="form-group">
 															<label class="col-sm-3 control-label no-padding-right" for="form-field-1">
 																 <strong>
-																 	虚拟管理器
+																 	Virtual Manager
 																 </strong> 
 															</label>
 					
@@ -144,7 +144,7 @@
 														</div>
 					
 														<div class="form-group">
-															<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> 类型</strong> </label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"><strong> Types of</strong> </label>
 					
 															<div class="col-sm-9">
 																<select id="pool_type" name="pool_type" onchange="javascript:oBtStorageTypeSelect();">
@@ -160,7 +160,7 @@
 														</div>
 					
 														<div class="form-group">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>名称</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>name</strong></label>
 					
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_name" placeholder="Name" value=""/>											
@@ -168,28 +168,28 @@
 															</div>
 														</div>
 														<div class="form-group" style="display: none;" id="div_pool_host">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>主机地址</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Host address</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_host" placeholder="host address" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>	
 														<div class="form-group" style="display: none;" id="div_pool_logical">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>设备地址</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Device address</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="/dev/sdb1" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>										
 														<div class="form-group" style="display: none;" id="div_pool_disk">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>磁盘路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Disk path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="/dev/sdb" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>		
 														<div class="form-group" style="display: none;" id="div_pool_iscsi">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>ISCSI路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>ISCSI path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="iqn.2013-06.com.example:iscsi-pool" value="" />											
 																<div class="space-2"></div>									
@@ -203,14 +203,14 @@
 															</div>
 														</div>																	
 														<div class="form-group" style="display:none;" id="div_pool_spath">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>原路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Original path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_spath" placeholder="/path/" value="" />											
 																<div class="space-2"></div>									
 															</div>
 														</div>																			
 														<div class="form-group" id="div_pool_tpath">
-															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>存储路径</strong></label>
+															<label class="col-sm-3 control-label no-padding-right" for="form-field-3"><strong>Storage path</strong></label>
 															<div class="col-sm-9">
 																<input class="input-sm" type="text" name="pool_tpath" placeholder="/path/" value="" />											
 																<div class="space-2"></div>									
@@ -222,10 +222,10 @@
 													
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+													<button type="button" class="btn btn-default" data-dismiss="modal">shut down
 													</button>
 													<button type="button" class="btn btn-primary" onclick="addVmStorage(this)">
-														添加
+														Add to
 													</button>
 												</div>
 											</div><!-- /.modal-content -->
@@ -331,9 +331,9 @@
 				};
 				$.ajax({
 					dataType: "JSON",
-					url:'/addStorage/{{vmServer.id}}/', //请求地址
-					type:"POST",  //提交类似
-					data:server_data,  //提交参数
+					url:'/addStorage/{{vmServer.id}}/', //Request address
+					type:"POST",  //Submit similar
+					data:server_data,  //Submit parameters
 					success:function(response){
 						btnObj.removeAttr('disabled');
 						if (response["code"] == 200){
@@ -389,16 +389,16 @@
 	   function onBtnHandleStorage(obj, server_id,server_ip,pool_name,op){
 			var btnObj = $(obj);
 			if ( op == 'delete'){
-				var txt=  "是否确认删除？"
+				var txt=  "Are you sure to delete?"
 			}
 			else if ( op == 'disable'){
-				var txt=  "是否确认禁用？"
+				var txt=  "Is it confirmed to be disabled?"
 			}
 			else if ( op == 'refresh'){
-				var txt=  "是否确认刷新？"
+				var txt=  "Do you confirm the refresh?"
 			}			;				
 			var option = {
-					title: "操作主机("+server_ip+")",
+					title: "Operation host("+server_ip+")",
 					btn: parseInt("0011",2),
 					onOk: function(){
 						$.ajax({

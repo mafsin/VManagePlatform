@@ -9,7 +9,7 @@
 													<button type="button" class="close" data-dismiss="alert">&times;</button>
 													&nbsp;
 													<div class="inline middle blue bigger-110"> <i class="icon-wrench icon-animated-wrench bigger-150"></i>
-													&nbsp;{{ user.username }},&nbsp;<strong>用户中心</strong> </div>
+													&nbsp;{{ user.username }},&nbsp;<strong>UserCenter</strong> </div>
 	
 													&nbsp; &nbsp; &nbsp;
 													
@@ -19,21 +19,21 @@
 												<li class="active">
 													<a data-toggle="tab" href="#vm">
 														<i class="pink  icon-bullhorn bigger-110"></i>
-														我的虚拟机
+														My virtual machine
 													</a>
 												</li>
 
 												<li >
 													<a data-toggle="tab" href="#messages">
 														<i class="orange  icon-rss bigger-110"></i>
-														消息中心
+														Message Center
 													</a>
 												</li>
 
 												<li>
 													<a data-toggle="tab" href="#password">
 														<i class="blue icon-key"></i>
-														修改密码
+														Change Password
 													</a>
 												</li>
 											</ul>
@@ -41,22 +41,22 @@
 											<div class="tab-content">
 												<div id="vm" class="tab-pane in active">
 													<div class="table-header">
-														当前所拥有的虚拟机实例
+														Current owned virtual machine instance
 													</div>
 														<div class="table-responsive">
 															<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 																<thead>
 																	<tr>
-																		<th>宿主机</th>
-																		<th>实例名称</th>
+																		<th>Host machine</th>
+																		<th>InstanceName</th>
 																		<th>CPU</th>			
 																		<th>
 																			<i class="icon-time bigger-110"></i>
-																			内存(MB)
+																			RAM(MB)
 																		</th>
-																		<th>IP地址</th>				
-																		<th>状态</th>			
-																		<th>操作</th>
+																		<th>IPAddress</th>				
+																		<th>Status</th>			
+																		<th>Operating</th>
 																	</tr>
 																</thead>
 				
@@ -188,7 +188,7 @@
 													<div class="center">
 														<a href="javascript:" onclick="viewMoreLogs(this,'{{user}}','viewlog')" class="btn btn-small btn-primary" >
 															<i class="icon-rss bigger-150 middle"></i>
-															查看更多消息
+															See more news
 															<i class="icon-on-right icon-arrow-right"></i>
 														</a>
 													</div>
@@ -198,7 +198,7 @@
 													<div class="space-10"></div>
 														<form role="form" method="post" id="modfPassword" class="main form-horizontal">{% csrf_token %}
 															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">新密码</label>
+																<label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">New password</label>
 
 																<div class="col-sm-9">
 																	<input type="password" name='n_pwd' />
@@ -208,7 +208,7 @@
 															<div class="space-4"></div>
 
 															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">确认密码</label>
+																<label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Confirm password</label>
 
 																<div class="col-sm-9">
 																	<input type="password" name='c_pwd' />
@@ -219,13 +219,13 @@
 																	<div class="col-md-offset-3 col-md-9">
 																		<button class="btn btn-info" type="button" onclick="modAccoutPassword(this,'{{user}}','password')">
 																			<i class="icon-ok bigger-110"></i>
-																			提交
+																			Submit
 																		</button>
 							
 																		&nbsp; &nbsp; &nbsp;
 																		<button class="btn" type="reset">
 																			<i class="icon-undo bigger-110"></i>
-																			撤销
+																			Undo
 																		</button>
 																	</div>
 																</div>
@@ -278,28 +278,28 @@
 			function onBtnHandleIns(obj, server_id,vm_name,op){
 				var btnObj = $(obj);
 				if ( op == 'start'){
-					var txt=  "是否确认启动？"
+					var txt=  "Is it sure to start?"
 				}
 				else if ( op == 'shutdown'){
-					var txt=  "是否确认关闭？"
+					var txt=  "Is it closed?"
 				}
 				else if( op == 'resume' ){
-					var txt=  "是否确认恢复？"
+					var txt=  "Do you confirm recovery?"
 				}
 				else if( op == 'suspend' ){
-					var txt=  "是否确认暂停？"
+					var txt=  "Do you confirm the suspension?"
 				}			
 				else if( op == 'halt' ){
-					var txt=  "是否确认强制关闭？"
+					var txt=  "Is it mandatory to close?"
 				}	
 				else if( op == 'delete' ){
-					var txt=  "是否确认删除？"
+					var txt=  "Are you sure to delete?"
 				}
 				else if( op == 'reboot' ){
-					var txt=  "是否确认重启？"
+					var txt=  "Do you confirm the restart?"
 				};				
 				var option = {
-						title: "操作主机("+vm_name+")",
+						title: "Operation host("+vm_name+")",
 						btn: parseInt("0011",2),
 						onOk: function(){
 							$.ajax({
@@ -319,7 +319,7 @@
 							        	}						                
 								},
 					            error:function(response){
-					            	window.wxc.xcConfirm("操作失败", window.wxc.xcConfirm.typeEnum.error);
+					            	window.wxc.xcConfirm("Operation failed", window.wxc.xcConfirm.typeEnum.error);
 					            },		
 								});
 						},
@@ -342,7 +342,7 @@
 					var value = form[i].value;	
 					idx = $.inArray(name, required);	
 					if (idx >= 0 && value.length == 0){
-						window.wxc.xcConfirm("请注意必填项不能为空~", window.wxc.xcConfirm.typeEnum.error);
+						window.wxc.xcConfirm("Please note that required fields cannot be empty~", window.wxc.xcConfirm.typeEnum.error);
 						btnObj.removeAttr('disabled');
 						return false;
 					}
@@ -354,9 +354,9 @@
 				server_data['username'] = user;
 				$.ajax({
 					dataType: "JSON",
-					url:'/profile/', //请求地址
-					type:"POST",  //提交类似
-					data:server_data,  //提交参数
+					url:'/profile/', //Request address
+					type:"POST",  //Submit similar
+					data:server_data,  //Submit parameters
 					success:function(response){
 						btnObj.removeAttr('disabled');
 						if (response["code"] == 200){
@@ -385,9 +385,9 @@
 				server_data['count'] = logCount;
 				$.ajax({
 					dataType: "JSON",
-					url:'/profile/', //请求地址
-					type:"POST",  //提交类似
-					data:server_data,  //提交参数
+					url:'/profile/', //Request address
+					type:"POST",  //Submit similar
+					data:server_data,  //Submit parameters
 					success:function(response){
 						btnObj.removeAttr('disabled');
 						if (response["code"] == 200){
@@ -438,8 +438,8 @@
 			function deleteLogsMsg(obj,id) {
 				$.ajax({
 					dataType: "JSON",
-					url:'/api/logs/'+ id +'/', //请求地址
-					type:"DELETE",  //提交类似
+					url:'/api/logs/'+ id +'/', //Request address
+					type:"DELETE",  //Submit similar
 					success:function(response){
 						var str= 'logMsg-' + id
 						document.getElementById(str).innerHTML = ''; 

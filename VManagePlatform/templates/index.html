@@ -2,9 +2,9 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>虚拟化管理平台</title>
-		<meta name="keywords" content="虚拟化,管理" />
-		<meta name="description" content="虚拟化,管理,KVM" />
+		<title>Virtualization management platform</title>
+		<meta name="keywords" content="Virtualization, Management" />
+		<meta name="description" content="Virtualization, Management, KVM" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	    <script src="/static/js/jquery-1.11.1.min.js"></script>
 	    <script src="/static/js/jquery.form.js"></script>	
@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="/static/css/font-awesome.min.css" />
 		<!--   csrf -->
 		<script src="/static/js/csrf.js"></script>
-		<!--    弹窗开始样式 -->
+		<!--    Popup style -->
    		<script src="/static/js/xcConfirm.js" type="text/javascript" charset="utf-8"></script>
    		<link rel="stylesheet" type="text/css" href="/static/css/xcConfirm.css"/>
 		<script src="/static/js/echarts.js"></script>
@@ -79,7 +79,7 @@
 					<a href="#" class="navbar-brand">
 						<small>
 							<i class="icon-leaf"></i>
-							虚拟化管理平台
+							Virtualization management platform
 						</small>
 					</a><!-- /.brand -->
 				</div><!-- /.navbar-header -->
@@ -92,7 +92,7 @@
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<img class="nav-user-photo" src="/static/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
-									<small>欢迎光临,</small>
+									<small>Welcome,</small>
 									{{ user.username }}
 								</span>
 
@@ -103,14 +103,14 @@
 								<li>
 									<a href="/profile">
 										<i class="icon-cog"></i>
-										设置
+										Settings
 									</a>
 								</li>
 
 								<li>
 									<a href="/profile">
 										<i class="icon-user"></i>
-										个人资料
+										Personal information
 									</a>
 								</li>
 
@@ -119,7 +119,7 @@
 								<li>
 									<a href="/logout">
 										<i class="icon-off"></i>
-										退出
+										Drop out
 									</a>
 								</li>
 							</ul>
@@ -178,14 +178,14 @@
 						<li class="active">
 							<a href="/">
 								<i class="icon-dashboard"></i>
-								<span class="menu-text"> 控制台 </span>
+								<span class="menu-text"> Console </span>
 							</a>
 						</li>
 
 						<li>
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-desktop"></i>
-								<span class="menu-text"> 虚拟机管理器 </span>
+								<span class="menu-text"> Virtual Machine Manager </span>
 
 								<b class="arrow icon-angle-down"></b>
 							</a>
@@ -194,7 +194,7 @@
 									<li>
 										<a href="/listServer">
 												<i class="icon-leaf"></i>
-												主机列表
+												Host list
 										</a>
 									</li>
 								
@@ -203,7 +203,7 @@
 									<li>
 										<a href="/addServer">
 											<i class="icon-leaf"></i>
-												添加主机
+												Add host
 										</a>
 									</li>
 															
@@ -217,7 +217,7 @@
 						<li>
 							<a href="/tempInstance" class="dropdown-toggle">
 								<i class="icon-resize-small"></i>
-								<span class="menu-text"> 实例模板 </span>
+								<span class="menu-text"> Instance template </span>
 							</a>
 						</li>
 
@@ -233,7 +233,7 @@
 						<li>
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-cogs"></i>
-								<span class="menu-text"> 任务调度 </span>
+								<span class="menu-text"> Task scheduling </span>
 								<b class="arrow icon-angle-down"></b>
 							</a>
 
@@ -241,13 +241,13 @@
 									<li>
 										<a href="/configTask">
 												<i class="icon-leaf"></i>
-												配置中心
+												Configuration Center
 										</a>
 									</li>						
 									<li>
 										<a href="/viewTask">
 											<i class="icon-leaf"></i>
-												运行日志
+												Run log
 										</a>
 									</li>																		
 							</ul>
@@ -256,7 +256,7 @@
 						<li>
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-group"></i>
-								<span class="menu-text"> 账户管理 </span>
+								<span class="menu-text"> Account management </span>
 								<b class="arrow icon-angle-down"></b>
 							</a>
 
@@ -264,13 +264,13 @@
 									<li>
 										<a href="/user/">
 												<i class="icon-leaf"></i>
-												用户
+												User
 										</a>
 									</li>						
 									<li>
 										<a href="/group/">
 											<i class="icon-leaf"></i>
-												用户组
+												UserGroup
 										</a>
 									</li>																		
 							</ul>
@@ -279,7 +279,7 @@
 						<li>
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-user"></i>
-								<span class="menu-text"> 用户中心 </span>
+								<span class="menu-text"> UserCenter </span>
 
 								<b class="arrow icon-angle-down"></b>
 							</a>
@@ -288,14 +288,14 @@
 								<li>
 									<a href="/profile">
 										<i class="icon-double-angle-right"></i>
-										用户中心
+										UserCenter
 									</a>
 								</li>
 								
 								<li>
 									<a href="/logout">
 										<i class="icon-double-angle-right"></i>
-										退出
+										Drop out
 									</a>
 								</li>
 							</ul>
@@ -362,12 +362,12 @@
 
 									<i class="icon-ok green"></i>
 
-									欢迎使用
+									Welcome
 									<strong class="green">
-										虚拟化后台管理系统
+										Virtualized background management system
 										<small>(v1.1)</small>
 									</strong>
-									,轻量级快速好用.	
+									,Lightweight fast and easy to use.	
 								</div>
 
 								<div class="row">
@@ -389,7 +389,7 @@
 							                <div class="panel-footer announcement-bottom">
 							                  <div class="row">
 							                    <div class="col-xs-6">
-							                      	<strong>宿主机</strong>
+							                      	<strong>Host machine</strong>
 							                    </div>
 							                    <div class="col-xs-6 text-right">
 							                      <i class="icon-arrow-right"></i>
@@ -418,7 +418,7 @@
 							                <div class="panel-footer announcement-bottom">
 							                  <div class="row">
 							                    <div class="col-xs-6">
-							                      	<strong>宿主机</strong>
+							                      	<strong>Host machine</strong>
 							                    </div>
 							                    <div class="col-xs-6 text-right">
 							                      <i class="icon-arrow-right"></i>
@@ -446,7 +446,7 @@
 							                <div class="panel-footer announcement-bottom">
 							                  <div class="row">
 							                    <div class="col-xs-6">
-							                      	<strong>宿主机</strong>
+							                      	<strong>Host machine</strong>
 							                    </div>
 							                    <div class="col-xs-6 text-right">
 							                      <i class="icon-arrow-right"></i>
@@ -475,7 +475,7 @@
 							                <div class="panel-footer announcement-bottom">
 							                  <div class="row">
 							                    <div class="col-xs-6">
-							                      	<strong>虚拟主机</strong>
+							                      	<strong>Virtual host</strong>
 							                    </div>
 							                    <div class="col-xs-6 text-right">
 							                      <i class="icon-arrow-right"></i>
@@ -502,7 +502,7 @@
 							                <div class="panel-footer announcement-bottom">
 							                  <div class="row">
 							                    <div class="col-xs-6">
-							                      	<strong>虚拟主机</strong>
+							                      	<strong>Virtual host</strong>
 							                    </div>
 							                    <div class="col-xs-6 text-right">
 							                      <i class="icon-arrow-right"></i>
@@ -529,7 +529,7 @@
 							                <div class="panel-footer announcement-bottom">
 							                  <div class="row">
 							                    <div class="col-xs-6">
-							                      	<strong>虚拟主机</strong>
+							                      	<strong>Virtual host</strong>
 							                    </div>
 							                    <div class="col-xs-6 text-right">
 							                      <i class="icon-arrow-right"></i>
@@ -546,7 +546,7 @@
 									<div class="col-xs-12 col-sm-12 widget-container-span">
 										<div class="widget-box">
 											<div class="widget-header widget-header-large">
-												<h4>简介</h4>
+												<h4>Introduction</h4>
 
 												<div class="widget-toolbar">
 													<a href="#" data-action="settings">
@@ -570,24 +570,24 @@
 											<div class="widget-body">
 												<div class="widget-main">
 													
-														<h1>虚拟机管理平台<br>
+														<h1>Virtual Machine Management Platform<br>
 															<small>This's a Web UI for show virtual machine.</small>
 														</h1>
-														<p>总共分为五大项：虚拟机管理、网络管理、存储池、虚拟机资产管理、用户管理。</p>
+														<p>There are five major items in total: virtual machine management, network management, storage pool, virtual machine asset management, and user management.</p>
 														<p>
-															<b>宿主机：资源利用率，实例控制。</b>															
+															<b>Host: resource utilization, instance control.</b>															
 														</p>
 														<p>
-															<b>虚拟机管理：功能包括虚拟机迁移，生存周期管理，在线调整内存、CPU资源，热添加、删除硬盘，流量限制，快照技术，Web Console等等。</b>															
+															<b>Virtual machine management: functions include virtual machine migration, life cycle management, online memory, CPU resource, hot add, delete hard disks, traffic limit, snapshot technology, Web Console and so on.</b>															
 														</p>
 														<p>
-															<b>存储管理：增减卷，支持主流类型存储类型</b>
+															<b>Storage management: increase or decrease volume, support mainstream type storage type </b>
 														</p>
 														<p>
-															<b>网络管理：支持SDN，底层网络使用OpenVSwitch/Linux Bridge，支持子网隔离，IP地址分配，网卡流量限制等等。</b>
+															<b>Network Management: Supports SDN, the underlying network uses OpenVSwitch/Linux Bridge, supports subnet isolation, IP address allocation, network card traffic limiting, and more.</b>
 														</p>
 														<p>
-															<b>用户管理：支持用户权限，用户组，用户虚拟机资源分配等等。</b>
+															<b>User Management: Support user rights, user groups, user virtual machine resource allocation, and more.</b>
 														</p>
 																											
 												</div>
@@ -603,7 +603,7 @@
 									<div class="col-xs-12 col-sm-12 widget-container-span">
 										<div class="widget-box">
 											<div class="widget-header widget-header-large">
-												<h4>操作日志</h4>
+												<h4>Operation log</h4>
 
 												<div class="widget-toolbar">
 													<a href="#" data-action="settings">
@@ -638,13 +638,13 @@
 													              <p><small class="text-muted"><i class="icon-time"></i> {{ ds.create_time }} </small></p>
 													            </div>
 													            <div class="timeline-body">
-													              <p>内容：<strong>{{ ds.content }}</strong></p>
-													              <p>操作对象：<a href="/viewInstance/{{ds.server_id}}/{{ds.vm_name}}/">{{ ds.vm_name }}</a></p>
-													              <p>操作人：{{ ds.user }}</p>
+													              <p>Content:<strong>{{ ds.content }}</strong></p>
+													              <p>Operation target:<a href="/viewInstance/{{ds.server_id}}/{{ds.vm_name}}/">{{ ds.vm_name }}</a></p>
+													              <p>Operator:{{ ds.user }}</p>
 													              {% if ds.status == 0 %}
-													              		<p>结果：<span class="label label-success arrowed">Success</span></p>
+													              		<p>Result:<span class="label label-success arrowed">Success</span></p>
 													              		{% else %}
-													              		<p>结果：<span class="label label-danger arrowed-in">Failed</span></p>
+													              		<p>Result:<span class="label label-danger arrowed-in">Failed</span></p>
 													              {% endif %}
 													            </div>
 													          </div>
@@ -658,13 +658,13 @@
 													              <p><small class="text-muted"><i class="icon-time"></i> {{ ds.create_time }} </small></p>
 													            </div>
 													             <div class="timeline-body">
-													              <p>内容：<strong>{{ ds.content }}</strong></p>
-													              <p>操作对象：<a href="/viewInstance/{{ds.server_id}}/{{ds.vm_name}}/">{{ ds.vm_name }}</a></p>
-													              <p>操作人：{{ ds.user }}</p>													              
+													              <p>Content:<strong>{{ ds.content }}</strong></p>
+													              <p>Operation target:<a href="/viewInstance/{{ds.server_id}}/{{ds.vm_name}}/">{{ ds.vm_name }}</a></p>
+													              <p>Operator:{{ ds.user }}</p>													              
 													              {% if ds.status == 0 %}
-													              		<p>结果：<span class="label label-success arrowed">Success</span></p>
+													              		<p>Result:<span class="label label-success arrowed">Success</span></p>
 													              		{% else %}
-													              		<p>结果：<span class="label label-danger arrowed-in">Failed</span></p>
+													              		<p>Result:<span class="label label-danger arrowed-in">Failed</span></p>
 													              		<br>
 													              		<pre class="prettyprint linenums">{{ds.result}}</pre>
 													              {% endif %}
@@ -700,33 +700,33 @@
 									<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
 								</select>
 							</div>
-							<span>&nbsp; 选择皮肤</span>
+							<span>&nbsp; Select skin</span>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-navbar" />
-							<label class="lbl" for="ace-settings-navbar"> 固定导航条</label>
+							<label class="lbl" for="ace-settings-navbar"> Fixed navigation bar</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-sidebar" />
-							<label class="lbl" for="ace-settings-sidebar"> 固定滑动条</label>
+							<label class="lbl" for="ace-settings-sidebar"> Fixed slider</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-breadcrumbs" />
-							<label class="lbl" for="ace-settings-breadcrumbs">固定面包屑</label>
+							<label class="lbl" for="ace-settings-breadcrumbs">Fixed bread crumbs</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" />
-							<label class="lbl" for="ace-settings-rtl">切换到左边</label>
+							<label class="lbl" for="ace-settings-rtl">Switch to the left</label>
 						</div>
 
 						<div>
 							<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-add-container" />
 							<label class="lbl" for="ace-settings-add-container">
-								切换窄屏
+								Switch narrow screen
 								<b></b>
 							</label>
 						</div>
@@ -760,8 +760,8 @@
 		<script type="text/javascript"> 
 			function getLogsMsg () {
 					$.ajax({
-						url:'/api/log/{{user}}/', //请求地址
-						type:"GET",  //提交类似
+						url:'/api/log/{{user}}/', //Request address
+						type:"GET",  //Submit similar
 						success:function(response){
 							if (response.length > 0 ){						
 									var newStr = '<a data-toggle="dropdown" class="dropdown-toggle" href="#">' +
@@ -770,15 +770,15 @@
 											     '</a>' +
 												 '<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">' +
 													'<li class="dropdown-header">' +
-														'<i class="icon-warning-sign"></i>' + response.length + '条通知' +												
+														'<i class="icon-warning-sign"></i>' + response.length + 'Notice' +												
 													'</li>'
 									for (var i=0;i< response.length;i++)
 										{
 											if ( response[i]['status'] == 0 ){
-												status = '<span class="pull-right badge badge-success">成功</span></div></a></li>'
+												status = '<span class="pull-right badge badge-success">Success</span></div></a></li>'
 											}
 											else{
-												status = '<span class="pull-right badge badge-danger">失败</span></div></a></li>'
+												status = '<span class="pull-right badge badge-danger">Failure</span></div></a></li>'
 											}
 											newStr += '<li><a href="javascript:" onclick="readLogsMsg(this,'+  response[i]['id'] + ')"><div class="clearfix">' +
 															'<span class="pull-left">' +
@@ -786,7 +786,7 @@
 															'</span>' + status
 									};
 									newStr +=  '<li> ' +
-												 '<a href="/profile/#messages">查看所有消息' +
+												 '<a href="/profile/#messages">See all messages' +
 												   '<i class="icon-arrow-right"></i>' +
 												 '</a>' +
 											   '</li>' +
@@ -800,11 +800,11 @@
 				function readLogsMsg(obj,id) {
 					$.ajax({
 						dataType: "JSON",
-						url:'/api/logs/'+ id +'/', //请求地址
-						type:"PUT",  //提交类似
+						url:'/api/logs/'+ id +'/', //Request address
+						type:"PUT",  //Submit similar
 						data:{
 							'isRead':1,
-						}, //提交参数
+						}, //Submit parameters
 						success:function(response){
 							getLogsMsg ();
 						}
