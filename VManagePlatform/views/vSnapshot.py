@@ -13,7 +13,7 @@ def handleSnapshot(request,id):
     try:
         vServer = VmServer.objects.get(id=id)
     except Exception,e:
-        return JsonResponse({"code":500,"msg":"找不到主机资源","data":e})
+        return JsonResponse({"code":500,"msg":"Host resource not found","data":e})
     if request.method == "POST":
         op = request.POST.get('op')
         insName = request.POST.get('vm_name')
@@ -22,39 +22,39 @@ def handleSnapshot(request,id):
             try:
                 VMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)
             except Exception,e:
-                return  JsonResponse({"code":500,"msg":"服务器连接失败。。","data":e})
+                return  JsonResponse({"code":500,"msg":"The server connection failed. .","data":e})
             try:
                 INSTANCE = VMS.genre(model='instance')
                 instance = INSTANCE.queryInstance(name=str(insName))
                 if op == 'view':
                     snap = INSTANCE.snapShotView(instance, snapName)
                     VMS.close()
-                    if snap:return JsonResponse({"code":200,"data":snap.replace('<','&lt;').replace('>','&gt;'),"msg":"查询成功."})
-                    else:return JsonResponse({"code":500,"data":"查无结果","msg":"查无结果"})
+                    if snap:return JsonResponse({"code":200,"data":snap.replace('<','&lt;').replace('>','&gt;'),"msg":"search successful."})
+                    else:return JsonResponse({"code":500,"data":"Check no result","msg":"Check no result"})
                 elif op == 'resume':
                     revertSnapShot.delay(request.POST,str(request.user))
                     VMS.close()
-                    return JsonResponse({"code":200,"data":None,"msg":"快照恢复任务提交成功。"})
+                    return JsonResponse({"code":200,"data":None,"msg":"The snapshot recovery task was submitted successfully."})
                 elif op == 'add':
                     snapInstace.delay(request.POST,str(request.user))
                     VMS.close() 
-                    return  JsonResponse({"code":200,"data":None,"msg":"快照任务提交成功."})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Snapshot task submitted successfully."})
                 elif op == 'delete':
                     snap = INSTANCE.snapShotDelete(instance, snapName)  
                     VMS.close() 
                     if isinstance(snap, int):
                         recordLogs.delay(server_id=vServer.id,vm_name=request.POST.get('vm_name'),
-                                         content="删除虚拟机{name}快照{snapName}".format(name=request.POST.get('vm_name'),
+                                         content="Delete virtual machine{name}Snapshot{snapName}".format(name=request.POST.get('vm_name'),
                                                                                        snapName=snapName),
                                          user=str(request.user),status=0)                         
-                        return JsonResponse({"code":200,"data":None,"msg":"快照删除成功"})  
+                        return JsonResponse({"code":200,"data":None,"msg":"Snapshot deleted successfully"})  
                     else:
                         recordLogs.delay(server_id=vServer.id,vm_name=request.POST.get('vm_name'),
-                                         content="删除虚拟机{name}快照{snapName}".format(name=request.POST.get('vm_name'),
+                                         content="Delete virtual machine{name}Snapshot{snapName}".format(name=request.POST.get('vm_name'),
                                                                                        snapName=snapName),
                                          user=str(request.user),status=0,result=snap)                         
-                        return JsonResponse({"code":500,"data":None,"msg":"快照删除失败"})                                  
+                        return JsonResponse({"code":500,"data":None,"msg":"Snapshot delete failed"})                                  
             except Exception,e:
-                return JsonResponse({"code":500,"msg":"虚拟机快照操作失败。。","data":e}) 
+                return JsonResponse({"code":500,"msg":"The virtual machine snapshot operation failed. .","data":e}) 
         else:
-            return JsonResponse({"code":500,"msg":"不受支持的操作。","data":e})
+            return JsonResponse({"code":500,"msg":"Unsupported operation.","data":e})

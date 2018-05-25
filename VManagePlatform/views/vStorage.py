@@ -15,7 +15,7 @@ def addStorage(request,id):
     try:
         vServer = VmServer.objects.get(id=id)
     except Exception,e:
-        return JsonResponse({"code":500,"msg":"找不到主机资源","data":e})
+        return JsonResponse({"code":500,"msg":"Host resource not found","data":e})
     if request.method == "POST" and request.user.has_perm('VManagePlatform.add_vmserverinstance'):
         pool_xml = StorageTypeXMLConfig(pool_type=request.POST.get('pool_type'),pool_name=request.POST.get('pool_name'),
                                         pool_spath=request.POST.get('pool_spath'),pool_tpath=request.POST.get('pool_tpath'),
@@ -28,15 +28,15 @@ def addStorage(request,id):
                 if pool is False:
                     storage = STORAGE.createStoragePool(pool_xml)
                     VMS.close()
-                    if isinstance(storage,int):return JsonResponse({"code":200,"msg":"存储池添加成功","data":None})  
-                    else:return  JsonResponse({"code":500,"msg":"创建存储池失败。","data":None}) 
+                    if isinstance(storage,int):return JsonResponse({"code":200,"msg":"Storage pool added successfully","data":None})  
+                    else:return  JsonResponse({"code":500,"msg":"Failed to create the storage pool.","data":None}) 
                 else:
                     VMS.close()
-                    return  JsonResponse({"code":400,"msg":"存储池已经存在。","data":None})
+                    return  JsonResponse({"code":400,"msg":"Storage pool already exists.","data":None})
             except Exception,e:
-                return JsonResponse({"code":500,"msg":"找到主机资源","data":e})
+                return JsonResponse({"code":500,"msg":"Find host resources","data":e})
         else:
-            return JsonResponse({"code":500,"msg":"不支持的存储类型或者您没有权限操作此项","data":None})
+            return JsonResponse({"code":500,"msg":"Unsupported storage type or you do not have permission to operate this item","data":None})
         
 @login_required
 def listStorage(request,id):        
@@ -55,8 +55,8 @@ def listStorage(request,id):
         except Exception,e:
             return render_to_response('404.html',context_instance=RequestContext(request))        
         return render_to_response('vmStorage/list_storage.html',
-                                  {"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"虚拟机实例","url":'#'},
-                                                                    {"name":"存储池管理","url":"/listStorage/%d/" % vServer.id}],
+                                  {"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Virtual machine instance","url":'#'},
+                                                                    {"name":"Storage pool management","url":"/listStorage/%d/" % vServer.id}],
                                     "vmServer":vServer,"storageList":storageList}, context_instance=RequestContext(request))
 
 @login_required
@@ -76,9 +76,9 @@ def viewStorage(request,id,name):
         except Exception,e:
             return render_to_response('404.html',context_instance=RequestContext(request))    
         return render_to_response('vmStorage/view_storage.html',
-                                  {"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"虚拟机实例","url":'#'},
-                                                                    {"name":"存储池管理","url":"/listStorage/%d/" % vServer.id},
-                                                                    {"name":"存储池详情","url":"/viewStorage/%d/%s/" % (vServer.id,name)}],
+                                  {"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Virtual machine instance","url":'#'},
+                                                                    {"name":"Storage pool management","url":"/listStorage/%d/" % vServer.id},
+                                                                    {"name":"Storage pool details","url":"/viewStorage/%d/%s/" % (vServer.id,name)}],
                                     "vmServer":vServer,"storage":storage}, context_instance=RequestContext(request))
         
 @login_required
@@ -87,7 +87,7 @@ def handleStorage(request,id):
         try:
             vServer = VmServer.objects.get(id=id)
         except Exception,e:
-            return JsonResponse({"code":500,"msg":"找不到主机资源","data":e})      
+            return JsonResponse({"code":500,"msg":"Host resource not found","data":e})      
         op = request.POST.get('op') 
         pool_name = request.POST.get('pool_name') 
         if op in ['delete','disable','refresh'] and request.user.has_perm('VManagePlatform.change_vmserverinstance'):
@@ -100,8 +100,8 @@ def handleStorage(request,id):
                 elif op == 'refresh': 
                     result = STORAGE.refreshStoragePool(pool=pool)
                 VMS.close()
-                if isinstance(result,int):return  JsonResponse({"code":200,"msg":"操作成功。","data":None})
+                if isinstance(result,int):return  JsonResponse({"code":200,"msg":"Successful operation。","data":None})
                 else:return  JsonResponse({"code":500,"msg":result})                    
-            else:return JsonResponse({"code":500,"msg":"存储池不存在。","data":e}) 
-        else:return  JsonResponse({"code":500,"data":None,"msg":"不支持操作或者您没有权限操作此项"})                        
-    else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的HTTP操作"})                
+            else:return JsonResponse({"code":500,"msg":"Storage pool does not exist.","data":e}) 
+        else:return  JsonResponse({"code":500,"data":None,"msg":"No action is supported or you do not have permission to operate this item"})                        
+    else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported HTTP operations"})                

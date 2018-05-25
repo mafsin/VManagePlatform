@@ -16,7 +16,7 @@ def handleVolume(request):
             try:
                 vServer = VmServer.objects.get(id=server_id)
             except:
-                return JsonResponse({"code":500,"data":None,"msg":"主机不存在。"})                 
+                return JsonResponse({"code":500,"data":None,"msg":"The host does not exist."})                 
             VMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)
             STORAGE = VMS.genre(model='storage')
             if STORAGE:
@@ -24,24 +24,24 @@ def handleVolume(request):
                 if pool:
                     volume = STORAGE.getStorageVolume(pool=pool, volume_name=request.POST.get('vol_name'))
                     if op == 'add':
-                        if volume:return JsonResponse({"code":500,"data":None,"msg":"卷已经存在"})
+                        if volume:return JsonResponse({"code":500,"data":None,"msg":"Volume already exists"})
                         else:
                             status = STORAGE.createVolumes(pool=pool, volume_name=request.POST.get('vol_name'),
                                                 volume_capacity=int(request.POST.get('vol_size')),drive=request.POST.get('vol_drive'))
                             VMS.close()
                             if isinstance(status,str) :return  JsonResponse({"code":500,"data":None,"msg":status})
-                            else:return  JsonResponse({"code":200,"data":None,"msg":"卷创建成功。"})
+                            else:return  JsonResponse({"code":200,"data":None,"msg":"The volume was created successfully."})
                     elif op == 'delete':
                         if volume:
                             status = STORAGE.deleteVolume(pool=pool, volume_name=request.POST.get('vol_name'))
                             VMS.close()
-                            if isinstance(status, str):return  JsonResponse({"code":500,"data":status,"msg":"卷删除失败。"})
-                            else:return  JsonResponse({"code":200,"data":None,"msg":"卷删除成功。"})
-                        else:return  JsonResponse({"code":500,"data":None,"msg":"卷删除失败，卷不存在。"})
-                else:return  JsonResponse({"code":500,"data":None,"msg":"存储池不存在。"})
+                            if isinstance(status, str):return  JsonResponse({"code":500,"data":status,"msg":"Failed to delete the volume."})
+                            else:return  JsonResponse({"code":200,"data":None,"msg":"Deleted the volume successfully."})
+                        else:return  JsonResponse({"code":500,"data":None,"msg":"The deletion of the volume failed and the volume does not exist."})
+                else:return  JsonResponse({"code":500,"data":None,"msg":"Storage pool does not exist."})
             else:
-                return  JsonResponse({"code":500,"data":None,"msg":"主机连接失败。"})
+                return  JsonResponse({"code":500,"data":None,"msg":"Host connection failed."})
         else:
-            return  JsonResponse({"code":500,"data":None,"msg":"不支持操作。"})                                 
+            return  JsonResponse({"code":500,"data":None,"msg":"Does not support operation."})                                 
     else:
-        return  JsonResponse({"code":500,"data":None,"msg":"不支持的HTTP操作。"})              
+        return  JsonResponse({"code":500,"data":None,"msg":"Unsupported HTTP operation."})              

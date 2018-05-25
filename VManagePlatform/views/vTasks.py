@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import permission_required
 @permission_required('djcelery.change_periodictask',login_url='/noperm/')
 def configTask(request):
     if request.method == "GET":
-        #获取注册的任务
+        #Get registered tasks
         regTaskList = []
         for task in  list(keys(tasks)):
             if task.startswith('VManagePlatform'):regTaskList.append(task)
@@ -26,8 +26,8 @@ def configTask(request):
             intervalList = []
             taskList = []
         return render_to_response('vmTasks/config_task.html',
-                                  {"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"任务调度","url":'#'},
-                                                                    {"name":"配置中心","url":"/configTask"}],
+                                  {"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Task scheduling","url":'#'},
+                                                                    {"name":"Configuration Center","url":"/configTask"}],
                                     "crontabList":crontabList,"intervalList":intervalList,"taskList":taskList,
                                     "regTaskList":regTaskList},
                                   context_instance=RequestContext(request))
@@ -43,27 +43,27 @@ def configTask(request):
                                                       day_of_month=request.POST.get('day_of_month'),
                                                       month_of_year=request.POST.get('month_of_year'),
                                                       )
-                    return  JsonResponse({"code":200,"data":None,"msg":"添加成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Added successfully"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"添加失败"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"add failed"})
             elif op == 'delCrontab':
                 try:
                     CrontabSchedule.objects.get(id=request.POST.get('id')).delete()
-                    return  JsonResponse({"code":200,"data":None,"msg":"删除成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"successfully deleted"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"删除失败"})  
+                    return  JsonResponse({"code":500,"data":None,"msg":"failed to delete"})  
             elif op == 'addInterval':
                 try:
                     IntervalSchedule.objects.create(every=request.POST.get('every'),period=request.POST.get('period'))
-                    return  JsonResponse({"code":200,"data":None,"msg":"添加成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Added successfully"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"添加失败"})    
+                    return  JsonResponse({"code":500,"data":None,"msg":"add failed"})    
             elif op == 'delInterval':
                 try:
                     IntervalSchedule.objects.get(id=request.POST.get('id')).delete()
-                    return  JsonResponse({"code":200,"data":None,"msg":"删除成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"successfully deleted"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"删除失败"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"failed to delete"})
             elif op == 'addTask':
                 try:
                     PeriodicTask.objects.create(name=request.POST.get('name'),
@@ -76,15 +76,15 @@ def configTask(request):
                                                 enabled = int(request.POST.get('enabled',1)),
                                                 expires = request.POST.get('expires',None)
                                                       )
-                    return  JsonResponse({"code":200,"data":None,"msg":"添加成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Added successfully"})
                 except Exception,e:
-                    return  JsonResponse({"code":500,"data":str(e),"msg":"添加失败"})    
+                    return  JsonResponse({"code":500,"data":str(e),"msg":"add failed"})    
             elif op == 'delTask':
                 try:
                     PeriodicTask.objects.get(id=request.POST.get('id')).delete()
-                    return  JsonResponse({"code":200,"data":None,"msg":"删除成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"successfully deleted"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"删除失败"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"failed to delete"})
             elif op == 'editTask':
                 try:
                     task = PeriodicTask.objects.get(id=request.POST.get('id'))
@@ -97,12 +97,12 @@ def configTask(request):
                     task.expires = request.POST.get('expires',None)
                     task.enabled = int(request.POST.get('enabled'))
                     task.save()
-                    return  JsonResponse({"code":200,"data":None,"msg":"修改成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Successfully modified"})
                 except Exception,e:
-                    return  JsonResponse({"code":500,"data":str(e),"msg":"修改失败"})
+                    return  JsonResponse({"code":500,"data":str(e),"msg":"fail to edit"})
                              
-        else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的操作或者您没有权限操作操作此项。"})            
-    else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的HTTP操作"})   
+        else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported operation or you do not have permission to operate this item."})            
+    else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported HTTP operations"})   
     
     
     
@@ -128,8 +128,8 @@ def viewTask(request):
         except:
             taskLog = []
         return render_to_response('vmTasks/view_task.html',
-                                  {"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"任务调度","url":'#'},
-                                                                    {"name":"运行日志","url":"/viewTask"}],
+                                  {"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Task scheduling","url":'#'},
+                                                                    {"name":"Run log","url":"/viewTask"}],
                                     "taskLog":taskLog,"taskList":taskList},
                                   context_instance=RequestContext(request))
     elif request.method == "POST":
@@ -141,7 +141,7 @@ def viewTask(request):
                     task[ds.task] = ds.name
                 taskLog = TaskState.objects.get(id=request.POST.get('id'))
             except:
-                return JsonResponse({"code":500,"data":None,"msg":"任务不存在"})
+                return JsonResponse({"code":500,"data":None,"msg":"Task does not exist"})
             if op == 'view':
                 try:
                     data = dict()
@@ -157,14 +157,14 @@ def viewTask(request):
                     data['result'] = taskLog.result
                     data['state'] = taskLog.state
                     data['runtime'] = taskLog.runtime
-                    return  JsonResponse({"code":200,"data":data,"msg":"操作成功"})
+                    return  JsonResponse({"code":200,"data":data,"msg":"Successful operation"})
                 except Exception,e:
-                    return  JsonResponse({"code":500,"data":None,"msg":"日志查看失败。"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"Log view failed."})
             elif op == 'delete':
                 try:
                     taskLog.delete()
-                    return  JsonResponse({"code":200,"data":None,"msg":"删除成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"successfully deleted"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"日志删除失败"})
-        else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的操作或者您没有权限操作操作此项。"})            
-    else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的HTTP操作"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"Log deletion failed"})
+        else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported operation or you do not have permission to operate this item."})            
+    else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported HTTP operations"})

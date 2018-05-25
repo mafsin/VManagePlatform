@@ -15,7 +15,7 @@ def configDhcp(request):
     if request.method == "GET":
         dataList = VmDHCP.objects.all()
         return render_to_response('vmDhcp/dhcp_network.html',
-                                  {"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"网络管理","url":'/addNetwork'}],
+                                  {"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Network management","url":'/addNetwork'}],
                                    "dataList":dataList},context_instance=RequestContext(request))
     elif  request.method == "POST":
         try:
@@ -37,8 +37,8 @@ def configDhcp(request):
             data['brName'] = request.POST.get('brName')
             data['dns'] = request.POST.get('dns')
             dhcp = VmDHCP.objects.create(**data)
-            if dhcp:return JsonResponse({"code":200,"msg":"DHCP添加成功","data":None}) 
-            else:return  JsonResponse({"code":500,"msg":"DHCP添加失败","data":None})
+            if dhcp:return JsonResponse({"code":200,"msg":"DHCP added successfully","data":None}) 
+            else:return  JsonResponse({"code":500,"msg":"DHCP failed to add","data":None})
 
 @login_required
 @permission_required('VManagePlatform.change_vmserver',login_url='/noperm/')
@@ -50,7 +50,7 @@ def handleDhcp(request):
             try:
                 vMdhcp = VmDHCP.objects.get(id=dhcp_id)
             except:
-                return JsonResponse({"code":500,"data":None,"msg":"DHCP配置不存在。"})
+                return JsonResponse({"code":500,"data":None,"msg":"DHCP configuration does not exist."})
             DHCP = DHCPConfig()  
             if op == 'enable':
                 if vMdhcp.isAlive == 1:
@@ -59,20 +59,20 @@ def handleDhcp(request):
                                              drive=vMdhcp.drive)
                     if status[0] == 0:
                         VmDHCP.objects.filter(id=vMdhcp.id).update(isAlive=0)
-                        return JsonResponse({"code":200,"msg":"激活成功。","data":None})
+                        return JsonResponse({"code":200,"msg":"Activation was successful.","data":None})
                     else:
-                        return JsonResponse({"code":500,"msg":"激活失败。","data":status[1]})
-                else:return JsonResponse({"code":500,"msg":"配置已是激活状态。","data":None})
+                        return JsonResponse({"code":500,"msg":"Activation fails.","data":status[1]})
+                else:return JsonResponse({"code":500,"msg":"Configuration is already active.","data":None})
             elif op == 'disable':
                 if vMdhcp.isAlive == 0:
                     status = DHCP.disableNets(netnsName=vMdhcp.mode, brName=vMdhcp.brName, 
                                              port=vMdhcp.dhcp_port,drive=vMdhcp.drive)
                     if status[0] == 0:
                         VmDHCP.objects.filter(id=vMdhcp.id).update(isAlive=1)
-                        return JsonResponse({"code":200,"msg":"禁用成功。","data":None})
+                        return JsonResponse({"code":200,"msg":"Disabled successfully.","data":None})
                     else:
-                        return JsonResponse({"code":500,"msg":"禁用失败。","data":status[1]})
-                else:return JsonResponse({"code":500,"msg":"配置已是非激活状态。","data":None})                
+                        return JsonResponse({"code":500,"msg":"Disabled disabled.","data":status[1]})
+                else:return JsonResponse({"code":500,"msg":"The configuration is already inactive.","data":None})                
             elif op == 'start':
                 if vMdhcp.isAlive == 0 and vMdhcp.status == 1:
                     if vMdhcp.mode == 'dhcp-ext':
@@ -86,11 +86,11 @@ def handleDhcp(request):
                                             mode='int',brName=vMdhcp.brName)
                     if status[0] == 0:
                         VmDHCP.objects.filter(id=vMdhcp.id).update(status=0)
-                        return JsonResponse({"code":200,"msg":"DHCP服务启动成功。","data":None})
+                        return JsonResponse({"code":200,"msg":"The DHCP service started successfully.","data":None})
                     else:
-                        return JsonResponse({"code":500,"msg":"DHCP服务启动失败。","data":status[1]}) 
+                        return JsonResponse({"code":500,"msg":"The DHCP service failed to start.","data":status[1]}) 
                 else:
-                    return JsonResponse({"code":500,"msg":"请先激活DHCP配置或者DHCP服务已是启动状态。","data":None})
+                    return JsonResponse({"code":500,"msg":"Please activate the DHCP configuration or the DHCP service is already started.","data":None})
             elif op == 'stop':
                 if vMdhcp.isAlive == 0 and vMdhcp.status == 0:
                     if vMdhcp.mode == 'dhcp-ext':
@@ -99,11 +99,11 @@ def handleDhcp(request):
                         status = DHCP.stop(mode='int')
                     if status[0] == 0:
                         VmDHCP.objects.filter(id=vMdhcp.id).update(status=1)
-                        return JsonResponse({"code":200,"msg":"DHCP服关闭成功。","data":None})
+                        return JsonResponse({"code":200,"msg":"DHCP service closed successfully.","data":None})
                     else:
-                        return JsonResponse({"code":500,"msg":"DHCP服务关闭失败。","data":status[1]}) 
+                        return JsonResponse({"code":500,"msg":"The DHCP service failed to close.","data":status[1]}) 
                 else:
-                    return JsonResponse({"code":500,"msg":"请先激活DHCP配置或者DHCP服务已是关闭状态。","data":None})  
+                    return JsonResponse({"code":500,"msg":"Please activate DHCP configuration or the DHCP service is closed.","data":None})  
                 
             elif  op == 'delete':  
                 if vMdhcp.isAlive == 0 and vMdhcp.status == 0:
@@ -123,8 +123,8 @@ def handleDhcp(request):
                     result = VmDHCP.objects.filter(id=vMdhcp.id).delete()
                 else:
                     result = VmDHCP.objects.filter(id=vMdhcp.id).delete()
-                if result: return JsonResponse({"code":500,"msg":"DHCP服务删除失败。","data":None})
-                else: return JsonResponse({"code":200,"msg":"DHCP服务删除成功。","data":None})                   
+                if result: return JsonResponse({"code":500,"msg":"Failed to delete the DHCP service.","data":None})
+                else: return JsonResponse({"code":200,"msg":"The DHCP service was deleted successfully.","data":None})                   
         else:
-            return JsonResponse({"code":500,"msg":"不支持的操作。","data":None})      
+            return JsonResponse({"code":500,"msg":"Unsupported operation.","data":None})      
                 

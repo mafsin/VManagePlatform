@@ -34,7 +34,7 @@ def index(request):
         serList = []
     totalInfo = {"vmRun":vmRun,"vmStop":vmStop,"serTotal":len(serList),
                  "serStop":serStop,"vmTotal":len(vmList),"serRun":serRun}
-    return render_to_response('index.html',{"user":request.user,"localtion":[{"name":"首页","url":'/'}],
+    return render_to_response('index.html',{"user":request.user,"localtion":[{"name":"Home","url":'/'}],
                                             "logList":logList,"totalInfo":totalInfo,"msgTotal":serStop+vmStop},
                               context_instance=RequestContext(request))
 
@@ -51,7 +51,7 @@ def login(request):
             return HttpResponseRedirect('/profile',{"user":request.user})
         else:
             if request.method == "POST":
-                return render_to_response('login.html',{"login_error_info":"用户名不错存在，或者密码错误！"},
+                return render_to_response('login.html',{"login_error_info":"The username is good, or the password is wrong!"},
                                                         context_instance=RequestContext(request))  
             else:
                 return render_to_response('login.html',context_instance=RequestContext(request)) 

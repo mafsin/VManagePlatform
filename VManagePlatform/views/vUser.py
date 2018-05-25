@@ -13,7 +13,7 @@ def register(request):
         if request.POST.get('password') == request.POST.get('c_password'):
             try:
                 user = User.objects.filter(username=request.POST.get('username'))
-                if len(user)>0:return JsonResponse({"code":500,"data":None,"msg":"注册失败，用户已经存在。"})
+                if len(user)>0:return JsonResponse({"code":500,"data":None,"msg":"Registration failed and the user already exists."})
                 else: 
                     user = User()
                     user.username = request.POST.get('username')
@@ -23,10 +23,10 @@ def register(request):
                     user.is_superuser = 0                        
                     user.set_password(request.POST.get('password'))
                     user.save()
-                    return JsonResponse({"code":200,"data":None,"msg":"用户注册成功"})
+                    return JsonResponse({"code":200,"data":None,"msg":"User registration is successful"})
             except Exception,e:
-                return JsonResponse({"code":500,"data":None,"msg":"用户注册失败"}) 
-        else:return JsonResponse({"code":500,"data":None,"msg":"密码不一致，用户注册失败。"}) 
+                return JsonResponse({"code":500,"data":None,"msg":"User registration failed"}) 
+        else:return JsonResponse({"code":500,"data":None,"msg":"Inconsistent password, user registration failed."}) 
         
 
 
@@ -40,10 +40,10 @@ def usermanage(request,id):
         userGroupList = []
         try:
             user = User.objects.get(id=id)
-            #获取用户权限列表
+            #Get user permission list
             for perm in user.user_permissions.values():
                 userPermList.append(perm.get('id'))
-            #获取用户组列表
+            #Get user group list
             for group in user.groups.values():
                 userGroupList.append(group.get('id'))
             permList = Permission.objects.all()
@@ -54,8 +54,8 @@ def usermanage(request,id):
             groupList = []
             userPermList = []
         return render_to_response('vmUser/view_user.html',{"user":request.user,
-                                                           "localtion":[{"name":"首页","url":'/'},
-                                                                        {"name":"用户管理","url":'/usermanage/?op=list'}],
+                                                           "localtion":[{"name":"Home","url":'/'},
+                                                                        {"name":"UserManage","url":'/usermanage/?op=list'}],
                                             "user":user,"permList":permList,"groupList":groupList,
                                             "userPermList":userPermList,"userGroupList":userGroupList},
                               context_instance=RequestContext(request))
@@ -66,34 +66,34 @@ def usermanage(request,id):
             try:
                 user = User.objects.get(id=id)
             except:
-                return JsonResponse({"code":500,"data":None,"msg":"操作失败用户不存在"})
+                return JsonResponse({"code":500,"data":None,"msg":"Operation failed User does not exist"})
             if op == 'active':
                 try:
                     user.is_active = int(request.POST.get('status'))
                     user.save()
-                    return  JsonResponse({"code":200,"data":None,"msg":"操作成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Successful operation"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"用户激活失败，用户不存在"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"User activation failed, user does not exist"})
             elif op == 'superuser':
                 try:
                     user.is_superuser = int(request.POST.get('status'))
                     user.save()
-                    return  JsonResponse({"code":200,"data":None,"msg":"操作成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Successful operation"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"用户激活失败，用户不存在"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"User activation failed, user does not exist"})
             elif op == 'delete':
                 try:
                     user.delete()
-                    return  JsonResponse({"code":200,"data":None,"msg":"操作成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Successful operation"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"用户删除失败，用户不存在"})
+                    return  JsonResponse({"code":500,"data":None,"msg":"User deletion failed, user does not exist"})
             elif op == 'modify':
                 try:
                     user.is_active = int(request.POST.get('is_active'))
                     user.is_superuser = int(request.POST.get('is_superuser'))
                     user.email = request.POST.get('email')
                     user.username = request.POST.get('username')
-                    #如果权限key不存在就单做清除权限
+                    #If the permission key does not exist, clear the permissions
                     if request.POST.get('perm') is None:user.user_permissions.clear()
                     else:
                         userPermList = []
@@ -102,15 +102,15 @@ def usermanage(request,id):
                         permList = [ int(i) for i in request.POST.get('perm').split(',')]
                         addPermList = list(set(permList).difference(set(userPermList)))
                         delPermList = list(set(userPermList).difference(set(permList)))
-                        #添加新增的权限
+                        #Add new permissions
                         for permId in addPermList:
                             perm = Permission.objects.get(id=permId)
                             User.objects.get(id=id).user_permissions.add(perm)
-                        #删除去掉的权限
+                        #Remove removed permissions
                         for permId in delPermList:
                             perm = Permission.objects.get(id=permId)
                             User.objects.get(id=id).user_permissions.remove(perm) 
-                    #如果用户组key不存在就单做清除用户组  
+                    #Clear the user group if the user group key does not exist  
                     if request.POST.get('group') is None:user.groups.clear()
                     else:
                         userGroupList = []
@@ -119,20 +119,20 @@ def usermanage(request,id):
                         groupList = [ int(i) for i in request.POST.get('group').split(',')]
                         addGroupList = list(set(groupList).difference(set(userGroupList)))
                         delGroupList = list(set(userGroupList).difference(set(groupList)))
-                        #添加新增的用户组
+                        #Add new user groups
                         for groupId in addGroupList:
                             group = Group.objects.get(id=groupId)
                             user.groups.add(group)
-                        #删除去掉的用户组
+                        #Delete the removed user group
                         for groupId in delGroupList:
                             group = Group.objects.get(id=groupId)
                             user.groups.remove(group)
                     user.save()
-                    return  JsonResponse({"code":200,"data":None,"msg":"操作成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Successful operation"})
                 except Exception,e:
-                    return  JsonResponse({"code":500,"data":e,"msg":"操作失败。"}) 
-        else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的操作或者您没有权限操作操作此项。"})            
-    else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的HTTP操作"})
+                    return  JsonResponse({"code":500,"data":e,"msg":"operation failed."}) 
+        else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported operation or you do not have permission to operate this item."})            
+    else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported HTTP operations"})
     
     
 @login_required    
@@ -143,7 +143,7 @@ def user(request):
             userList = User.objects.all()
         except Exception,e:
             userList = []
-        return render_to_response('vmUser/user_manage.html',{"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"用户管理","url":'/usermanage/?op=list'}],
+        return render_to_response('vmUser/user_manage.html',{"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"UserManage","url":'/usermanage/?op=list'}],
                                             "userList":userList},
                               context_instance=RequestContext(request))
             
@@ -160,14 +160,14 @@ def group(request):
                 data['id'] = group.id
                 data['name'] = group.name 
                 permIdList = []
-                #获取组权限
+                #Get group permissions
                 for perm in group.permissions.values():
                     permIdList.append(perm.get('id'))
                 data['perm_id'] = permIdList
                 groupList.append(data)
         except Exception,e:
             groupList = []
-        return render_to_response('vmUser/group_manage.html',{"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"用户组管理","url":'/groupmanage/?op=list'}],
+        return render_to_response('vmUser/group_manage.html',{"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"UserGroupManage","url":'/groupmanage/?op=list'}],
                                             "groupList":groupList,"permList":permList},
                               context_instance=RequestContext(request)) 
     elif request.method == "POST":
@@ -182,25 +182,25 @@ def group(request):
                     perm = Permission.objects.get(id=permId)
                     group.permissions.add(perm)
                 group.save()
-                return  JsonResponse({"code":200,"data":None,"msg":"用户组添加成功"})
+                return  JsonResponse({"code":200,"data":None,"msg":"User group added successfully"})
             except Exception,e:
                 print e
-                return  JsonResponse({"code":500,"data":None,"msg":"用户组添加失败"}) 
+                return  JsonResponse({"code":500,"data":None,"msg":"User group failed to add"}) 
         if op in ['delete','modify'] and request.user.has_perm('VManagePlatform.change_group'):
             try:
                 group = Group.objects.get(id=request.POST.get('id'))
             except:
-                return JsonResponse({"code":500,"data":None,"msg":"操作失败用户组不存在"})
+                return JsonResponse({"code":500,"data":None,"msg":"Operation failed User group does not exist"})
             if op == 'delete':
                 try:
                     group.delete()
-                    return  JsonResponse({"code":200,"data":None,"msg":"操作成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Successful operation"})
                 except:
-                    return  JsonResponse({"code":500,"data":None,"msg":"用户组删除失败，用户组不存在"})   
+                    return  JsonResponse({"code":500,"data":None,"msg":"User group deletion failed, user group does not exist"})   
             elif op == 'modify':
                 try:
                     group.name = request.POST.get('name')
-                    #如果权限key不存在就单做清除权限
+                    #If the permission key does not exist, clear the permissions
                     if request.POST.get('perm') is None:group.permissions.clear()
                     else:
                         groupPermList = []
@@ -209,17 +209,17 @@ def group(request):
                         permList = [ int(i) for i in request.POST.get('perm').split(',')]
                         addPermList = list(set(permList).difference(set(groupPermList)))
                         delPermList = list(set(groupPermList).difference(set(permList)))
-                        #添加新增的权限
+                        #Add new permissions
                         for permId in addPermList:
                             perm = Permission.objects.get(id=permId)
                             Group.objects.get(id=request.POST.get('id')).permissions.add(perm)
-                        #删除去掉的权限
+                        #Remove removed permissions
                         for permId in delPermList:
                             perm = Permission.objects.get(id=permId)
                             Group.objects.get(id=request.POST.get('id')).permissions.remove(perm) 
                     group.save()
-                    return  JsonResponse({"code":200,"data":None,"msg":"操作成功"})
+                    return  JsonResponse({"code":200,"data":None,"msg":"Successful operation"})
                 except Exception,e:
-                    return  JsonResponse({"code":500,"data":e,"msg":"操作失败。"}) 
-        else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的操作或者您没有权限操作操作此项。"})            
-    else:return  JsonResponse({"code":500,"data":None,"msg":"不支持的HTTP操作"})   
+                    return  JsonResponse({"code":500,"data":e,"msg":"operation failed."}) 
+        else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported operation or you do not have permission to operate this item."})            
+    else:return  JsonResponse({"code":500,"data":None,"msg":"Unsupported HTTP operations"})   

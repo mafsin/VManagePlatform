@@ -20,7 +20,7 @@ def profile(request):
             logList = None
             vmList = None
         return render_to_response('profile.html',
-                                  {"user":request.user,"localtion":[{"name":"首页","url":'/'},{"name":"用户配置","url":'/profile'}],
+                                  {"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"UserConfiguration","url":'/profile'}],
                                    "logList":logList,"vmList":vmList
                                    },context_instance=RequestContext(request))
     elif request.method == "POST":
@@ -32,20 +32,20 @@ def profile(request):
                     instance = VmServerInstance.objects.get(server_id=server,name=request.POST.get('name'))
                     instance.owner = request.POST.get('username')
                     instance.save()
-                    return JsonResponse({"code":200,"data":None,"msg":"虚拟机分配成功。"})
+                    return JsonResponse({"code":200,"data":None,"msg":"The virtual machine is assigned successfully."})
                 except Exception,e:
-                    return JsonResponse({"code":500,"data":e,"msg":"虚拟机分配失败。"})
+                    return JsonResponse({"code":500,"data":e,"msg":"Failed to allocate virtual machines."})
             elif op == 'password':
                 if request.POST.get('n_pwd') == request.POST.get('c_pwd'):
                     try:
                         user = User.objects.get(username=request.POST.get('username'))
                         user.set_password(request.POST.get('c_pwd'))
                         user.save()
-                        return JsonResponse({'msg':"密码修改成功。","code":200,'data':None})
+                        return JsonResponse({'msg':"Password reset complete.","code":200,'data':None})
                     except Exception,e:
-                        return JsonResponse({'msg':'failed',"code":500,'data':"系统忙请稍后在尝试。"}) 
+                        return JsonResponse({'msg':'failed',"code":500,'data':"The system is busy please try later."}) 
                 else:
-                    return JsonResponse({'msg':'新密码不一致，修改密码失败。',"code":500,'data':None})
+                    return JsonResponse({'msg':'The new password is inconsistent and the password change failed.',"code":500,'data':None})
             elif op == 'viewlog':
                 try:
                     count = int(request.POST.get('count')) - 10
@@ -61,8 +61,8 @@ def profile(request):
                         data['create_time'] = ds.create_time
                         data['result'] = ds.result
                         dataList.append(data)
-                    if len(dataList) > 0:return JsonResponse({'msg':"数据加载成功。","code":200,'data':dataList})
-                    else:return JsonResponse({'msg':'没有更多的消息',"code":500,'data':None})
+                    if len(dataList) > 0:return JsonResponse({'msg':"The data was loaded successfully.","code":200,'data':dataList})
+                    else:return JsonResponse({'msg':'No more news',"code":500,'data':None})
                 except Exception,e:
                     return JsonResponse({'msg':str(e),"code":500,'data':None})             
-        else:return JsonResponse({"code":500,"data":None,"msg":"不支持的操作。"})
+        else:return JsonResponse({"code":500,"data":None,"msg":"Unsupported operation."})
