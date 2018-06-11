@@ -181,7 +181,7 @@
 						<li class="active open">
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-desktop"></i>
-								<span class="menu-text"> Virtual Machine Manager </span>
+								<span class="menu-text"> VM Manager </span><!-- Virtual Machine Manager  -->
 
 								<b class="arrow icon-angle-down"></b>
 							</a>
@@ -213,8 +213,7 @@
 						<li class="active open">
 							<a href="#" class="dropdown-toggle">
 								<i class=" icon-laptop"></i>
-								<span class="menu-text"> Virtual machine instance </span>
-
+								<span class="menu-text"> VM instance </span><!-- Virtual machine instance -->
 								<b class="arrow icon-angle-down"></b>
 							</a>
 
@@ -332,7 +331,7 @@
 					</li>
 
 					<li>
-						<a data-toggle="tab" href="#dropdown14">Examples</a>
+						<a data-toggle="tab" href="#dropdown14">Instances</a>
 					</li>
 				</ul>
 
@@ -367,15 +366,15 @@
 													</div>
 												</div>
 
-												<div class="profile-info-row">
-													<div class="profile-info-name"> CPU frequency(mhz) </div>
+												<div class="profile-info-row" style="height: 60px;">
+													<div class="profile-info-name"> CPU Frequency(mhz) </div>
 
 													<div class="profile-info-value">
 														<span class="editable" >{{ vmServer.cpu_mhz }}</span>
 													</div>
 												</div>
 
-												<div class="profile-info-row">
+												<div class="profile-info-row" style="height: 60px;">
 													<div class="profile-info-name"> The maximum number of CPUs </div>
 
 													<div class="profile-info-value">
@@ -801,7 +800,7 @@
 		
 			<h3 class="header smaller lighter blue">
 			<i class="icon-hand-right icon-animated-hand-pointer blue"></i>
-			{{ vmServer.name }}The proportion of resources</h3>
+			{{ vmServer.name }} The proportion of resources</h3>
 			<div class="table-header"></div>	
 		
 		<div class="col-xs-4 col-sm-4 widget-container-span">
@@ -1469,7 +1468,7 @@
 													
 												</div>
 												<div class="modal-footer">
-													<button type="button" class="btn btn-default" data-dismiss="modal">shut down
+													<button type="button" class="btn btn-default" data-dismiss="modal">close
 													</button>
 													<button type="button" class="btn btn-primary" onclick="addVmStorage(this)">
 														Add to

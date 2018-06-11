@@ -115,7 +115,7 @@
 							
 																	<div class="col-sm-9">
 																		<select id="vStorage-select" name="storage">
-																			<option value="">选择存储池</option>
+																			<option value="">Storage Pool</option>
 																			{% for ds in vStorage %}
 																				<option value="{{ds.pool_name}}">{{ds.pool_name}}</option>
 																			{% endfor %}
@@ -453,7 +453,7 @@
 															</form>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Shut down
+								<button type="button" class="btn btn-default" data-dismiss="modal">close
 								</button>
 								<button type="button" class="btn btn-primary" onclick="addTempInstace(this,'template')">
 									Add to

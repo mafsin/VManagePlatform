@@ -158,7 +158,7 @@
             $D('xvpResetButton').onclick = xvpReset;
 
             WebUtil.init_logging(WebUtil.getQueryVar('logging', 'warn'));
-            document.title = unescape(WebUtil.getQueryVar('title', '虚拟机管理平台'));
+            document.title = unescape(WebUtil.getQueryVar('title', 'Virtual Machine Management Platform'));
             // By default, use the host and port of server that served this file
             host = WebUtil.getQueryVar('host', window.location.hostname);
             port = {{ vnc_port }};
