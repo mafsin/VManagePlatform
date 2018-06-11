@@ -1637,3 +1637,7 @@ operation failed.	////////	操作失败。
 Unsupported operation or you do not have permission to operate this item.	////////	不支持的操作或者您没有权限操作操作此项。
 Unsupported HTTP operations	////////	不支持的HTTP操作
 
+Host name	////////	主机名
+Virtual Machine Manager	////////	虚拟机管理器
+Virtual machine instance	////////	虚拟机实例
+The proportion of resources	////////	资源占比
