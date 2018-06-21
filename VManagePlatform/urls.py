@@ -32,6 +32,10 @@ from VManagePlatform.restfull import rest_vMserver,rest_vmlog
 urlpatterns = [
 #     url(r'^admin/', include(admin.site.urls)),
     url(r'^$',vComs.index),
+# TEST INDEXURL
+    # url(r'^index2/(?P<id>[0-9]+)/$',vInstance.listInstance2),
+    url(r'^index2/$',vComs.index2),
+# TEST BITIS
     url(r'^login/',vComs.login),
     url(r'^register/',vUser.register),
     url(r'^user/$',vUser.user),

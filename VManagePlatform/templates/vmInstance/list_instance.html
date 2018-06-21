@@ -349,26 +349,26 @@
 			var btnObj = $(obj);
 			btnObj.attr('disabled',true);
 			if ( op == 'start'){
+				var txt=  "Do you confirm to start?"
 			}
-				var txt=  "Is it sure to start?"
 			else if ( op == 'shutdown'){
+				var txt=  "Do you confirm to closed?"
 			}
-				var txt=  "Is it closed?"
 			else if( op == 'resume' ){
-			}
 				var txt=  "Do you confirm recovery?"
-			else if( op == 'suspend' ){
-			}			
-				var txt=  "Do you confirm the suspension?"
-			else if( op == 'halt' ){
-			}	
-				var txt=  "Is it mandatory to close?"
-			else if( op == 'delete' ){
 			}
-				var txt=  "Are you sure to delete?"
+			else if( op == 'suspend' ){
+				var txt=  "Do you confirm the suspension?"
+			}			
+			else if( op == 'halt' ){
+				var txt=  "Do you confirm to close?"
+			}	
+			else if( op == 'delete' ){
+				var txt=  "Do you confirm to delete?"
+			}
 			else if( op == 'reboot' ){
-			};				
 				var txt=  "Do you confirm the restart?"
+			};					
 			var option = {
 					title: "Operation host("+vm_name+")",
 					btn: parseInt("0011",2),

@@ -419,7 +419,38 @@ def listInstance(request,id):
                                    "inStanceList":inStanceList,"vmServer":vServer,"userList":userList},
                                   context_instance=RequestContext(request))    
         
+
+'''
+TEST ALANIDIR...
+'''        
+@login_required
+def listInstance2(request,id): 
+    if request.method == "GET":  
+        try:
+            vServer = VmServer.objects.get(id=id)
+        except:
+            return render_to_response('404.html',context_instance=RequestContext(request))             
+        try:
+            VMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)    
+            SERVER = VMS.genre(model='server')
+            VMS.close()
+            userList = User.objects.all()    
+            if SERVER:
+                inStanceList2 = SERVER.getVmInstanceBaseInfo(server_ip=vServer.server_ip,server_id=vServer.id)
+                VMS.close()
+            else:return render_to_response('404.html',context_instance=RequestContext(request))
+        except:
+            inStanceList2 = None
+        return render_to_response('index2.html',
+                                  {"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Virtual machine instance","url":'#'},
+                                                                    {"name":"List of virtual machine instances","url":"/%d/" % vServer.id}],
+                                   "inStanceList2":inStanceList2,"vmServer":vServer,"userList":userList},
+                                  context_instance=RequestContext(request))    
         
+
+'''
+TEST BITISI
+'''
 @login_required
 def viewInstance(request,id,vm): 
     if request.method == "GET":       
