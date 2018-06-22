@@ -422,7 +422,7 @@ def listInstance(request,id):
 
 '''
 TEST ALANIDIR...
-'''        
+     
 @login_required
 def listInstance2(request,id): 
     if request.method == "GET":  
@@ -448,7 +448,7 @@ def listInstance2(request,id):
                                   context_instance=RequestContext(request))    
         
 
-'''
+
 TEST BITISI
 '''
 @login_required

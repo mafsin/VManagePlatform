@@ -34,7 +34,8 @@ urlpatterns = [
     url(r'^$',vComs.index),
 # TEST INDEXURL
     # url(r'^index2/(?P<id>[0-9]+)/$',vInstance.listInstance2),
-    url(r'^index2/$',vComs.index2),
+    # index2 allInstance olarak degistirildi...
+    url(r'^allInstance/$',vComs.allInstance),
 # TEST BITIS
     url(r'^login/',vComs.login),
     url(r'^register/',vUser.register),

@@ -48,7 +48,7 @@ def index(request):
 TEST ALANI BASLANGICI
 '''
 @login_required(login_url='/login')
-def index2(request):
+def allInstance(request):
     vmRun = 0
     vmStop = 0
     serRun = 0
@@ -106,7 +106,7 @@ def index2(request):
     # test icin olusturuldu sil usettki, orj altta 
     # totalInfo = {"vmRun":vmRun,"vmStop":vmStop,"serTotal":len(serList),
                  # "serStop":serStop,"vmTotal":len(vmList),"serRun":serRun}
-    return render_to_response('index2.html',{"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Virtual machine instance","url":'#'},{"name":"List of virtual machine instances","url":"/%d/" % vServer.id}],
+    return render_to_response('vmInstance/all_instance.html',{"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Virtual machine instance","url":'#'},{"name":"List of virtual machine instances","url":"/%d/" % vServer.id}],
                                             "logList":logList,"totalInfo":totalInfo,"msgTotal":serStop+vmStop,"dataList":vmList,"inStanceList2":inStanceList2,"inStanceList3":inStanceList3,"vmServer":vServer,"userList":userList},
                               context_instance=RequestContext(request))
 
