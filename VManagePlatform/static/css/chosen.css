@@ -428,3 +428,14 @@
   }
 }
 /* @end */
+/* Table host style */
+  .thide{
+    /*background-color: #c8c8c8 !important;*/
+    color: #4a7d28;
+    font-style: italic;
+    font-weight: bold;
+  }
+  #tabInput{
+    float: right;
+    width: 20%;
+  }
