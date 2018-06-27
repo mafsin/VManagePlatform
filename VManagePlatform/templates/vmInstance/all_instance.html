@@ -17,6 +17,7 @@
 			-->
 		        <!-- LISTINSTANCE -->
 
+				<strong>{{ SERV }}</strong></br></br>
 		        <div class="row">
 		            <div class="col-xs-12">
 		                <h3 class="header smaller lighter blue">
@@ -27,6 +28,8 @@
 		                </div>
 
 		                <div class="table-responsive">
+		                	<input type="text" id="tabInput" onkeyup="tabSearch()" placeholder="Search for Host/Instance names.." title="Type Host/Instance name">
+		                    <h5 style="float: right;">Search: </h5>
 		                    <table id="sample-table-2" class="table table-striped table-bordered table-hover">
 		                        <thead>
 		                            <tr>
@@ -46,13 +49,316 @@
 
 		                                <th class="hidden-480">Status</th>
 
+		                                <th class="hidden-480">CPU/Mem/Disk Usage</th>
+
 		                                <th class="center col-sm-3">Operating</th>
 		                            </tr>
 		                        </thead>
 
 		                        <tbody>
-		                            {% for ds in inStanceList3 %}
-		                            <tr>
+
+<!-- HOSTLIST -->
+									
+										<tr class="thide">
+											<td class="center">
+												<label>
+													<input type="checkbox" class="ace" />
+													<span class="lbl"></span>
+												</label>
+											</td>
+											<td>TEST</td>
+											<td>TEST</td>
+											<td>TEST</td>
+											<td>TEST</td>
+											<td>TEST</td>
+											<td>TEST</td>
+											<td>TEST</td>
+										</tr>
+								
+									<tr class="thide2">
+										<td class="center">
+											<label>
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td>
+
+										<td>
+											<a href="/viewServer/4/">192.1.1.1</a>
+										</td>
+										<td>
+											<a href="/viewInstance/4/win2k16/">
+												win2k16
+											</a>
+										</td>
+										<td class="hidden-480">4</td>
+										<td class="hidden-480">4096</td>
+										<td class="hidden-480">
+
+											<i class="icon-stop red"></i> 
+
+										</td>
+
+										<td class="hidden-480">
+		                                	<!-- <div class="profile-info-value">
+												<span class="editable" id="age">
+												
+													
+														<div class="easy-pie-chart percentage" data-percent="" data-color="#87B87F">
+															<span class="percent"></span>%
+														</div>							
+																						
+													
+														<div class="easy-pie-chart percentage" data-percent="" data-color="#87B87F">
+															<span class="percent"></span>%
+														</div>							
+														
+													
+														<div class="easy-pie-chart percentage" data-percent="" data-color="#87B87F">
+															<span class="percent"></span>%
+														</div>							
+																					
+												</span>
+											</div> -->
+										</td>
+
+										<td class="center col-sm-3">
+											<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+
+
+												<a class="blue" href="/vnc/4//7ef555e1-a3a8-4f56-9102-9a879c0468b2/" target="_black">
+													<i class="icon-desktop bigger-120"></i>																	
+												</a> 
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','start')">
+													<i class="icon-play bigger-120 green"></i>																
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','suspend')">
+													<i class="icon-pause bigger-120 orange"></i>																
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','resume')">
+													<i class="icon-play-circle bigger-120 "></i>																	
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','reboot')">
+													<i class="icon-repeat bigger-120"></i>																	
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','shutdown')">
+													<i class="icon-stop bigger-120 red"></i>															
+												</a>
+
+												<a class="red" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','halt')">
+													<i class="icon-off bigger-120"></i>
+												</a>
+
+												<a class="black" href="javascript:" onclick="snapshotInstance(this,4,'win2k16','add')">
+													<i class="icon-camera bigger-120"></i>
+												</a>
+												<a class="red" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','delete')">
+													<i class="icon-trash  bigger-120"></i>
+												</a>
+												<a class="black" href="/viewInstance/4/win2k16/">
+													<i class="icon-zoom-in  bigger-120"></i>
+												</a>
+												<a class="black" data-toggle="modal" data-target="#myModal">
+													<i class="icon-external-link  bigger-120"></i>
+												</a>
+
+											</div>
+										</td>
+									</tr>
+
+									<tr class="thide2">
+										<td class="center">
+											<label>
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label>
+										</td>
+
+										<td>
+											<a href="/viewServer/4/">192.1.1.1</a>
+										</td>
+										<td>
+											<a href="/viewInstance/4/win2k16/">
+												win2k16
+											</a>
+										</td>
+										<td class="hidden-480">4</td>
+										<td class="hidden-480">4096</td>
+										<td class="hidden-480">
+
+											<i class="icon-stop red"></i> 
+
+										</td>
+
+										<td class="hidden-480">
+		                                	<!-- <div class="profile-info-value">
+												<span class="editable" id="age">
+												
+													
+														<div class="easy-pie-chart percentage" data-percent="" data-color="#87B87F">
+															<span class="percent"></span>%
+														</div>							
+																						
+													
+														<div class="easy-pie-chart percentage" data-percent="" data-color="#87B87F">
+															<span class="percent"></span>%
+														</div>							
+														
+													
+														<div class="easy-pie-chart percentage" data-percent="" data-color="#87B87F">
+															<span class="percent"></span>%
+														</div>							
+																					
+												</span>
+											</div> -->
+										</td>
+
+										<td class="center col-sm-3">
+											<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+
+
+												<a class="blue" href="/vnc/4//7ef555e1-a3a8-4f56-9102-9a879c0468b2/" target="_black">
+													<i class="icon-desktop bigger-120"></i>																	
+												</a> 
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','start')">
+													<i class="icon-play bigger-120 green"></i>																
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','suspend')">
+													<i class="icon-pause bigger-120 orange"></i>																
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','resume')">
+													<i class="icon-play-circle bigger-120 "></i>																	
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','reboot')">
+													<i class="icon-repeat bigger-120"></i>																	
+												</a>
+
+												<a class="blue" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','shutdown')">
+													<i class="icon-stop bigger-120 red"></i>															
+												</a>
+
+												<a class="red" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','halt')">
+													<i class="icon-off bigger-120"></i>
+												</a>
+
+												<a class="black" href="javascript:" onclick="snapshotInstance(this,4,'win2k16','add')">
+													<i class="icon-camera bigger-120"></i>
+												</a>
+												<a class="red" href="javascript:" onclick="onBtnHandleIns(this,4,'win2k16','delete')">
+													<i class="icon-trash  bigger-120"></i>
+												</a>
+												<a class="black" href="/viewInstance/4/win2k16/">
+													<i class="icon-zoom-in  bigger-120"></i>
+												</a>
+												<a class="black" data-toggle="modal" data-target="#myModal">
+													<i class="icon-external-link  bigger-120"></i>
+												</a>
+
+											</div>
+										</td>
+									</tr>
+
+
+
+<!-- HOSTLIST BITIS -->
+
+
+		                            {% for ds in inStanceList %}
+		                        		{% ifchanged ds.hserver_ip %}										        
+		                            <!-- Host -->
+									<tr class="thide">
+										<td class="center">
+											<label>
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+												<a href="/viewServer/{{ds.id}}/">
+												</a>
+											</label>														
+											
+										</td>
+										<td>
+											<h5>{{ ds.hserver_ip }}</h5>
+										</td>
+										<td>
+											<span class="lbl"></span>
+												<h5>
+													{{ ds.hostname }}
+												</h5>
+										</td>
+										<td class="col-xs-1">
+											{{ ds.cpu_total }}
+																										
+										</td>
+										<td class="hidden-480">
+											{{ ds.mem }}	
+																								
+										</td>
+										<td>
+											<span class="badge badge-success">{{ ds.instance }}</span>
+											
+										</td>
+										<td class="hidden-480">
+											{% if ds.hstatus == 0 %}
+												<span class="label label-success arrowed">
+													Online
+												</span>
+											{% else %}
+												<span class="label label-danger arrowed-in">
+													Offline
+												</span>												
+											{% endif %}															
+											
+										</td>
+
+										<td>
+											<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+												<div class="btn-group">
+													<button data-toggle="dropdown" class="btn btn-inverse btn-sm dropdown-toggle">
+														<i class="icon-pencil bigger-130"> </i>
+														<span class="icon-caret-down icon-on-right"></span>
+													</button>
+	
+													<ul class="dropdown-menu dropdown-info pull-right">
+																											
+																			
+														<li>
+															<a href="/addInstance/">Add host</a>
+														</li>
+														<li>
+															<a href="/configNetwork/{{ ds.id }}/">Management network</a>
+														</li>			
+														<li class="divider"></li>
+														
+														<li>
+															<a href="/viewServer/{{ds.id}}/">Resource allocation</a>
+														</li>
+
+														<li>
+															<a href="javascript:" onclick="onBtnHandleServer(this,{{ ds.id  }},'delete','{{ ds.hserver_ip }}')">Remove host</a>
+														</li>																	
+	
+<!-- 																		<li> -->
+<!-- 																			<a href="#">Configuration</a> -->
+<!-- 																		</li> -->
+													</ul>
+												</div>												
+											</div>																			
+										</td>
+
+									</tr>
+										    {% endifchanged %}
+		                            <!-- Vhost -->
+
+		                            <tr class="thide2">
 		                                <td class="center">
 		                                    <label>
 										<input type="checkbox" class="ace" />
@@ -64,9 +370,7 @@
 		                                    <a href="/viewServer/{{ds.server_id}}/">{{ ds.server_ip }}</a>
 		                                </td>
 		                                <td>
-		                                    <a href="/viewInstance/{{ds.server_id}}/{{ ds.name }}/">
-										{{ ds.name }}
-									</a>
+		                                    <a href="/viewInstance/{{ds.server_id}}/{{ ds.name }}/">{{ ds.name }}</a>
 		                                </td>
 		                                <td class="hidden-480">{{ ds.cpu }}</td>
 		                                <td class="hidden-480">{{ ds.mem }}</td>
@@ -76,6 +380,53 @@
 		                                    <i class="icon-pause orange"></i> {% elif ds.status == 5 %}
 		                                    <i class="icon-stop red"></i> {% endif %}
 
+		                                </td>
+
+		                                <td class="hidden-480">
+		                                	<!-- <div class="profile-info-value">
+												<span class="editable" id="age">
+												
+													{% if ds.inStance.cpu_per > 90  %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.cpu_per }}" data-color="#D15B47">
+															<span class="percent">{{ ds.inStance.cpu_per }}</span>%
+														</div>	
+													{% elif 70 < ds.inStance.cpu_per and ds.inStance.cpu_per < 90 %}	
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.cpu_per }}" data-color="#87CEEB">
+															<span class="percent">{{ ds.inStance.cpu_per }}</span>%
+														</div>												
+													{% else %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.cpu_per }}" data-color="#87B87F">
+															<span class="percent">{{ ds.inStance.cpu_per }}</span>%
+														</div>							
+													{% endif %}									
+													{% if ds.inStance.mem_per > 90  %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.mem_per }}" data-color="#D15B47">
+															<span class="percent">{{ ds.inStance.mem_per }}</span>%
+														</div>	
+													{% elif 70 < ds.inStance.cpu_per and ds.inStance.mem_per < 90 %}	
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.mem_per }}" data-color="#87CEEB">
+															<span class="percent">{{ ds.inStance.mem_per }}</span>%
+														</div>												
+													{% else %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.mem_per }}" data-color="#87B87F">
+															<span class="percent">{{ ds.inStance.mem_per }}</span>%
+														</div>							
+													{% endif %}	
+													{% if ds.inStance.disks.0.disk_per > 90  %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.disks.0.disk_per }}" data-color="#D15B47">
+															<span class="percent">{{ ds.inStance.disks.0.disk_per }}</span>%
+														</div>	
+													{% elif 70 < ds.inStance.disks.0.disk_per and ds.inStance.disks.0.disk_per < 90 %}	
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.disks.0.disk_per }}" data-color="#87CEEB">
+															<span class="percent">{{ ds.inStance.disks.0.disk_per }}</span>%
+														</div>												
+													{% else %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.inStance.disks.0.disk_per }}" data-color="#87B87F">
+															<span class="percent">{{ ds.inStance.disks.0.disk_per }}</span>%
+														</div>							
+													{% endif %}								
+												</span>
+											</div> -->
 		                                </td>
 
 		                                <td class="center col-sm-3">
@@ -211,14 +562,27 @@
 		        <!-- inline scripts related to this page -->
 
 		        <script type="text/javascript">
+		        	/*alert("a");*/
 		            jQuery(function($) {
-		            		var oTable1 = $('#sample-table-2').dataTable( {
+		            		/*$('.thide').hide();*/
+		            		$('.thide2').hide();
+		            		$('.thide').click(function(){
+		            			$(this).nextUntil(".thide").toggle();
+		            		});
+
+		            		$('#tabInput').on("keyup",function(){
+		            			if($(this).val()==''){
+		            				$('.thide2').hide();
+		            			}
+		            		});
+
+		            /*		var oTable1 = $('#sample-table-2').dataTable( {
 		            			"aoColumns": [
 		            			{ "bSortable": false },
-		            			null, null,null, null, null,
+		            			null, null,null, null, null, null,
 		            			{ "bSortable": false }
 		            			] } );		
-		            		
+		            		*/
 		            		
 		            		$('table th input:checkbox').on('click' , function(){
 		            			var that = this;
@@ -229,7 +593,9 @@
 		            			});
 		            			
 		            		});
+
 		            		
+
 		            		$( "#input-size-slider-4" ).css('width','200px').slider({
 		            			value:1,
 		            			range: "min",
@@ -242,6 +608,19 @@
 		            				$('#form-field-4').attr('class', sizing[val]).val(sizing[val]);
 		            			}
 		            		});
+
+		            		var oldie = /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase());
+							$('.easy-pie-chart.percentage').each(function(){
+								$(this).easyPieChart({
+									barColor: $(this).data('color'),
+									trackColor: '#EEEEEE',
+									scaleColor: false,
+									lineCap: 'butt',
+									lineWidth: 2,
+									animate: oldie ? false : 1000,
+									size:50
+								}).css('color', $(this).data('color'));
+							});
 		            		
 		            		$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
 		            		function tooltip_placement(context, source) {
@@ -258,7 +637,25 @@
 		            		}
 		            	});
 		            	
-		            
+		            	function tabSearch() {
+						  var input, filter, table, tr, td, i;
+						  input = document.getElementById("tabInput");
+						  filter = input.value.toUpperCase();
+						  table = document.getElementById("sample-table-2");
+						  tr = table.getElementsByTagName("tr");
+						  for (i = 0; i < tr.length; i++) {
+						    td = tr[i].getElementsByTagName("td")[2];
+						    if (td) {
+						      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+						        tr[i].style.display = "";
+						      } else {
+						        tr[i].style.display = "none";
+						      }
+						    }       
+						  }
+						}
+		            	
+
 		            	function snapshotInstance(obj,serverId,vmName,op){
 		            		var btnObj = $(obj);
 		            		btnObj.attr('disabled',true);
@@ -399,7 +796,37 @@
 		            		}			
 		            		window.wxc.xcConfirm(txt, "custom", option);
 		            	}			
-		            	
+			            function onBtnHandleServer(obj,id,op,hostname){
+							var btnObj = $(obj);
+							btnObj.attr('disabled',true);
+							if( op == 'delete' ){
+								var txt=  "Are you sure to delete?"
+							}			
+							var option = {
+									title: "Delete the host("+hostname+")",
+									btn: parseInt("0011",2),
+									onOk: function(){
+										$.ajax({
+											  type: 'DELETE',
+											  url: '/api/vmserver/'+ id +'/',
+										      success:function(response){	
+										    	  	btnObj.removeAttr('disabled');
+									                window.wxc.xcConfirm('successfully deleted', window.wxc.xcConfirm.typeEnum.success);
+									                window.location.reload();
+											},
+								            error:function(response){
+								            	btnObj.removeAttr('disabled');
+								            	window.wxc.xcConfirm("failed to delete", window.wxc.xcConfirm.typeEnum.error);
+								            },		
+											});
+									},
+									onCancel:function(){	
+									},
+									onClose:function(){
+									}
+								}			
+							window.wxc.xcConfirm(txt, "custom", option);
+						}	
 		            	
 		            	function assignVm(obj,server_id,op) {
 		            		var required = ['name','username'];

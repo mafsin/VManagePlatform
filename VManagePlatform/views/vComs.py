@@ -49,70 +49,82 @@ TEST ALANI BASLANGICI
 '''
 @login_required(login_url='/login')
 def allInstance(request):
-    vmRun = 0
-    vmStop = 0
-    serRun = 0
-    serStop = 0
-    # test icin olusturuldu sil alttaki 
-    SERV=""
-    try:
-        logList = VmLogs.objects.all().order_by("-id")[0:20]
-        vmList = VmServer.objects.all().order_by("-id")
-        serList = VmServerInstance.objects.all().order_by("-id")
-        for vm in vmList:
-            if vm.status == 1:vmRun = vmRun + 1
-            else:vmStop = vmStop + 1
-
-        for ser in serList:
-            if ser.status == 0:serRun = serRun + 1
-            else:serStop = serStop + 1
-    except:
-        logList = None
-        vmList = []
-        serList = []
-    
-    
-    vmLt = VmServer.objects.all().order_by("-id")
-    inStanceList3 = []
-    for vm in vmLt:
+        
+    vmList = VmServer.objects.all().order_by("-id")
+    inStanceList = []
+    SERV=["test"]
+    count=0
+    count2=0
+    for vm in vmList:
         try:
-            # test icin olusturuldu sil alttaki
-            # SERV+=":"+vm.server_ip+";"
-            id=vm.server_ip
-            SERV+="/"+str(vm.id)+"/"
             vServer = VmServer.objects.get(id=str(vm.id))
-            # vServer = VmServer.objects.get(id=id)
         except:
             return render_to_response('404.html',context_instance=RequestContext(request))
             
         try:
-            VMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)    
+            VMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)
             SERVER = VMS.genre(model='server')
             VMS.close()
             userList = User.objects.all()    
             if SERVER:
                 inStanceList2 = SERVER.getVmInstanceBaseInfo(server_ip=vServer.server_ip,server_id=vServer.id)
-                # inStanceList3 = isinstance(inStanceList2,list)
-                inStanceList3+=inStanceList2 
+                inStanceList+=inStanceList2 
+
+                # SERV.append(inStanceList[count]['server_ip'])
+                # SERV.append("//||//")
+                # SERV.append(vmList[0].server_ip)
+                # SERV.append(vmList[1].hostname)
+                # SERV.append("//||//")
+                for ll in inStanceList2:
+                    if inStanceList[count]['server_ip']==vmList[count2].server_ip:
+                        pass
+                    else:
+                        count2+=1
+                        # SERV.append('FL')
+                    inStanceList[count]['hostname']=vmList[count2].hostname
+                    inStanceList[count]['hserver_ip']=vmList[count2].server_ip
+                    inStanceList[count]['cpu_total']=vmList[count2].cpu_total
+                    inStanceList[count]['mem']=vmList[count2].mem
+                    inStanceList[count]['instance']=vmList[count2].instance
+                    inStanceList[count]['hstatus']=vmList[count2].status
+                    inStanceList[count]['id']=vmList[count2].id
+                    count+=1
+
+                # SERV.append(inStanceList)
+                
+
                 VMS.close()
             else:return render_to_response('404.html',context_instance=RequestContext(request))
             # listinstanca done
         except:
-            inStanceList2 = None
+            inStanceList = None
         
-    totalInfo = {"vmRun":vmRun,"vmStop":vmStop,"serTotal":len(serList),
-                 "serStop":serStop,"vmTotal":len(vmList),"serRun":serRun,"SERV":SERV}
-    
-    # test icin olusturuldu sil usettki, orj altta 
-    # totalInfo = {"vmRun":vmRun,"vmStop":vmStop,"serTotal":len(serList),
-                 # "serStop":serStop,"vmTotal":len(vmList),"serRun":serRun}
+        # info
+        '''
+        try:
+            VMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)
+            INSTANCE = VMS.genre(model='instance')
+            if INSTANCE:
+                for ll in inStanceList2:
+                    instance = INSTANCE.queryInstance(name=str(ll['name']))
+                    insInfo = INSTANCE.getVmInstanceInfo(instance,server_ip=ll['server_ip'],vMname=ll['name'])
+                    insInfo['cpu_per'] = INSTANCE.getCpuUsage(instance)
+
+                    inStanceList[count]['inStance']=insInfo
+                    count+=1
+                    VMS.close()
+            else:return render_to_response('404.html',context_instance=RequestContext(request))
+        except:
+            insInfo = None
+        '''
     return render_to_response('vmInstance/all_instance.html',{"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Virtual machine instance","url":'#'},{"name":"List of virtual machine instances","url":"/%d/" % vServer.id}],
-                                            "logList":logList,"totalInfo":totalInfo,"msgTotal":serStop+vmStop,"dataList":vmList,"inStanceList2":inStanceList2,"inStanceList3":inStanceList3,"vmServer":vServer,"userList":userList},
+                                            "inStanceList":inStanceList,"vmServer":vServer,"userList":userList,"SERV":SERV},
                               context_instance=RequestContext(request))
 
 '''
 TEST ALANI BITISI
 '''
+
 
 def login(request):
     if request.session.get('username') is not None:
