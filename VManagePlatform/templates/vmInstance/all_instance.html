@@ -25,19 +25,20 @@
 		                </h3>
 		                <div class="table-header">
 		                    All virtual machine instances
+		                		<input  type="text" id="tabInput"  onkeyup="tabSearch()" placeholder="Search for Host/Instance names.." title="Type Host/Instance name">
+		                    <span>Search: </span>
 		                </div>
 
 		                <div class="table-responsive">
-		                	<input type="text" id="tabInput" onkeyup="tabSearch()" placeholder="Search for Host/Instance names.." title="Type Host/Instance name">
-		                    <h5 style="float: right;">Search: </h5>
-		                    <table id="sample-table-2" class="table table-striped table-bordered table-hover">
+		                    <table id="sample-table-2" class="table table-striped table-bordered table-hover center">
 		                        <thead>
 		                            <tr>
 		                                <th class="center">
-		                                    <label>
-										<input type="checkbox" class="ace" />
-										<span class="lbl"></span>
-									</label>
+			                                <i class="icon-th" id="thAll"></i>
+			                                <!-- <label>
+												<input type="checkbox" class="ace" />
+												<span class="lbl"></span>
+											</label> -->
 		                                </th>
 		                                <th>Virtual host</th>
 		                                <th>InstanceName</th>
@@ -47,51 +48,105 @@
 		                                    <i class="icon-time bigger-110"></i> RAM(MB)
 		                                </th>
 
-		                                <th class="hidden-480">Status</th>
-
+		                                <th class="hidden-480 center">
+											<div class="col-sm-2">Status:</div>
+											<div class="col-sm-6">
+				                                	<span class="label label-success"><i class="icon-play white"> Running</i></span>
+													<span class="label label-warning"><i class="icon-pause white"> Pause</i></span>
+													<span class="label label-danger"><i class="icon-stop white"> Stop</i></span>
+												</div>
+											<div class="col-sm-4">Memory usage: </div>
+		                                </th>
+		                                <!-- 
 		                                <th class="hidden-480">CPU/Mem/Disk Usage</th>
+ -->
 
 		                                <th class="center col-sm-3">Operating</th>
 		                            </tr>
 		                        </thead>
 
 		                        <tbody>
-
 		                            {% for ds in inStanceList %}
 		                        		{% ifchanged ds.hserver_ip %}										        
 		                            <!-- Host -->
 									<tr class="thide">
 										<td class="center">
-											<label>
+											<i class="bigger-100 icon-minus"></i> 
+											<!-- <label>
+
 												<input type="checkbox" class="ace" />
 												<span class="lbl"></span>
 												<a href="/viewServer/{{ds.id}}/">
 												</a>
 											</label>														
-											
+											 -->
 										</td>
 										<td>
-											<h5>{{ ds.hserver_ip }}</h5>
+											<span>{{ ds.hserver_ip }}</span>
 										</td>
 										<td>
 											<span class="lbl"></span>
-												<h5>
-													{{ ds.hostname }}
-												</h5>
+												<span>{{ ds.hostname }}</span>
 										</td>
 										<td class="col-xs-1">
-											{{ ds.cpu_total }}
+											<!-- {{ ds.cpu_total }} -->
+											<span>{{ ds.hInfo.cpu_total }}</span>
 																										
 										</td>
 										<td class="hidden-480">
-											{{ ds.mem }}	
+											<!-- {{ ds.mem }}	 -->
+											<span>{{ ds.hInfo.mem }}</span>
 																								
 										</td>
 										<td>
-											<span class="badge badge-success">{{ ds.instance }}</span>
+											<div class="col-sm-2">
+												{% if ds.hstatus == 0 %}
+												<span class="label label-success arrowed">
+													Online
+												</span>
+												{% else %}
+													<span class="label label-danger arrowed-in">
+														Offline
+													</span>												
+												{% endif %}	
+											</div>
+											<div class="col-sm-6">
+												<span class="label label-success"><i class="icon-play white">  {{ ds.hInfo.vmStatus.running|length }}  </i></span>
+												<span class="label label-warning"><i class="icon-pause white">  {{ ds.hInfo.vmStatus.pause|length }}  </i></span>
+												<span class="label label-danger"><i class="icon-stop white">  {{ ds.hInfo.vmStatus.stop|length }}  </i></span>
+											</div>
+											<div class="col-sm-4"><!-- 
+												<span>{{ ds.hInfo.mem_per }}%</span> -->
+												<div class="progress pos-rel progress-striped" data-percent="{{ ds.hInfo.mem_per }}%">
+													{% if ds.hInfo.mem_per > 90  %}
+													<div class="progress-bar progress-bar-danger" style="width:{{ ds.hInfo.mem_per }}%;"></div>
+													{% elif 70 < ds.hInfo.mem_per and ds.hInfo.mem_per < 90 %}	
+													<div class="progress-bar progress-bar-warning " style="width:{{ ds.hInfo.mem_per }}%;"></div>
+													{% else %}
+													<div class="progress-bar progress-bar-success" style="width:{{ ds.hInfo.mem_per }}%;"></div>
+													{% endif %}								
+												</div>
+
+											<!-- 	<span class="editable" id="age">
+													{% if ds.hInfo.mem_per > 90  %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.hInfo.mem_per }}" data-color="#D15B47">
+															<span class="percent">{{ ds.hInfo.mem_per }}</span>%
+														</div>	
+													{% elif 70 < ds.hInfo.cpu_per and ds.hInfo.mem_per < 90 %}	
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.hInfo.mem_per }}" data-color="#87CEEB">
+															<span class="percent">{{ ds.hInfo.mem_per }}</span>%
+														</div>												
+													{% else %}
+														<div class="easy-pie-chart percentage" data-percent="{{ ds.hInfo.mem_per }}" data-color="#87B87F">
+															<span class="percent">{{ ds.hInfo.mem_per }}</span>%
+														</div>							
+													{% endif %}								
+												</span> -->
+
+											</div>
 											
 										</td>
-										<td class="hidden-480">
+										<!-- <td class="hidden-480">
 											{% if ds.hstatus == 0 %}
 												<span class="label label-success arrowed">
 													Online
@@ -102,13 +157,13 @@
 												</span>												
 											{% endif %}															
 											
-										</td>
+										</td> -->
 
 										<td>
-											<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+											<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons" >
 												<div class="btn-group">
 													<button data-toggle="dropdown" class="btn btn-inverse btn-sm dropdown-toggle">
-														<i class="icon-pencil bigger-130"> </i>
+														<i class="icon-pencil bigger-120"> </i>
 														<span class="icon-caret-down icon-on-right"></span>
 													</button>
 	
@@ -116,7 +171,7 @@
 																											
 																			
 														<li>
-															<a href="/addInstance/">Add host</a>
+															<a href="/addInstance/{{ ds.id }}">Add instance</a>
 														</li>
 														<li>
 															<a href="/configNetwork/{{ ds.id }}/">Management network</a>
@@ -144,10 +199,18 @@
 		                            <!-- Vhost -->
 
 		                            <tr class="thide2">
-		                                <td class="center">
+		                                
+		                                 <td class="hidden-480">
+		                                    {% if ds.status == 1 %}
+		                                    <i class="icon-play green"></i> {% elif ds.status == 3 %}
+		                                    <i class="icon-pause orange"></i> {% elif ds.status == 5 %}
+		                                    <i class="icon-stop red"></i> {% endif %}
+
+		                                </td>
+		                                <!-- <td class="center">
 		                                    <label>
 										<input type="checkbox" class="ace" />
-										<span class="lbl"></span>
+										<span class="lbl"></span> -->
 									</label>
 		                                </td>
 
@@ -159,16 +222,10 @@
 		                                </td>
 		                                <td class="hidden-480">{{ ds.cpu }}</td>
 		                                <td class="hidden-480">{{ ds.mem }}</td>
-		                                <td class="hidden-480">
-		                                    {% if ds.status == 1 %}
-		                                    <i class="icon-play green"></i> {% elif ds.status == 3 %}
-		                                    <i class="icon-pause orange"></i> {% elif ds.status == 5 %}
-		                                    <i class="icon-stop red"></i> {% endif %}
+		                               	<td class="center"></td>
 
-		                                </td>
-
-		                                <td class="hidden-480">
-		                                	<!-- <div class="profile-info-value">
+		                                <!-- <td class="hidden-480">
+		                                	<div class="profile-info-value">
 												<span class="editable" id="age">
 												
 													{% if ds.inStance.cpu_per > 90  %}
@@ -211,8 +268,8 @@
 														</div>							
 													{% endif %}								
 												</span>
-											</div> -->
-		                                </td>
+											</div>
+		                                </td> -->
 
 		                                <td class="center col-sm-3">
 		                                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
@@ -350,15 +407,31 @@
 		        	/*alert("a");*/
 		            jQuery(function($) {
 		            		/*$('.thide').hide();*/
-		            		$('.thide2').hide();
+		            		$('.thide2').show();
 		            		$('.thide').click(function(){
 		            			$(this).nextUntil(".thide").toggle();
+		            			$(this).find('i:first').toggleClass("icon-plus icon-minus");
 		            		});
 
 		            		$('#tabInput').on("keyup",function(){
 		            			if($(this).val()==''){
-		            				$('.thide2').hide();
+		            				/*$('.thide2').hide();*/
+		            				$('.thide2').show();
 		            			}
+		            		});
+
+		            		$('#thAll').click(function(){
+		            			var clicks = $(this).data('clicks');
+		            			  if (clicks) {
+								     // odd clicks
+			            			$('.thide2').show();
+			            			$('.thide').find('i:first').removeClass("icon-plus").addClass("icon-minus");
+								  } else {
+								     // even clicks
+			            			$('.thide2').hide();
+			            			$('.thide').find('i:first').removeClass("icon-minus").addClass("icon-plus");
+								  }
+								  $(this).data("clicks", !clicks);
 		            		});
 
 		            /*		var oTable1 = $('#sample-table-2').dataTable( {

@@ -88,6 +88,7 @@ def allInstance(request):
                     inStanceList[count]['instance']=vmList[count2].instance
                     inStanceList[count]['hstatus']=vmList[count2].status
                     inStanceList[count]['id']=vmList[count2].id
+                    inStanceList[count]['hInfo']=SERVER.getVmServerInfo()
                     count+=1
 
                 # SERV.append(inStanceList)
