@@ -60,7 +60,23 @@ def allInstance(request):
             vServer = VmServer.objects.get(id=str(vm.id))
         except:
             return render_to_response('404.html',context_instance=RequestContext(request))
-            
+        
+# Checking closed hosts. 
+        try:
+            rVMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)
+            rSERV= rVMS.genre(model='server')            
+            rVMS.close()
+            VmInfo = rSERV.getVmServerInfo()
+        except Exception as e:
+            inStanceList+={'status': 0},
+            inStanceList[count]['hostname']=vm.hostname
+            inStanceList[count]['hserver_ip']=vm.server_ip
+            inStanceList[count]['hstatus']=1
+            inStanceList[count]['id']=vm.id
+            inStanceList[count]['hInfo']={'cpu_total':"None",'mem':"None"}
+            count+=1
+            continue
+
         try:
             VMS = LibvirtManage(vServer.server_ip,vServer.username, vServer.passwd, vServer.vm_type)
             SERVER = VMS.genre(model='server')
@@ -69,18 +85,11 @@ def allInstance(request):
             if SERVER:
                 inStanceList2 = SERVER.getVmInstanceBaseInfo(server_ip=vServer.server_ip,server_id=vServer.id)
                 inStanceList+=inStanceList2 
-
-                # SERV.append(inStanceList[count]['server_ip'])
-                # SERV.append("//||//")
-                # SERV.append(vmList[0].server_ip)
-                # SERV.append(vmList[1].hostname)
-                # SERV.append("//||//")
                 for ll in inStanceList2:
                     if inStanceList[count]['server_ip']==vmList[count2].server_ip:
                         pass
                     else:
                         count2+=1
-                        # SERV.append('FL')
                     inStanceList[count]['hostname']=vmList[count2].hostname
                     inStanceList[count]['hserver_ip']=vmList[count2].server_ip
                     inStanceList[count]['cpu_total']=vmList[count2].cpu_total
@@ -88,11 +97,8 @@ def allInstance(request):
                     inStanceList[count]['instance']=vmList[count2].instance
                     inStanceList[count]['hstatus']=vmList[count2].status
                     inStanceList[count]['id']=vmList[count2].id
-                    inStanceList[count]['hInfo']=SERVER.getVmServerInfo()
+                    inStanceList[count]['hInfo']=VmInfo
                     count+=1
-
-                # SERV.append(inStanceList)
-                
 
                 VMS.close()
             else:return render_to_response('404.html',context_instance=RequestContext(request))

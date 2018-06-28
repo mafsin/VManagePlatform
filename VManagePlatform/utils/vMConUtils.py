@@ -587,6 +587,15 @@ class VMServer(VMBase):
                 vnc_port = xml.getElementsByTagName('graphics')[0].getAttribute("port") 
             except:
                 vnc_port = 0 
+            #Get Title-Description information
+            try:
+                bdtitle = xml.getElementsByTagName('title')[0].firstChild.data
+            except:
+                bdtitle = " " 
+            try:
+                bddesc = xml.getElementsByTagName('description')[0].firstChild.data
+            except:
+                bddesc = " " 
             ntkList = []
             #Get host Mac address
             for nk in xml.getElementsByTagName('interface'):
@@ -620,7 +629,9 @@ class VMServer(VMBase):
             data["cpu"] = cpu
             data["server_ip"] = server_ip
             data["server_id"] = server_id
-            data["mem"] = mem
+            data["memo"] = mem
+            data["bdtitle"] = bdtitle
+            data["bddesc"] = bddesc
             data["vnc"] = vnc_port
             data['token'] = ins.UUIDString()
             data['netk'] = ntkList

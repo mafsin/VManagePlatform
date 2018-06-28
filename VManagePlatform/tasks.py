@@ -226,7 +226,7 @@ def cloneInstace(data,user=None):
     VMS.close()
     try:
         result = VmLogs.objects.create(server_id=data.get('server_id'),vm_name=insName,
-                                       content="克隆虚拟机：{name}".format(name=insName),
+                                       content="Clone the virtual machine:{name}".format(name=insName),
                                        user=user,status=result,isRead=0) 
         if result:return True
         else:return False
@@ -246,11 +246,11 @@ def snapInstace(data,user):
         VMS.close()
         if isinstance(status, str) is False:
             VmLogs.objects.create(server_id=data.get('server_id'),vm_name=data.get('vm_name'),
-                                       content="虚拟机{name}创建快照{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
+                                       content="Virtual Machine{name}Create a snapshot{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
                                        user=user,status=0,isRead=0) 
         else:
             VmLogs.objects.create(server_id=data.get('server_id'),vm_name=data.get('vm_name'),
-                                       content="虚拟机{name}创建快照{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
+                                       content="Virtual Machine{name}Create a snapshot{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
                                        user=user,status=1,isRead=0,result=status)             
         
     except Exception,e:
@@ -267,11 +267,11 @@ def revertSnapShot(data,user):
         VMS.close()
         if isinstance(status, int):
             VmLogs.objects.create(server_id=data.get('server_id'),vm_name=data.get('vm_name'),
-                                       content="虚拟机{name}恢复快照{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
+                                       content="virtual machine{name}Recover a snapshot{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
                                        user=user,status=0,isRead=0) 
         else:
             VmLogs.objects.create(server_id=data.get('server_id'),vm_name=data.get('vm_name'),
-                                       content="虚拟机{name}恢复快照{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
+                                       content="virtual machine{name}Recover a snapshot{snap}".format(name=data.get('vm_name'),snap=data.get('snap_name')),
                                        user=user,status=1,isRead=0,result=status)            
     except Exception,e:
         return e       

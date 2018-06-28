@@ -34,14 +34,14 @@
 		                        <thead>
 		                            <tr>
 		                                <th class="center">
-			                                <i class="icon-th" id="thAll"></i>
+			                                <i class="icon-th" id="thAll" title="Show/Hide All"></i>
 			                                <!-- <label>
 												<input type="checkbox" class="ace" />
 												<span class="lbl"></span>
 											</label> -->
 		                                </th>
-		                                <th>Virtual host</th>
-		                                <th>InstanceName</th>
+		                                <th class="hidden-480 center">Virtual host</th>
+		                                <th  class="hidden-480 center">InstanceName</th>
 		                                <th class="hidden-480">CPU</th>
 
 		                                <th>
@@ -50,10 +50,15 @@
 
 		                                <th class="hidden-480 center">
 											<div class="col-sm-2">Status:</div>
-											<div class="col-sm-6">
-				                                	<span class="label label-success"><i class="icon-play white"> Running</i></span>
+											<div class="col-sm-6 left">
+
+												<div class="col-sm-4"><span class="icon-play bigger-120 green left"></span><span class="green">&nbsp Running</span></div>
+												<div class="col-sm-4"><span class="icon-pause bigger-120 orange left"></span><span class="orange">&nbsp Pause</span></div>
+												<div class="col-sm-4"><span class="icon-stop bigger-120 red left"></span><span class="red">&nbsp Stop</span></div>
+
+				                                <!--	<span class="label label-success"><i class="icon-play white"> Running</i></span>
 													<span class="label label-warning"><i class="icon-pause white"> Pause</i></span>
-													<span class="label label-danger"><i class="icon-stop white"> Stop</i></span>
+													<span class="label label-danger"><i class="icon-stop white"> Stop</i></span> -->
 												</div>
 											<div class="col-sm-4">Memory usage: </div>
 		                                </th>
@@ -71,7 +76,13 @@
 		                            <!-- Host -->
 									<tr class="thide">
 										<td class="center">
+		                           					{% if ds.hstatus == 0 %}
 											<i class="bigger-100 icon-minus"></i> 
+													{% else %}
+											<span class="bigger-100 icon-off red"></span> 
+											<i class="hidden"></i>
+													{% endif %}
+													
 											<!-- <label>
 
 												<input type="checkbox" class="ace" />
@@ -88,12 +99,12 @@
 											<span class="lbl"></span>
 												<span>{{ ds.hostname }}</span>
 										</td>
-										<td class="col-xs-1">
+										<td>
 											<!-- {{ ds.cpu_total }} -->
 											<span>{{ ds.hInfo.cpu_total }}</span>
 																										
 										</td>
-										<td class="hidden-480">
+										<td>
 											<!-- {{ ds.mem }}	 -->
 											<span>{{ ds.hInfo.mem }}</span>
 																								
@@ -111,9 +122,12 @@
 												{% endif %}	
 											</div>
 											<div class="col-sm-6">
-												<span class="label label-success"><i class="icon-play white">  {{ ds.hInfo.vmStatus.running|length }}  </i></span>
+												<div class="col-sm-4"><span class="icon-play  bigger-120 green left">&nbsp {{ ds.hInfo.vmStatus.running|length }} </span></div>
+												<div class="col-sm-4"><span class="icon-pause  bigger-120 orange left">&nbsp {{ ds.hInfo.vmStatus.pause|length }} </span></div>
+												<div class="col-sm-4"><span class="icon-stop  bigger-120 red left">&nbsp {{ ds.hInfo.vmStatus.stop|length }} </span></div>
+										<!-- 	<span class="label label-success"><i class="icon-play white">  {{ ds.hInfo.vmStatus.running|length }}  </i></span>
 												<span class="label label-warning"><i class="icon-pause white">  {{ ds.hInfo.vmStatus.pause|length }}  </i></span>
-												<span class="label label-danger"><i class="icon-stop white">  {{ ds.hInfo.vmStatus.stop|length }}  </i></span>
+												<span class="label label-danger"><i class="icon-stop white">  {{ ds.hInfo.vmStatus.stop|length }}  </i></span> -->
 											</div>
 											<div class="col-sm-4"><!-- 
 												<span>{{ ds.hInfo.mem_per }}%</span> -->
@@ -170,6 +184,7 @@
 													<ul class="dropdown-menu dropdown-info pull-right">
 																											
 																			
+		                           					{% if ds.hstatus == 0 %}
 														<li>
 															<a href="/addInstance/{{ ds.id }}">Add instance</a>
 														</li>
@@ -181,7 +196,7 @@
 														<li>
 															<a href="/viewServer/{{ds.id}}/">Resource allocation</a>
 														</li>
-
+													{% endif %}
 														<li>
 															<a href="javascript:" onclick="onBtnHandleServer(this,{{ ds.id  }},'delete','{{ ds.hserver_ip }}')">Remove host</a>
 														</li>																	
@@ -197,14 +212,11 @@
 									</tr>
 										    {% endifchanged %}
 		                            <!-- Vhost -->
-
+		                           			{% if ds.hstatus == 0 %}
 		                            <tr class="thide2">
 		                                
 		                                 <td class="hidden-480">
-		                                    {% if ds.status == 1 %}
-		                                    <i class="icon-play green"></i> {% elif ds.status == 3 %}
-		                                    <i class="icon-pause orange"></i> {% elif ds.status == 5 %}
-		                                    <i class="icon-stop red"></i> {% endif %}
+		                                   
 
 		                                </td>
 		                                <!-- <td class="center">
@@ -221,8 +233,20 @@
 		                                    <a href="/viewInstance/{{ds.server_id}}/{{ ds.name }}/">{{ ds.name }}</a>
 		                                </td>
 		                                <td class="hidden-480">{{ ds.cpu }}</td>
-		                                <td class="hidden-480">{{ ds.mem }}</td>
-		                               	<td class="center"></td>
+		                                <td class="hidden-480">{{ ds.memo }}</td>
+		                               	<td class="center">
+		                               		<div class="col-sm-2">
+		                               			 {% if ds.status == 1 %}
+			                                    <i class="icon-play green"></i> {% elif ds.status == 3 %}
+			                                    <i class="icon-pause orange"></i> {% elif ds.status == 5 %}
+			                                    <i class="icon-stop red"></i> {% endif %}
+		                               		</div>
+		                               		<div class="col-sm-10" style="text-align: left;">
+		                               			
+		                               		<b>{{ ds.bdtitle }}</b> {{ ds.bddesc }}
+
+		                               		</div>
+		                               	</td>
 
 		                                <!-- <td class="hidden-480">
 		                                	<div class="profile-info-value">
@@ -326,6 +350,8 @@
 		                                </td>
 
 		                            </tr>
+		                           		{% endif %}
+		                            	
 		                            {% endfor %}
 		                        </tbody>
 		                    </table>

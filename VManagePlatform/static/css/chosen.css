@@ -432,10 +432,21 @@
   .thide{
     /*background-color: #c8c8c8 !important;*/
     color: #4a7d28;
-    font-style: italic;
+   /* font-style: italic;*/
     font-weight: bold;
   }
   #tabInput{
     float: right;
     width: 20%;
+    height: 30px;
+    margin: 4px;
+    padding: 2px;
+  }
+  #tabInput+span{
+    float: right; 
+    font-size: 18px
+  }
+  .left{
+    text-align: left;
+    float: left;
   }
