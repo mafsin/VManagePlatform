@@ -20,9 +20,16 @@
 				<strong>{{ SERV }}</strong></br></br>
 		        <div class="row">
 		            <div class="col-xs-12">
+
+		            	<botton class="btn btn-primary  pull-right" data-toggle="modal" data-target="#myModalInst">
+						<i class="icon-arrow-right icon-plus"></i>
+								Add Instance
+						</botton>	
+
 		                <h3 class="header smaller lighter blue">
 		                    <i class="icon-hand-right icon-animated-hand-pointer blue"></i> List of virtual machine instances
 		                </h3>
+
 		                <div class="table-header">
 		                    All virtual machine instances
 		                		<input  type="text" id="tabInput"  onkeyup="tabSearch()" placeholder="Search for Host/Instance names.." title="Type Host/Instance name">
@@ -72,7 +79,7 @@
 
 		                        <tbody>
 		                            {% for ds in inStanceList %}
-		                        		{% ifchanged ds.hserver_ip %}										        
+		                        		{% ifchanged ds.hserver_ip %}
 		                            <!-- Host -->
 									<tr class="thide">
 										<td class="center">
@@ -175,7 +182,7 @@
 
 										<td>
 											<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons" >
-												<div class="btn-group">
+												<div class="btn-group" id="btn-ignore">
 													<button data-toggle="dropdown" class="btn btn-inverse btn-sm dropdown-toggle">
 														<i class="icon-pencil bigger-120"> </i>
 														<span class="icon-caret-down icon-on-right"></span>
@@ -412,7 +419,76 @@
 		        </div>
 
 
+		        <!-- Add Instance Modal -->
+		        <div class="modal" id="myModalInst" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		            <div class="modal-dialog">
+		                <div class="modal-content">
+		                    <div class="modal-header">
+		                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+		                        <h4 class="modal-title" id="myModalLabel">
+		                            Add Instance 
+		                        </h4>
+		                    </div>
+		                    <div class="modal-body">
+		                    	<span class="toolTip">TEXT
+		                    		<span class="toolTipInfo">INFO</span>
+		                    	</span>
 
+  		                    	<div class="list-group">
+										{% for ds in inStanceList %}			
+					                        {% ifchanged ds.hserver_ip %}
+					                        	{% if ds.hstatus == 0 %}
+
+						                            <a href="/addInstance/{{ ds.id }}" class="list-group-item">
+									                       	<span class="right" style="width: 100px">
+										                       	<div class="progress pos-rel progress-striped" data-percent="{{ ds.hInfo.mem_per }}%">
+																	{% if ds.hInfo.mem_per > 90  %}
+																	<div class="progress-bar progress-bar-danger" style="width:{{ ds.hInfo.mem_per }}%;"></div>
+																	{% elif 70 < ds.hInfo.mem_per and ds.hInfo.mem_per < 90 %}	
+																	<div class="progress-bar progress-bar-warning " style="width:{{ ds.hInfo.mem_per }}%;"></div>
+																	{% else %}
+																	<div class="progress-bar progress-bar-success" style="width:{{ ds.hInfo.mem_per }}%;"></div>
+																	{% endif %}								
+																</div>
+									                       	</span>
+														Add Instance to <span class="toolTip"><code><strong>{{ ds.hostname }}</strong></code>
+															<span class="toolTipInfo">
+																  <strong>CPU</strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp :&nbsp{{ ds.cpu }}</br>
+																  <strong>Memory</strong>&nbsp :&nbsp{{ ds.memo }}</br>
+																  <strong>Server IP</strong> :&nbsp{{ ds.server_ip }}</br>
+																 <!--  CPU Arch :&nbsp{{ ds.cpu_arch }}
+																  Max Vcpu :&nbsp{{ ds.max_vcpu }}
+																  Cpu Mhz :&nbsp{{ ds.cpu_mhz }} -->
+															</span>
+														</span>
+													</a>
+
+													{% else %}
+													<span class="list-group-item label-light">
+								                       <span class="icon-off red right"></span> 
+														Instance Closed &nbsp<code><strong>{{ ds.hostname }}</strong></code>
+													</span>	
+
+												{% endif %}
+		                        			{% endifchanged %}
+		                        		{% endfor %}
+								</div>
+																<!-- <botton class="btn btn-primary  pull-right">
+																<i class="icon-arrow-right icon-plus"></i>
+																</botton>	 -->
+
+		                    </div>
+		                    <div class="modal-footer">
+		                        <button type="button" class="btn btn-default" data-dismiss="modal">close
+						</button>
+		                    </div>
+		                </div>
+		                <!-- /.modal-content -->
+		            </div>
+		            <!-- /.modal -->
+		        </div>
 
 
 
@@ -432,6 +508,8 @@
 		        <script type="text/javascript">
 		        	/*alert("a");*/
 		            jQuery(function($) {
+		            		
+
 		            		/*$('.thide').hide();*/
 		            		$('.thide2').show();
 		            		$('.thide').click(function(){
