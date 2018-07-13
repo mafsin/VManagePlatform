@@ -109,7 +109,8 @@
 
                 <div class="table-header">
                     All virtual machine instances
-                		<input  type="text" id="tabInput"  onkeyup="tabSearch()" placeholder="Search for Host/Instance names.." title="Type Host/Instance name">
+                		<input  type="text" id="tabInput" placeholder="Filter for Host/Instance name, IP, status, CPU, Ram.." title="Type Host/Instance name">
+                		<!-- <input  type="text" id="tabInput"  onkeyup="tabSearch()" placeholder="Search for Host/Instance names.." title="Type Host/Instance name"> -->
                     <span>Search: </span>
                 </div>
 
@@ -154,7 +155,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="sample-table-in">
                             {% for ds in inStanceList %}
                         		{% ifchanged ds.hserver_ip %}
                             <!-- Host -->
@@ -384,47 +385,47 @@
 
                                         {% if ds.vnc != '-1' %}
                                         <a class="blue" href="/vnc/{{ ds.server_id }}/{{ ds.vnc }}/{{ ds.token }}/" target="_black">
-									<i class="icon-desktop bigger-120"></i>																	
+									<i class="icon-desktop bigger-120" title="VNC"></i>																	
 								</a> {% else %}
                                         <a class="blue" href="#" target="_black">
-									<i class="icon-desktop bigger-120"></i>																	
+									<i class="icon-desktop bigger-120" title="VNC"></i>																	
 								</a> {% endif %}
 
                                         <a class="blue" href="javascript:" onclick="onBtnHandleIns(this,{{ ds.server_id }},'{{ ds.name }}','start')">
-									<i class="icon-play bigger-120 green"></i>																
+									<i class="icon-play bigger-120 green" title="start"></i>																
 								</a>
 
                                         <a class="blue" href="javascript:" onclick="onBtnHandleIns(this,{{ ds.server_id }},'{{ ds.name }}','suspend')">
-									<i class="icon-pause bigger-120 orange"></i>																
+									<i class="icon-pause bigger-120 orange" title="suspend"></i>																
 								</a>
 
                                         <a class="blue" href="javascript:" onclick="onBtnHandleIns(this,{{ ds.server_id }},'{{ ds.name }}','resume')">
-									<i class="icon-play-circle bigger-120 "></i>																	
+									<i class="icon-play-circle bigger-120 " title="resume"></i>																	
 								</a>
 
                                         <a class="blue" href="javascript:" onclick="onBtnHandleIns(this,{{ ds.server_id }},'{{ ds.name }}','reboot')">
-									<i class="icon-repeat bigger-120"></i>																	
+									<i class="icon-repeat bigger-120" title="reboot"></i>																	
 								</a>
 
                                         <a class="blue" href="javascript:" onclick="onBtnHandleIns(this,{{ ds.server_id }},'{{ ds.name }}','shutdown')">
-									<i class="icon-stop bigger-120 red"></i>															
+									<i class="icon-stop bigger-120 red" title="shutdown"></i>															
 								</a>
 
                                         <a class="red" href="javascript:" onclick="onBtnHandleIns(this,{{ ds.server_id}},'{{ ds.name }}','halt')">
-									<i class="icon-off bigger-120"></i>
+									<i class="icon-off bigger-120" title="halt"></i>
 								</a>
 
                                         <a class="black" href="javascript:" onclick="snapshotInstance(this,{{ ds.server_id }},'{{ ds.name }}','add')">
-									<i class="icon-camera bigger-120"></i>
+									<i class="icon-camera bigger-120" title="add"></i>
 								</a>
                                         <a class="red" href="javascript:" onclick="onBtnHandleIns(this,{{ ds.server_id }},'{{ ds.name }}','delete')">
-									<i class="icon-trash  bigger-120"></i>
+									<i class="icon-trash  bigger-120" title="delete"></i>
 								</a>
                                         <a class="black" href="/viewInstance/{{ds.server_id}}/{{ ds.name }}/">
-									<i class="icon-zoom-in  bigger-120"></i>
+									<i class="icon-zoom-in  bigger-120" title="info"></i>
 								</a>
                                         <a class="black" data-toggle="modal" data-target="#myModal">
-									<i class="icon-external-link  bigger-120"></i>
+									<i class="icon-external-link  bigger-120" title="allocation"></i>
 								</a>
 
                                     </div>
@@ -582,10 +583,14 @@
         	/*alert("a");*/
             jQuery(function($) {
             		
-
             		/*$('.thide').hide();*/
             		$('.thide2').show();
             		$('.thide').click(function(){
+            			$(this).on('click','#btn-ignore',function(e){
+            				/*e.stopPropagation();*/
+					        e.finish();
+					    });
+
             			$(this).nextUntil(".thide").toggle();
             			$(this).find('i:first').toggleClass("icon-plus icon-minus");
             		});
@@ -610,6 +615,13 @@
 						  }
 						  $(this).data("clicks", !clicks);
             		});
+
+            		$("#tabInput").on("keyup", function() {
+						var value = $(this).val().toLowerCase();
+					    $("#sample-table-in tr").filter(function() {
+					      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+					    });
+					});
 
             /*		var oTable1 = $('#sample-table-2').dataTable( {
             			"aoColumns": [
@@ -672,7 +684,7 @@
             		}
             	});
             	
-            	function tabSearch() {
+/*            	function tabSearch() {
 				  var input, filter, table, tr, td, i;
 				  input = document.getElementById("tabInput");
 				  filter = input.value.toUpperCase();
@@ -688,7 +700,7 @@
 				      }
 				    }       
 				  }
-				}
+				}*/
             	
 
             	function snapshotInstance(obj,serverId,vmName,op){
