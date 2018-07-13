@@ -52,9 +52,17 @@ def allInstance(request):
         
     vmList = VmServer.objects.all().order_by("-id")
     inStanceList = []
-    SERV=["test"]
+    SERV=[]
     count=0
     count2=0
+
+# Checking host list is empty
+    try:
+        vmList[0].id
+    except:
+        SERV.append("ERROR: Host list is Empty")
+        return render_to_response('vmInstance/all_instance.html',{"user":request.user,"localtion":[{"name":"Home","url":'/'},{"name":"Virtual machine instance","url":'#'},{"name":"List of virtual machine instances","url":"/0/"}],"SERV":SERV},context_instance=RequestContext(request))
+    
     for vm in vmList:
         try:
             vServer = VmServer.objects.get(id=str(vm.id))
@@ -105,6 +113,8 @@ def allInstance(request):
             # listinstanca done
         except:
             inStanceList = None
+            return render_to_response('404.html',context_instance=RequestContext(request))
+
         
         # info
         '''
