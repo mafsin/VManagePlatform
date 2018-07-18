@@ -237,18 +237,20 @@ VManagePlatform'un size yardımcı olabileceğini düşünüyorsanız, aşağıd
 
 ## İşlev ekranının bir parçası :
     Kullanıcı Merkezi
-![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/user.png)</br>
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/user.png)</br>
     Giriş sayfası
-![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/login.png)</br>
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/login.png)</br>
     Kullanıcı kaydı, giriş yapmak için yönetici aktivasyon gerektirir</br>
-![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/register.png)</br>
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/register.png)</br>
     ev
-![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/index.png)</br>
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/index.png)</br>
     Görev zamanlaması
-![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/task.png)</br>
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/task.png)</br>
     Ana kaynaklar</br>
-![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/server.png)</br>
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/server.png)</br>
     Sanal makine kaynakları</br>
-![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/instance.png)</br>
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/instance.png)</br>
     Web Console</br>
 ![](https://github.com/welliamcao/VManagePlatform/raw/master/demo_images/consle.png)</br>
+    All instance list
+![](https://github.com/mafsin/VManagePlatform/raw/master/demo_images/allinstances.png)</br>
